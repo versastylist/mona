@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Mona</title>
-  <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <%= render 'layouts/nav' %>
-  <%= render 'layouts/flash' %>
+  <head>
+    <title><%= yield :title || "Mona" %></title>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= csrf_meta_tags %>
+  </head>
 
-  <div class="container">
-    <%= yield %>
-  </div>
+  <body class="<%= body_class %>">
+    <%= render 'layouts/nav' %>
+    <%= render 'layouts/flash' %>
 
-  <%= javascript_include_tag 'application' %>
-  <%= yield :extra_footer %>
-</body>
+    <div class="container">
+      <%= yield %>
+    </div>
+
+    <%= javascript_include_tag 'application' %>
+    <%= yield :extra_footer %>
+  </body>
 </html>
