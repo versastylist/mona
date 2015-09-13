@@ -19,12 +19,38 @@
 #
 
 class Registration < ActiveRecord::Base
+  GENDERS = ['Male', 'Female', 'Other' ]
+  TIMEZONES = ['East', 'West', 'Central']
   belongs_to :user
 
   validates_presence_of :dob,
     :gender, :timezone, :first_name,
-    :last_name, :phone_number
-
+    :last_name, :phone_number, :user
   validates :first_name,
     format: { with: /\A[a-zA-Z-]*\z/ }
+  validates :gender,
+    inclusion: { in: GENDERS }
+  validates :timezone,
+    inclusion: { in: TIMEZONES }
+  validate :facebook_link?
+  validate :linked_in_link?
+
+
+  private
+
+  def facebook_link?
+    if facebook.present?
+      unless facebook.match(/facebook/) && facebook.match(/(http|https)/)
+        errors[:facebook] << "must be a valid Facebook URL"
+      end
+    end
+  end
+
+  def linked_in_link?
+    if linked_in.present?
+      unless linked_in.match(/linkedin/) && linked_in.match(/(http|https)/)
+        errors[:linked_in] << "must be a valid LinkedIn URL"
+      end
+    end
+  end
 end

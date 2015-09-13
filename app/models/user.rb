@@ -44,6 +44,22 @@ class User < ActiveRecord::Base
   scope :clients, -> { where(role: "client") }
   scope :stylists, -> { where(role: "stylists") }
 
+  def self.from_param(param)
+    if stylist?
+      find_by_username!(param)
+    else
+      find!(param)
+    end
+  end
+
+  def to_param
+    if stylist?
+      username
+    else
+      id
+    end
+  end
+
   def client?
     role == "client"
   end
