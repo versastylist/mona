@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: questions
+#
+#  id               :integer          not null, primary key
+#  body             :string
+#  questionnaire_id :integer
+#
+
 RSpec.describe Question, type: :model do
   context "associations" do
     it { should belong_to(:questionnaire) }
