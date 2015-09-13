@@ -32,4 +32,25 @@ class Registration < ActiveRecord::Base
     inclusion: { in: GENDERS }
   validates :timezone,
     inclusion: { in: TIMEZONES }
+  validate :facebook_link?
+  validate :linked_in_link?
+
+
+  private
+
+  def facebook_link?
+    if facebook.present?
+      unless facebook.match(/facebook/) && facebook.match(/(http|https)/)
+        errors[:facebook] << "must be a valid Facebook URL"
+      end
+    end
+  end
+
+  def linked_in_link?
+    if linked_in.present?
+      unless linked_in.match(/linkedin/) && linked_in.match(/(http|https)/)
+        errors[:linked_in] << "must be a valid LinkedIn URL"
+      end
+    end
+  end
 end

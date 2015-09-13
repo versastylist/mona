@@ -35,5 +35,9 @@ RSpec.describe Registration, type: :model do
     it { should_not have_valid(:first_name).when('$pencer') }
     it { should have_valid(:first_name).when('spencer-charles') }
     it { should have_valid(:gender).when('Male', 'Female', 'Other') }
+    it { should have_valid(:facebook).when('https://www.facebook.com/spencer') }
+    it { should_not have_valid(:facebook).when('www.google.com/spencer', 'www.facebook.com') }
+    it { should have_valid(:linked_in).when('https://www.linkedin.com/spencer') }
+    it { should_not have_valid(:linked_in).when('www.google.com/spencer', 'www.linkedin.com') }
   end
 end
