@@ -19,12 +19,17 @@
 #
 
 class Registration < ActiveRecord::Base
+  GENDERS = ['Male', 'Female', 'Other' ]
+  TIMEZONES = ['East', 'West', 'Central']
   belongs_to :user
 
   validates_presence_of :dob,
     :gender, :timezone, :first_name,
-    :last_name, :phone_number
-
+    :last_name, :phone_number, :user
   validates :first_name,
     format: { with: /\A[a-zA-Z-]*\z/ }
+  validates :gender,
+    inclusion: { in: GENDERS }
+  validates :timezone,
+    inclusion: { in: TIMEZONES }
 end

@@ -34,5 +34,6 @@ RSpec.describe Registration, type: :model do
     it { should validate_presence_of(:timezone) }
     it { should_not have_valid(:first_name).when('$pencer') }
     it { should have_valid(:first_name).when('spencer-charles') }
+    it { should have_valid(:gender).when('Male', 'Female', 'Other') }
   end
 end

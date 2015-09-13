@@ -16,6 +16,16 @@ feature 'client registration' do
   end
 
   context 'successfully' do
+    scenario 'fills out registration' do
+      visit new_client_registration_path
 
+      fill_in 'First name', with: 'Johnny'
+      fill_in 'Last name', with: 'Jones'
+      fill_in 'Phone number', with: '6178945641'
+      # select_date '09/01/2015', from: 'Date of birth'
+      select 'Male', from: 'Gender'
+
+      # TODO: finish this
+    end
   end
 end
