@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   validates :agree_to_terms, presence: true
   validates :role, inclusion: %w{client stylist admin}
 
+
   has_one :registration
 
   scope :clients, -> { where(role: "client") }

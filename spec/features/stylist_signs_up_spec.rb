@@ -22,7 +22,7 @@ feature 'stylist sign up' do
   context 'unsuccessfully' do
     scenario 'provides too short of a username' do
       visit root_path
-      click_on 'Sign up as client'
+      click_on 'Sign up as stylist'
 
       fill_in 'Username', with: 'j'
       fill_in 'Email', with: 'john@example.com'
@@ -36,7 +36,7 @@ feature 'stylist sign up' do
 
     scenario 'username cannot contain spaces and requires email' do
       visit root_path
-      click_on 'Sign up as client'
+      click_on 'Sign up as stylist'
 
       fill_in 'Username', with: 'johnny jones'
       fill_in 'Email', with: ''
@@ -51,7 +51,7 @@ feature 'stylist sign up' do
 
     scenario 'need to agree to terms' do
       visit root_path
-      click_on 'Sign up as client'
+      click_on 'Sign up as stylist'
       click_button 'Sign up'
 
       expect(page).to have_content("terms can't be blank")
