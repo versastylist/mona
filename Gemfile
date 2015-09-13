@@ -5,6 +5,7 @@ gem 'rails', '4.2.4'
 
 # Database/Search
 gem 'pg'
+gem 'searchkick'
 
 # Front end assets
 gem 'bootstrap-sass'

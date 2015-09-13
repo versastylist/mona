@@ -35,4 +35,6 @@ class User < ActiveRecord::Base
   validates :username,
     format: { with: /\A[a-zA-Z0-9]+\Z/, message: "cannot contain spaces" }
   validates :agree_to_terms, presence: true
+
+  searchkick
 end
