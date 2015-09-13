@@ -1,6 +1,14 @@
 <h1>Client Registration</h1>
 
 <%= form_for @registration do |f| %>
+  <% if @registration.errors.any? %>
+    <ul>
+      <% @registration.errors.full_messages.each do |error|  %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <div class="form-group">
     <%= f.label :first_name %>
     <%= f.text_field :first_name, class: "form-control" %>
