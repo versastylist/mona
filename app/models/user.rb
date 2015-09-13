@@ -36,5 +36,5 @@ class User < ActiveRecord::Base
     format: { with: /\A[a-zA-Z0-9]+\Z/, message: "cannot contain spaces" }
   validates :agree_to_terms, presence: true
 
-  searchkick
+  searchkick word_start: [:username]
 end
