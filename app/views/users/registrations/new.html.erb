@@ -31,6 +31,10 @@
     <%= f.check_box :agree_to_terms %>
   </div>
 
+  <div class="field">
+    <%= f.hidden_field :role, value: params[:role] || session[:role] %>
+  </div>
+
   <%= link_to 'Read Terms', root_path, target: "_blank" %>
 
   <div class="actions">

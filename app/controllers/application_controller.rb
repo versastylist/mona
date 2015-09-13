@@ -5,6 +5,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def devise_permitted_paramters
-    devise_parameter_sanitizer.for(:sign_up) << [:username, :agree_to_terms]
+    devise_parameter_sanitizer.for(:sign_up) << [:username, :agree_to_terms, :role]
   end
 end
