@@ -17,6 +17,7 @@
 #  updated_at             :datetime         not null
 #  username               :string           not null
 #  agree_to_terms         :boolean          default(FALSE)
+#  role                   :string
 #
 # Indexes
 #
@@ -35,4 +36,30 @@ class User < ActiveRecord::Base
   validates :username,
     format: { with: /\A[a-zA-Z0-9]+\Z/, message: "cannot contain spaces" }
   validates :agree_to_terms, presence: true
+  validates :role, inclusion: %w{client stylist admin}
+
+  has_one :registration
+
+  scope :clients, -> { where(role: "client") }
+  scope :stylists, -> { where(role: "stylists") }
+
+  def self.from_param(param)
+    if stylist?
+      find_by_username!(param)
+    else
+      find!(param)
+    end
+  end
+
+  def to_param
+    stylist? ? username.parameterize : id.to_s
+  end
+
+  def client?
+    role == "client"
+  end
+
+  def stylist?
+    role == "stylist"
+  end
 end

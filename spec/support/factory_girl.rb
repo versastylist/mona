@@ -7,5 +7,13 @@ FactoryGirl.define do
     password 'password'
     password_confirmation 'password'
     agree_to_terms true
+
+    factory :client do
+      role "client"
+    end
+
+    factory :stylist do
+      role "stylist"
+    end
   end
 end

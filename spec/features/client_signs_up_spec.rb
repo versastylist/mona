@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'client registration' do
+feature 'client sign up' do
   context 'successfully' do
     scenario 'provide valid registration information' do
       visit root_path
