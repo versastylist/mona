@@ -52,11 +52,7 @@ class User < ActiveRecord::Base
   end
 
   def to_param
-    if stylist?
-      username
-    else
-      id
-    end
+    stylist? ? username.parameterize : id.to_s
   end
 
   def client?
