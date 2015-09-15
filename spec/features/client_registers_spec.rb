@@ -30,8 +30,7 @@ feature 'client registration' do
       select 'East', from: 'Timezone'
       click_on 'Register'
 
-      expect(page).to have_content('Successfully registered.')
-      expect(page).to have_content('Profile Page')
+      expect(page).to have_content('Just a few questions to get started')
     end
   end
 
