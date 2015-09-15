@@ -18,6 +18,9 @@ gem 'devise'
 # Assorted
 gem 'draper'
 
+# Production
+gem 'rails_12factor'
+
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
