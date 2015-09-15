@@ -21,13 +21,13 @@ feature 'client answers questionnaire' do
       expect(page).to have_content('Just a few questions to get started')
       # expect(client.first_name)to eq 'Johnny'
 
-
       expect(page).to have_link('skip')
-      find(:css, "#service_children").set(true)
-      find(:css, "#have_pets").set(true)
-      find(:css, "#indoor_smoker").set(true)
-      find(:css, "#place_carpeted").set(true)
-      find(:css, "#medical_skin_conditions").set(true)
+
+      find(:css, "#service-children").set(true)
+      find(:css, "#have-pets").set(true)
+      find(:css, "#indoor-smoker").set(true)
+      find(:css, "#place-carpeted").set(true)
+      find(:css, "#medical-skin-conditions").set(true)
 
       click_on 'Submit'
       # expect(client)
