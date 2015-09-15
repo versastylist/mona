@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'client sign up' do
+feature 'client signs up' do
   context 'successfully' do
     scenario 'provide valid registration information' do
       visit root_path
@@ -16,6 +16,19 @@ feature 'client sign up' do
 
       expect(page).to have_content('Welcome! You have signed up successfully.')
       expect(page).to have_link('Sign Out')
+    end
+
+    scenario 'and they click on terms of service button' do
+      # clicking link opens new tab. Just going to test the link displays right
+      # info
+      visit client_terms_of_service_path
+      expect(page).to have_content('Client Terms of Service')
+    end
+    scenario 'and they click on terms of service button' do
+      # clicking link opens new tab. Just going to test the link displays right
+      # info
+      visit stylist_terms_of_service_path
+      expect(page).to have_content('Stylist Terms of Service')
     end
   end
 

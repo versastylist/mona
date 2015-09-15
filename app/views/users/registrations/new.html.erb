@@ -35,7 +35,11 @@
     <%= f.hidden_field :role, value: params[:role] || session[:role] %>
   </div>
 
-  <%= link_to 'Read Terms', root_path, target: "_blank" %>
+  <% if session[:role] == "client" %>
+    <%= link_to 'Read Terms', client_terms_of_service_path, target: "_blank" %>
+  <% else %>
+    <%= link_to 'Read Terms', stylist_terms_of_service_path, target: "_blank" %>
+  <% end %>
 
   <div class="actions">
     <%= f.submit "Sign up", class: 'btn btn-success' %>
