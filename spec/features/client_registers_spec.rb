@@ -31,6 +31,12 @@ feature 'client registration' do
       click_on 'Register'
 
       expect(page).to have_content('Just a few questions to get started')
+      expect(client.registration.first_name).to eq 'Johnny'
+      expect(client.registration.last_name).to eq 'Jones'
+      expect(client.registration.phone_number).to eq '6178945641'
+      # add dob
+      expect(client.registration.gender).to eq 'Male'
+      expect(client.registration.timezone).to eq 'East'
     end
   end
 

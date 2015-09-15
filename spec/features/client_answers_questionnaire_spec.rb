@@ -17,6 +17,7 @@ feature 'client answers questionnaire' do
       click_on 'Register'
 
       expect(page).to have_content('Successfully registered.')
+
       # visit new_user_questionnaire_path
       expect(page).to have_content('Just a few questions to get started')
       # expect(client.first_name)to eq 'Johnny'
