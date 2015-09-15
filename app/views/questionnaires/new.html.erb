@@ -10,7 +10,7 @@ Just a few questions to get started
 <input type="submit" value="Submit">
 </div>
 
-find(:css, "#have-pets").set(true)
-      find(:css, "#indoor-smoker").set(true)
-      find(:css, "#place-carpeted").set(true)
-      find(:css, "#medical-skin-conditions").set(true)
+<%= simple_form_for @questionnaire, url: user_questionnaires_path(@user), method: :post do |f| %>
+  <%= f.association :questions %>
+  <%= f.button :submit %>
+<% end %>

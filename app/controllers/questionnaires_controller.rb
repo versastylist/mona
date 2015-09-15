@@ -1,6 +1,7 @@
 class QuestionnairesController < ApplicationController
   def new
-    # @registration = ClientRegistration.new
+    @user = current_user
+    @questionnaire = Questionnaire.new
   end
 
   def create
