@@ -15,7 +15,7 @@ feature 'client sign up' do
       click_button 'Sign up'
 
       expect(page).to have_content('Welcome! You have signed up successfully.')
-      expect(page).to have_content('Sign Out')
+      expect(page).to have_link('Sign Out')
     end
   end
 

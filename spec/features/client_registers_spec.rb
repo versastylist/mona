@@ -34,4 +34,23 @@ feature 'client registration' do
       expect(page).to have_content('Profile Page')
     end
   end
+
+  context 'skips registration' do
+    let(:client) { FactoryGirl.create(:client) }
+    before { sign_in client }
+
+    scenario 'presses skip button' do
+      visit new_client_registration_path
+      click_on 'Skip Registration'
+
+      expect(page).to have_content('Services')
+      expect(page).to have_content("You still havn't finished your registration. Click here to finish")
+    end
+
+    scenario 'visits warning link to finish next phase of registration' do
+      visit root_path
+      click_on 'Click here to finish'
+      expect(page).to have_content 'Client Registration'
+    end
+  end
 end
