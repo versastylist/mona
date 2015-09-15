@@ -18,6 +18,8 @@
 #  username               :string           not null
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
+#  registration_id        :integer
+#  registration_process   :string           default("registration questions payment")
 #
 # Indexes
 #
@@ -61,5 +63,17 @@ class User < ActiveRecord::Base
 
   def stylist?
     role == "stylist"
+  end
+
+  def completed_registration?
+    registration_process.empty?
+  end
+
+  def authenticated?
+    true
+  end
+
+  def registration_process
+    self[:registration_process].split(' ')
   end
 end

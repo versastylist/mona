@@ -19,6 +19,7 @@
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
 #  registration_id        :integer
+#  registration_process   :string           default("registration questions payment")
 #
 # Indexes
 #
@@ -41,5 +42,80 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of(:agree_to_terms) }
     it { should have_valid(:role).when('client', 'stylist', 'admin') }
     it { should_not have_valid(:role).when('', nil, 'super user') }
+  end
+
+  describe "#registration_process" do
+    it "should return an array of whats left to complete" do
+      client = FactoryGirl.build_stubbed(:client)
+      expect(client.registration_process).
+        to eq ['registration', 'questions', 'payment']
+    end
+  end
+
+  describe "#completed_registration?" do
+    it "should return true if registration process is empty" do
+      client = FactoryGirl.build_stubbed(:client, registration_process: '')
+      expect(client.completed_registration?).to eq true
+    end
+
+    it "should return false for a freshly created user" do
+      client = FactoryGirl.build_stubbed(:client)
+      expect(client.completed_registration?).to eq false
+    end
+
+    it "should return false if at least one piece of the process remains" do
+      needs_questions = FactoryGirl.build_stubbed(
+        :client, registration_process: 'questions'
+      )
+      needs_payment = FactoryGirl.build_stubbed(
+        :client, registration_process: 'payment'
+      )
+
+      expect(needs_questions.completed_registration?).to eq false
+      expect(needs_payment.completed_registration?).to eq false
+    end
+  end
+
+  describe "#stylist?" do
+    it "returns true if user is a stylist" do
+      stylist = FactoryGirl.build_stubbed(:stylist)
+      expect(stylist.stylist?).to eq true
+    end
+
+    it "returns false if user is not a stylist" do
+      client = FactoryGirl.build_stubbed(:client)
+      expect(client.stylist?).to eq false
+    end
+  end
+
+  describe "#client?" do
+    it "returns true if user is a client" do
+      client = FactoryGirl.build_stubbed(:client)
+      expect(client.client?).to eq true
+    end
+
+    it "returns false if user is not a client" do
+      stylist = FactoryGirl.build_stubbed(:stylist)
+      expect(stylist.client?).to eq false
+    end
+  end
+
+  describe "#to_param" do
+    it "returns id if client" do
+      client = FactoryGirl.build_stubbed(:client)
+      expect(client.to_param).to eq client.id.to_s
+    end
+
+    it "returns username if stylist" do
+      stylist = FactoryGirl.build_stubbed(:stylist, username: 'the-tiger')
+      expect(stylist.to_param).to eq 'the-tiger'
+    end
+  end
+
+  describe "#authenticated?" do
+    it "always returns true" do
+      client = FactoryGirl.build_stubbed(:client)
+      expect(client.authenticated?).to eq true
+    end
   end
 end

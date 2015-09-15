@@ -1,5 +1,5 @@
 <% keys = ['info', 'warning', 'danger', 'success'] %>
-<%# quick hack to make sure alerts are displaying. TODO: add new flash types that are in line with bootstrap %>
+<%# quick hack to make sure alerts are displaying. TODO: figure out how to override devise's default :notice %>
 
 <div class="container">
   <%- flash.each do |key, value| -%>
@@ -7,4 +7,11 @@
       <%= value %>
     </div>
   <%- end -%>
+
+  <% unless current_user.completed_registration? %>
+    <div class="alert alert-warning">
+      You still havn't finished your registration. Click here to finish
+    </div>
+  <% end %>
 </div>
+
