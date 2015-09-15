@@ -5,10 +5,6 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   resources :users, only: :show
-
   resources :client_registrations, only: [:show, :new, :create]
-
-  # resources :users, as: :stylist, only: [] do
-    # resources :stylist_registrations, as: :registrations, only: [:show, :new, :create]
-  # end
+  resources :services, only: :index
 end

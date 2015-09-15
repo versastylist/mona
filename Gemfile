@@ -15,6 +15,9 @@ gem 'jquery-rails'
 # User Authentication
 gem 'devise'
 
+# Assorted
+gem 'draper'
+
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'

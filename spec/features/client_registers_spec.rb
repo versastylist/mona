@@ -17,15 +17,40 @@ feature 'client registration' do
 
   context 'successfully' do
     scenario 'fills out registration' do
+      client = FactoryGirl.create(:client)
+      sign_in client
+
       visit new_client_registration_path
 
       fill_in 'First name', with: 'Johnny'
       fill_in 'Last name', with: 'Jones'
       fill_in 'Phone number', with: '6178945641'
-      # select_date '09/01/2015', from: 'Date of birth'
+      page.find('#client_registration_dob').set("06/19/1992")
       select 'Male', from: 'Gender'
+      select 'East', from: 'Timezone'
+      click_on 'Register'
 
-      # TODO: finish this
+      expect(page).to have_content('Successfully registered.')
+      expect(page).to have_content('Profile Page')
+    end
+  end
+
+  context 'skips registration' do
+    let(:client) { FactoryGirl.create(:client) }
+    before { sign_in client }
+
+    scenario 'presses skip button' do
+      visit new_client_registration_path
+      click_on 'Skip Registration'
+
+      expect(page).to have_content('Services')
+      expect(page).to have_content("You still havn't finished your registration. Click here to finish")
+    end
+
+    scenario 'visits warning link to finish next phase of registration' do
+      visit root_path
+      click_on 'Click here to finish'
+      expect(page).to have_content 'Client Registration'
     end
   end
 end

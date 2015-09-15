@@ -7,6 +7,7 @@ class ClientRegistrationsController < ApplicationController
     @registration = ClientRegistration.new(registration_params)
     @registration.user = current_user
     if @registration.save
+      # This should redirect to questionairre page 
       redirect_to user_path(current_user),
         success: "Successfully registered."
     else

@@ -19,4 +19,6 @@
 #
 
 class ClientRegistration < Registration
+  # We might not need to use STI if there is nothing different about the
+  # registration section between clients and stylists
 end

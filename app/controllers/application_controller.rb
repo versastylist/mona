@@ -3,6 +3,15 @@ class ApplicationController < ActionController::Base
   before_action :devise_permitted_paramters, if: :devise_controller?
   add_flash_types :info, :success, :warning, :danger
 
+  def current_user
+    if warden.authenticate
+      user = super
+      user.decorate
+    else
+      GuestUser.new
+    end
+  end
+
   protected
 
   def devise_permitted_paramters
