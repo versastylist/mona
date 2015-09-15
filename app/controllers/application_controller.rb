@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
 
   def current_user
     if warden.authenticate
-      super
+      user = super
+      user.decorate
     else
       GuestUser.new
     end

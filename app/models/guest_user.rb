@@ -4,6 +4,10 @@ class GuestUser
   end
 
   def completed_registration?
-    false
+    true
+  end
+
+  def next_registration_step
+    ''
   end
 end

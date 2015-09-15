@@ -11,7 +11,7 @@ describe GuestUser do
 
   describe "#completed_registration?" do
     it "should always return false" do
-      expect(user.completed_registration?).to eq false
+      expect(user.completed_registration?).to eq true
     end
   end
 end
