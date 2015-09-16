@@ -29,14 +29,14 @@ class UserDecorator < Draper::Decorator
   private
 
   def not_registered?
-    object.registration_process.include?('registration')
+    object.registration_id.blank?
   end
 
   def not_answered_questions?
-    object.registration_process.include?('questions')
+    object.questionnaire_id.blank?
   end
 
   def not_filled_out_payment?
-    object.registration_process.include?('payment')
+    object.payment_info_id.blank?
   end
 end

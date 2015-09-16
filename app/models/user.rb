@@ -19,7 +19,8 @@
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
 #  registration_id        :integer
-#  registration_process   :string           default("registration questions payment")
+#  questionnaire_id       :integer
+#  payment_info_id        :integer
 #
 # Indexes
 #
@@ -71,14 +72,10 @@ class User < ActiveRecord::Base
   end
 
   def completed_registration?
-    registration_process.empty?
+    [registration_id, questionnaire_id, payment_info_id].all?
   end
 
   def authenticated?
     true
-  end
-
-  def registration_process
-    self[:registration_process].split(' ')
   end
 end

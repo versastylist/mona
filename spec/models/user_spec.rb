@@ -19,7 +19,8 @@
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
 #  registration_id        :integer
-#  registration_process   :string           default("registration questions payment")
+#  questionnaire_id       :integer
+#  payment_info_id        :integer
 #
 # Indexes
 #
@@ -45,17 +46,12 @@ RSpec.describe User, type: :model do
     it { should_not have_valid(:role).when('', nil, 'super user') }
   end
 
-  describe "#registration_process" do
-    it "should return an array of whats left to complete" do
-      client = FactoryGirl.build_stubbed(:client)
-      expect(client.registration_process).
-        to eq ['registration', 'questions', 'payment']
-    end
-  end
-
   describe "#completed_registration?" do
     it "should return true if registration process is empty" do
-      client = FactoryGirl.build_stubbed(:client, registration_process: '')
+      client = FactoryGirl.build_stubbed(:client,
+                                         registration_id: 1,
+                                         questionnaire_id: 1,
+                                         payment_info_id: 1)
       expect(client.completed_registration?).to eq true
     end
 
@@ -65,15 +61,19 @@ RSpec.describe User, type: :model do
     end
 
     it "should return false if at least one piece of the process remains" do
-      needs_questions = FactoryGirl.build_stubbed(
-        :client, registration_process: 'questions'
+      needs_registration = FactoryGirl.build_stubbed(
+        :client, registration_id: 1
       )
       needs_payment = FactoryGirl.build_stubbed(
-        :client, registration_process: 'payment'
+        :client, payment_info_id: 1
+      )
+      needs_questions = FactoryGirl.build_stubbed(
+        :client, questionnaire_id: 1
       )
 
-      expect(needs_questions.completed_registration?).to eq false
+      expect(needs_registration.completed_registration?).to eq false
       expect(needs_payment.completed_registration?).to eq false
+      expect(needs_questions.completed_registration?).to eq false
     end
   end
 
