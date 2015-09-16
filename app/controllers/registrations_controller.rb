@@ -1,13 +1,13 @@
-class ClientRegistrationsController < ApplicationController
+class RegistrationsController < ApplicationController
   def new
     @address = Address.new
-    @registration = ClientRegistration.new
+    @registration = Registration.new
   end
 
   # This should probably be refactored into Form Object if
   # any more complex logic gets added to the create action.
   def create
-    @registration = ClientRegistration.new(registration_params)
+    @registration = Registration.new(registration_params)
     @registration.user = current_user
     @address = current_user.addresses.new(address_params)
 
@@ -24,7 +24,7 @@ class ClientRegistrationsController < ApplicationController
   private
 
   def registration_params
-    params.require(:client_registration).permit(
+    params.require(:registration).permit(
       :first_name,
       :last_name,
       :phone_number,

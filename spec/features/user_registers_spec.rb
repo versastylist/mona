@@ -20,12 +20,12 @@ feature 'client registration' do
       client = FactoryGirl.create(:client)
       sign_in client
 
-      visit new_client_registration_path
+      visit new_registration_path
 
       fill_in 'First name', with: 'Johnny'
       fill_in 'Last name', with: 'Jones'
       fill_in 'Phone number', with: '6178945641'
-      page.find('#client_registration_dob').set("06/19/1992")
+      page.find('#registration_dob').set("06/19/1992")
       select 'Male', from: 'Gender'
       select 'East', from: 'Timezone'
 
@@ -47,7 +47,7 @@ feature 'client registration' do
     before { sign_in client }
 
     scenario 'presses skip button' do
-      visit new_client_registration_path
+      visit new_registration_path
       click_on 'Skip Registration'
 
       expect(page).to have_content('Services')

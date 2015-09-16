@@ -18,9 +18,6 @@
 #  username               :string           not null
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
-#  registration_id        :integer
-#  questionnaire_id       :integer
-#  payment_info_id        :integer
 #
 # Indexes
 #
