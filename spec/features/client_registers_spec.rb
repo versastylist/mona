@@ -28,6 +28,13 @@ feature 'client registration' do
       page.find('#client_registration_dob').set("06/19/1992")
       select 'Male', from: 'Gender'
       select 'East', from: 'Timezone'
+
+      # Address sub form
+      fill_in 'Zip code', with: '02460'
+      fill_in 'Address', with: '1 Congress St'
+      fill_in 'City', with: 'Boston'
+      select 'Massachusetts', from: 'State'
+
       click_on 'Register'
 
       expect(page).to have_content('Successfully registered.')
