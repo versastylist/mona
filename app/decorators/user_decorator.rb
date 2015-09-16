@@ -14,7 +14,7 @@ class UserDecorator < Draper::Decorator
   def next_registration_step
     case
     when not_registered?
-      new_client_registration_path
+      new_registration_path
     when not_answered_questions?
       # To be added once josh submits PR
       '/'

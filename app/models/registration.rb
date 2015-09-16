@@ -12,7 +12,6 @@
 #  timezone     :string           not null
 #  facebook     :string
 #  linked_in    :string
-#  type         :string
 #  user_id      :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
