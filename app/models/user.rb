@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
   validates :role, inclusion: %w{client stylist admin}
 
   has_one :registration
+  has_many :addresses
 
   scope :clients, -> { where(role: "client") }
   scope :stylists, -> { where(role: "stylists") }
@@ -55,6 +56,10 @@ class User < ActiveRecord::Base
 
   def to_param
     stylist? ? username.parameterize : id.to_s
+  end
+
+  def primary_address
+    addresses.find_by(primary: true)
   end
 
   def client?

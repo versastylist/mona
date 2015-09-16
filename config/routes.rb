@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   resources :users, only: :show
   resources :client_registrations, only: [:show, :new, :create]
   resources :services, only: :index
+  resources :addresses, only: :create
 end
