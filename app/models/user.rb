@@ -32,8 +32,7 @@ class User < ActiveRecord::Base
   validates :username,
     presence: true,
     length: { minimum: 2, maximum: 24 },
-    uniqueness: true
-  validates :username,
+    uniqueness: true,
     format: { with: /\A[a-zA-Z0-9]+\Z/, message: "cannot contain spaces" }
   validates :agree_to_terms, presence: true
   validates :role, inclusion: %w{user client stylist admin}

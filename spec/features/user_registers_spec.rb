@@ -27,7 +27,6 @@ feature 'client registration' do
       fill_in 'Phone number', with: '6178945641'
       page.find('#registration_dob').set("06/19/1992")
       select 'Male', from: 'Gender'
-      select 'East', from: 'Timezone'
 
       # Address sub form
       fill_in 'Zip code', with: '02460'

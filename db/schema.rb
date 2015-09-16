@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 20150916232217) do
     t.string   "avatar_url"
     t.string   "dob",          null: false
     t.string   "gender",       null: false
-    t.string   "timezone",     null: false
     t.string   "facebook"
     t.string   "linked_in"
     t.integer  "user_id"

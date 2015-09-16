@@ -30,7 +30,6 @@ class RegistrationsController < ApplicationController
       :avatar,
       :dob,
       :gender,
-      :timezone,
       :facebook,
       :linked_in
     )

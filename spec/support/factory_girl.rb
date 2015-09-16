@@ -24,7 +24,6 @@ FactoryGirl.define do
     phone_number '555-555-5555'
     dob '09/09/09'
     gender 'Male'
-    timezone 'East'
     user
   end
 end

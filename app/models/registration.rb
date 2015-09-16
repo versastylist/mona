@@ -9,7 +9,6 @@
 #  avatar_url   :string
 #  dob          :string           not null
 #  gender       :string           not null
-#  timezone     :string           not null
 #  facebook     :string
 #  linked_in    :string
 #  user_id      :integer
@@ -19,18 +18,15 @@
 
 class Registration < ActiveRecord::Base
   GENDERS = ['Male', 'Female', 'Other' ]
-  TIMEZONES = ['East', 'West', 'Central']
   belongs_to :user
 
   validates_presence_of :dob,
-    :gender, :timezone, :first_name,
+    :gender, :first_name,
     :last_name, :phone_number, :user
   validates :first_name,
     format: { with: /\A[a-zA-Z-]*\z/ }
   validates :gender,
     inclusion: { in: GENDERS }
-  validates :timezone,
-    inclusion: { in: TIMEZONES }
   validate :facebook_link?
   validate :linked_in_link?
 
