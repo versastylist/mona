@@ -7,6 +7,7 @@ FactoryGirl.define do
     password 'password'
     password_confirmation 'password'
     agree_to_terms true
+    role 'user'
 
     factory :client do
       role "client"
@@ -15,5 +16,15 @@ FactoryGirl.define do
     factory :stylist do
       role "stylist"
     end
+  end
+
+  factory :registration do
+    first_name 'johnny'
+    last_name 'jones'
+    phone_number '555-555-5555'
+    dob '09/09/09'
+    gender 'Male'
+    timezone 'East'
+    user
   end
 end

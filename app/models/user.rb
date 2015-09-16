@@ -39,9 +39,11 @@ class User < ActiveRecord::Base
   validates :username,
     format: { with: /\A[a-zA-Z0-9]+\Z/, message: "cannot contain spaces" }
   validates :agree_to_terms, presence: true
-  validates :role, inclusion: %w{client stylist admin}
+  validates :role, inclusion: %w{user client stylist admin}
 
   has_one :registration
+  has_one :questionnaire
+  has_one :payment_info
   has_many :addresses
 
   scope :clients, -> { where(role: "client") }
@@ -72,7 +74,9 @@ class User < ActiveRecord::Base
   end
 
   def completed_registration?
-    [registration_id, questionnaire_id, payment_info_id].all?
+    [registration].all?
+    # [registration, questionnaire, payment_info].all?
+    # final impementation once other models are done
   end
 
   def authenticated?

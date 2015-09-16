@@ -18,9 +18,6 @@
 #  username               :string           not null
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
-#  registration_id        :integer
-#  questionnaire_id       :integer
-#  payment_info_id        :integer
 #
 # Indexes
 #
@@ -47,33 +44,15 @@ RSpec.describe User, type: :model do
   end
 
   describe "#completed_registration?" do
+    # Need to be refactored to add other parts of registration process
     it "should return true if registration process is empty" do
-      client = FactoryGirl.build_stubbed(:client,
-                                         registration_id: 1,
-                                         questionnaire_id: 1,
-                                         payment_info_id: 1)
+      client = FactoryGirl.create(:registration).user
       expect(client.completed_registration?).to eq true
     end
 
     it "should return false for a freshly created user" do
-      client = FactoryGirl.build_stubbed(:client)
+      client = FactoryGirl.create(:client)
       expect(client.completed_registration?).to eq false
-    end
-
-    it "should return false if at least one piece of the process remains" do
-      needs_registration = FactoryGirl.build_stubbed(
-        :client, registration_id: 1
-      )
-      needs_payment = FactoryGirl.build_stubbed(
-        :client, payment_info_id: 1
-      )
-      needs_questions = FactoryGirl.build_stubbed(
-        :client, questionnaire_id: 1
-      )
-
-      expect(needs_registration.completed_registration?).to eq false
-      expect(needs_payment.completed_registration?).to eq false
-      expect(needs_questions.completed_registration?).to eq false
     end
   end
 

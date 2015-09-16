@@ -60,9 +60,6 @@ ActiveRecord::Schema.define(version: 20150916101856) do
     t.string   "username",                               null: false
     t.boolean  "agree_to_terms",         default: false
     t.string   "role"
-    t.integer  "registration_id"
-    t.integer  "questionnaire_id"
-    t.integer  "payment_info_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
