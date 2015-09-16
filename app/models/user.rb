@@ -19,7 +19,8 @@
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
 #  registration_id        :integer
-#  registration_process   :string           default("registration questions payment")
+#  questionnaire_id       :integer
+#  payment_info_id        :integer
 #
 # Indexes
 #
@@ -38,9 +39,11 @@ class User < ActiveRecord::Base
   validates :username,
     format: { with: /\A[a-zA-Z0-9]+\Z/, message: "cannot contain spaces" }
   validates :agree_to_terms, presence: true
-  validates :role, inclusion: %w{client stylist admin}
+  validates :role, inclusion: %w{user client stylist admin}
 
   has_one :registration
+  has_one :questionnaire
+  has_one :payment_info
   has_many :addresses
 
   scope :clients, -> { where(role: "client") }
@@ -71,14 +74,12 @@ class User < ActiveRecord::Base
   end
 
   def completed_registration?
-    registration_process.empty?
+    [registration].all?
+    # [registration, questionnaire, payment_info].all?
+    # final impementation once other models are done
   end
 
   def authenticated?
     true
-  end
-
-  def registration_process
-    self[:registration_process].split(' ')
   end
 end
