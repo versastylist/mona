@@ -7,8 +7,7 @@ class RegistrationsController < ApplicationController
   # This should probably be refactored into Form Object if
   # any more complex logic gets added to the create action.
   def create
-    @registration = Registration.new(registration_params)
-    @registration.user = current_user
+    @registration = current_user.build_registration(registration_params)
     @address = current_user.addresses.new(address_params)
 
     if @registration.save && @address.save
