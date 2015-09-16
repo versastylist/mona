@@ -35,7 +35,6 @@ class Registration < ActiveRecord::Base
   validate :facebook_link?
   validate :linked_in_link?
 
-
   private
 
   def facebook_link?

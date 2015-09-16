@@ -32,6 +32,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   context "associations" do
     it { should have_one(:registration) }
+    it { should have_many(:addresses) }
   end
 
   context "validations" do
