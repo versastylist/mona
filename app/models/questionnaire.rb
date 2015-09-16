@@ -11,4 +11,7 @@ class Questionnaire < ActiveRecord::Base
   has_many :questions
   has_many :answers,
     through: :questions
+
+  validates :user,
+    presence: true
 end

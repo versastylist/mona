@@ -13,4 +13,6 @@ class Question < ActiveRecord::Base
 
   validates :body,
     presence: true
+  validates :questionnaire_id,
+    presence: true
 end

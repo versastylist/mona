@@ -14,4 +14,6 @@ class Answer < ActiveRecord::Base
 
   validates :value,
     presence: true
+  validates :question,
+    presence: true
 end

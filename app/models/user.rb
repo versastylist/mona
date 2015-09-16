@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   validates :role, inclusion: %w{client stylist admin}
 
   has_one :registration
-  has_many :questionnaires
+  has_one :questionnaire
 
   scope :clients, -> { where(role: "client") }
   scope :stylists, -> { where(role: "stylists") }
