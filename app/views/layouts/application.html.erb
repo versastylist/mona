@@ -16,12 +16,15 @@
 
   <% if current_user %>
     <% if Questionnaire.any? && Questionnaire.count == 0 %>
-      <%= link_to 'Add Questionnaire', new_questionnaire_path,
-      class: 'btn btn-success' %>
-      <% end %>
+      <%= link_to 'Add Questionnaire',
+                  new_questionnaire_path,
+                  class: 'btn btn-success'
+      %>
+    <% end %>
     <%= link_to 'View Questionnaires',
-    questionnaires_path,
-      class: 'btn btn-success' %>
+                questionnaires_path,
+                class: 'btn btn-success'
+    %>
   <% end %>
 
     <%= javascript_include_tag 'application' %>
