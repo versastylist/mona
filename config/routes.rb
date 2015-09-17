@@ -4,8 +4,9 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
-  resources :users, only: :show do
-    resources :questionnaires, only: [:new, :show, :index, :create]
+  resources :users, only: :show
+  resources :questionnaires, only: [:new, :show, :index, :create] do
+     resources :questions, only: [:new, :create]
   end
   resources :client_registrations, only: [:show, :new, :create]
   resources :services, only: :index

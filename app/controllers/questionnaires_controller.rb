@@ -8,12 +8,16 @@ class QuestionnairesController < ApplicationController
     @questionnaire = Questionnaire.new
 
     if @questionnaire.save
-      render #some_path
+      redirect_to #some_path
       # success
     else
       # errors
       render :new
     end
+  end
+
+  def index
+    @questionnaires = Questionnaire.all #hard-code, re-factor later
   end
 
   private

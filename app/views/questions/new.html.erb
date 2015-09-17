@@ -1,0 +1,15 @@
+<%= form_for([@questionnaire, @question]) do |f| %>
+  <%= f.label :client_question %>
+  <%= f.text_area :client_question %>
+
+  <%= f.label :stylist_question %>
+  <%= f.text_area :stylist_question %>
+
+  <%= f.label :additional_info %>
+  <%= f.check_box :additional_info %>
+
+  <%= f.hidden_field :questionnaire_id, value: @questionnaire.id %>
+
+  <%= f.submit 'ADD QUESTION TO QUESTIONNAIRE',
+      class: 'btn btn-success' %>
+<% end %>

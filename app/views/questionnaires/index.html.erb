@@ -1,0 +1,4 @@
+<% @questionnaires.each do |questionnaire| %>
+  <%= link_to 'ADD QUESTIONS TO THIS QUESTIONNAIRE', new_questionnaire_question_path(questionnaire),
+      class: 'btn btn-success' %>
+<% end %>

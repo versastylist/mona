@@ -10,7 +10,6 @@ Just a few questions to get started
 <input type="submit" value="Submit">
 </div>
 
-<%= simple_form_for @questionnaire, url: user_questionnaires_path(@user), method: :post do |f| %>
-  <%= f.association :answers %>
-  <%= f.button :submit %>
+<%= form_for(@questionnaire) do |f| %>
+  <%= f.submit 'I WANT TO CREATE A QUESTIONNAIRE', class: 'btn btn-success' %>
 <% end %>

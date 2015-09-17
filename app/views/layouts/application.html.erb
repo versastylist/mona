@@ -14,6 +14,12 @@
       <%= yield %>
     </div>
 
+  <% if current_user %>
+    <%= link_to 'Add Questionnaire', new_questionnaire_path %>
+    <%= link_to 'View Questionnaires',
+    questionnaires_path %>
+  <% end %>
+
     <%= javascript_include_tag 'application' %>
     <%= yield :extra_footer %>
   </body>
