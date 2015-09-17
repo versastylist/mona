@@ -1,21 +1,19 @@
 class QuestionnairesController < ApplicationController
   def new
-    @user = current_user
+    # @user = current_user
     @questionnaire = Questionnaire.new
   end
 
   def create
-    # @registration = ClientRegistration.new(registration_params)
-    # @registration.user = current_user
-    # if @registration.save
-    #   # This should be moved to create method for questionnaire controller
-    #   # redirect_to user_path(current_user),
-    #   #   success: "Successfully registered."
+    @questionnaire = Questionnaire.new
 
-    #   redirect_to new_questionnare_path(current_user)
-    # else
-    #   render "new"
-    # end
+    if @questionnaire.save
+      render #some_path
+      # success
+    else
+      # errors
+      render :new
+    end
   end
 
   private
