@@ -13,8 +13,12 @@ class RegistrationsController < ApplicationController
     if @registration.save && @address.save
       # This should redirect to questionairre page not
       # once its ready and not user show page
-      redirect_to user_path(current_user),
-        success: "Successfully registered."
+      flash[:success] = "Successfully registered."
+      if current_user.stylist?
+        redirect_to stylist_path(current_user.username)
+      else
+        redirect_to user_path(current_user)
+      end
     else
       render "new"
     end

@@ -43,14 +43,10 @@ class User < ActiveRecord::Base
   has_many :addresses
 
   scope :clients, -> { where(role: "client") }
-  scope :stylists, -> { where(role: "stylists") }
+  scope :stylists, -> { where(role: "stylist") }
 
-  def self.from_param(param)
-    if stylist?
-      find_by_username!(param)
-    else
-      find!(param)
-    end
+  def self.from_params(params)
+    find_by(id: params) || find_by(username: params)
   end
 
   def to_param
