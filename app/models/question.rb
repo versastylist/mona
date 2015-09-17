@@ -3,16 +3,22 @@
 # Table name: questions
 #
 #  id               :integer          not null, primary key
-#  body             :string
+#  client_question  :string
+#  stylist_question :string
+#  additional_info  :boolean
 #  questionnaire_id :integer
 #
 
 class Question < ActiveRecord::Base
   belongs_to :questionnaire
-  has_one :answer
+  has_many :answers
 
-  validates :body,
+  validates :client_question,
     presence: true
-  validates :questionnaire_id,
+  validates :stylist_question,
+    presence: true
+  validates :additional_info,
+    inclusion: {in: [true, false]}
+  validates :questionnaire,
     presence: true
 end

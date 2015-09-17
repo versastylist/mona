@@ -2,16 +2,15 @@
 #
 # Table name: questionnaires
 #
-#  id      :integer          not null, primary key
-#  user_id :integer
+#  id :integer          not null, primary key
 #
 
 class Questionnaire < ActiveRecord::Base
-  belongs_to :user
+  # belongs_to :user
   has_many :questions
   has_many :answers,
     through: :questions
 
-  validates :user,
-    presence: true
+  # validates :user,
+  #   presence: true
 end

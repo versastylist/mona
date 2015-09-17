@@ -3,7 +3,9 @@
 # Table name: questions
 #
 #  id               :integer          not null, primary key
-#  body             :string
+#  client_question  :string
+#  stylist_question :string
+#  additional_info  :boolean
 #  questionnaire_id :integer
 #
 

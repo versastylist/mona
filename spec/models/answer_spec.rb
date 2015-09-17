@@ -3,8 +3,10 @@
 # Table name: answers
 #
 #  id              :integer          not null, primary key
-#  value           :boolean
+#  user_type       :integer
+#  answer          :boolean
 #  additional_info :string
+#  user_id         :integer
 #  question_id     :integer
 #
 
