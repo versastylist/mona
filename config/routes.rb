@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   }
   resources :users, only: :show
   resources :questionnaires, only: [:new, :show, :index, :create] do
-     resources :questions, only: [:new, :create]
+     resources :questions, only: [:new, :create, :index]
   end
   resources :client_registrations, only: [:show, :new, :create]
   resources :services, only: :index

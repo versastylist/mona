@@ -20,7 +20,8 @@ class QuestionsController < ApplicationController
   end
 
   def index
-    @questionnaires = Questionnaire.all #hard-code, re-factor later
+    @questions = Questionnaire.find(params[:questionnaire_id])
+      .questions
   end
 
   private
