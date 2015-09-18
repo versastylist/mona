@@ -16,7 +16,8 @@ gem 'jquery-rails'
 gem 'devise'
 
 # Assorted
-gem 'draper'
+gem 'draper' # ViewModels
+gem 'stripe' # Payment Processing
 
 # Production
 group :production do
@@ -31,11 +32,10 @@ group :development, :test do
   gem 'factory_girl'
   gem 'valid_attribute'
   gem 'shoulda-matchers', require: false
+  gem 'dotenv-rails'
 end
 
 group :development do
   gem 'annotate'
-  gem 'quiet_assets'
-  gem 'better_errors'
 end
 
