@@ -16,20 +16,21 @@ gem 'jquery-rails'
 gem 'devise'
 
 # Assorted
-gem 'draper' # ViewModels
-gem 'stripe' # Payment Processing
-gem 'carrierwave'
-gem 'fog'
-gem 'rmagick'
+gem 'draper'        # ViewModels
+gem 'stripe'        # Payment Processing
+gem 'carrierwave'   # Image Uploading
+gem 'fog'           # S3 Cloud Uploading
+gem 'rmagick'       # Image Processing
+gem 'elasticsearch' # Search
 
 # Production
 group :production do
-  gem 'rails_12factor'
+  gem 'rails_12factor' # Required for Heroku
 end
 
 group :test do
-  gem 'poltergeist'
-  gem 'database_cleaner'
+  gem 'poltergeist'      # Javascript Feature Tests
+  gem 'database_cleaner' 
 end
 
 group :development, :test do
