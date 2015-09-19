@@ -26,8 +26,10 @@
 #
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  has_one :registration
+  has_one :questionnaire
+  has_one :payment_info
+  has_many :addresses
 
   validates :username,
     presence: true,
@@ -37,10 +39,8 @@ class User < ActiveRecord::Base
   validates :agree_to_terms, presence: true
   validates :role, inclusion: %w{user client stylist admin}
 
-  has_one :registration
-  has_one :questionnaire
-  has_one :payment_info
-  has_many :addresses
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
 
   scope :clients, -> { where(role: "client") }
   scope :stylists, -> { where(role: "stylist") }

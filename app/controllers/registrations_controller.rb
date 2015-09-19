@@ -29,11 +29,11 @@ class RegistrationsController < ApplicationController
       :first_name,
       :last_name,
       :phone_number,
-      :avatar,
+      :avatar_url,
       :dob,
       :gender,
       :facebook,
-      :linked_in
+      :linked_in,
     )
   end
 

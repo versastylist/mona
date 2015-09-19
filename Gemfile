@@ -18,6 +18,8 @@ gem 'devise'
 # Assorted
 gem 'draper' # ViewModels
 gem 'stripe' # Payment Processing
+gem 'carrierwave'
+gem 'fog'
 
 # Production
 group :production do
