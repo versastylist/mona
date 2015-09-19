@@ -6,7 +6,6 @@
 #  first_name   :string           not null
 #  last_name    :string           not null
 #  phone_number :string           not null
-#  avatar_url   :string
 #  dob          :string           not null
 #  gender       :string           not null
 #  facebook     :string
@@ -14,6 +13,8 @@
 #  user_id      :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  avatar       :string
+#  avatar_cache :string
 #
 
 require 'rails_helper'

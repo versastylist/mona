@@ -29,7 +29,7 @@ class RegistrationsController < ApplicationController
       :first_name,
       :last_name,
       :phone_number,
-      :avatar_url,
+      :avatar,
       :dob,
       :gender,
       :facebook,
