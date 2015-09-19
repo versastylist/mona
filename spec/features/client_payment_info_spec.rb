@@ -13,10 +13,10 @@ feature 'client enters their payment info' do
       select "#{Date.today.year + 1}", from: 'card_year'
 
       click_on 'Save Credit Card'
-      expect(page).to_not have_content('There was a problem with your credit card')
+      expect(page).to_not have_content('There was a problem with your payment information.')
     end
-
   end
+
   context 'skips payment info' do
     scenario 'skips payment info part' do
       new_client = FactoryGirl.create(:client)

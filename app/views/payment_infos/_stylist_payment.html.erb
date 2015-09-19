@@ -1,0 +1,20 @@
+<%= form_for @payment_info, html: { id: "bank_account_info" } do |f| %>
+  <%= f.hidden_field :stripe_bank_token %>
+
+  <div class="form-group">
+    <%= label_tag :bank_name, "Bank Name" %>
+    <%= text_field_tag :bank_name, nil, name: nil %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :routing_number, "Routing Number" %>
+    <%= text_field_tag :routing_number, nil, name: nil %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :account_number, "Account Number" %>
+    <%= text_field_tag :account_number, nil, name: nil %>
+  </div>
+
+  <%= f.submit 'Save Bank Information', class: "btn btn-success" %>
+<% end %>

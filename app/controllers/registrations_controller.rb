@@ -16,11 +16,7 @@ class RegistrationsController < ApplicationController
       # This should redirect to questionairre page not
       # once its ready and not user show page
       flash[:success] = "Successfully registered."
-      if current_user.stylist?
-        redirect_to stylist_path(current_user.username)
-      else
-        redirect_to new_payment_info_path
-      end
+      redirect_to new_payment_info_path
     else
       render "new"
     end

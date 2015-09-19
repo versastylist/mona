@@ -9,10 +9,12 @@
   <%- end -%>
 
   <% unless current_user.completed_registration? %>
-    <div class="alert alert-warning">
-      You still havn't finished your registration.
-      <%= link_to 'Click here to finish', current_user.next_registration_step %>
-    </div>
+    <% unless registration_page? %>
+      <div class="alert alert-warning">
+        You still havn't finished your registration.
+        <%= link_to 'Click here to finish', current_user.next_registration_step %>
+      </div>
+    <% end %>
   <% end %>
 </div>
 
