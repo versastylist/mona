@@ -1,6 +1,6 @@
 <h1>Registration</h1>
 
-<%= form_for @registration do |f| %>
+<%= form_for @registration, multipart: true do |f| %>
   <% if @registration.errors.any? %>
     <ul>
       <% @registration.errors.full_messages.each do |error|  %>
@@ -25,8 +25,14 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :avatar_url %>
-    <%= f.file_field :avatar_url %>
+    <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/>
+    <br/>
+
+    <span class="btn btn-default btn-file">
+      Upload Avatar Image<%= f.file_field :avatar, id: "avatar-upload" %>
+    </span>
+
+    <%= f.hidden_field :avatar_cache %>
   </div>
 
   <div class="form-group">

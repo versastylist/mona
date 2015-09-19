@@ -20,6 +20,7 @@ gem 'draper' # ViewModels
 gem 'stripe' # Payment Processing
 gem 'carrierwave'
 gem 'fog'
+gem 'rmagick'
 
 # Production
 group :production do
