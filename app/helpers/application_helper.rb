@@ -8,6 +8,12 @@ module ApplicationHelper
     content_tag('h1', name)
   end
 
+  def registration_page?
+    registrations = ["registrations#new", "payment_infos#new", "questionnaires#new"]
+    action = controller.controller_name + '#' + controller.action_name
+    registrations.include?(action)
+  end
+
   def us_states
     [
       ['Alabama', 'AL'],
