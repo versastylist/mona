@@ -1,0 +1,12 @@
+<h1>Stylists</h1>
+
+<%= form_tag users_path, method: :get do %>
+  <%= text_field_tag :query, params[:query] %>
+  <%= submit_tag "Search", name: nil, class: 'btn btn-success' %>
+<% end %>
+
+<ul>
+  <% @users.each do |stylist| %>
+    <li><%= stylist.username %></li>
+  <% end %>
+</ul>

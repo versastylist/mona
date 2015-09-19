@@ -21,7 +21,8 @@ gem 'stripe'        # Payment Processing
 gem 'carrierwave'   # Image Uploading
 gem 'fog'           # S3 Cloud Uploading
 gem 'rmagick'       # Image Processing
-gem 'elasticsearch' # Search
+gem 'searchkick'    # Elastic Search
+gem 'faker'         # Seeding Fake Data
 
 # Production
 group :production do

@@ -23,3 +23,16 @@ User.create!(
   role: "stylist",
   agree_to_terms: true
 )
+
+100.times do |n|
+  User.create(
+    username: Faker::Internet.user_name.gsub(' ', ''),
+    email: Faker::Internet.email,
+    password: "password",
+    password_confirmation: "password",
+    role: "stylist",
+    agree_to_terms: true
+  )
+end
+
+User.reindex

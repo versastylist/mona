@@ -26,6 +26,7 @@
 #
 
 class User < ActiveRecord::Base
+  include StylistSearch
   has_one :registration
   has_one :questionnaire
   has_one :payment_info
@@ -46,6 +47,7 @@ class User < ActiveRecord::Base
 
   scope :clients, -> { where(role: "client") }
   scope :stylists, -> { where(role: "stylist") }
+
 
   def self.from_params(params)
     find_by(id: params) || find_by(username: params)
