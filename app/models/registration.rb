@@ -30,6 +30,8 @@ class Registration < ActiveRecord::Base
   validate :facebook_link?
   validate :linked_in_link?
 
+  mount_uploader :avatar_url, AvatarUploader
+
   private
 
   def facebook_link?
