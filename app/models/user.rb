@@ -42,6 +42,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  delegate :avatar_url, to: :registration
+
   scope :clients, -> { where(role: "client") }
   scope :stylists, -> { where(role: "stylist") }
 

@@ -25,13 +25,10 @@
   </div>
 
   <div class="form-group">
-    <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/>
-    <br/>
-
+    <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
     <span class="btn btn-default btn-file">
       Upload Avatar Image<%= f.file_field :avatar, id: "avatar-upload" %>
     </span>
-
     <%= f.hidden_field :avatar_cache %>
   </div>
 
