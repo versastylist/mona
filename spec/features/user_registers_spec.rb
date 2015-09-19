@@ -37,7 +37,7 @@ feature 'client registration' do
       click_on 'Register'
 
       expect(page).to have_content('Successfully registered.')
-      expect(page).to have_content('Profile Page')
+      expect(page).to have_content('Payment Information')
     end
   end
 

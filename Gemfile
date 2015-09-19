@@ -16,11 +16,17 @@ gem 'jquery-rails'
 gem 'devise'
 
 # Assorted
-gem 'draper'
+gem 'draper' # ViewModels
+gem 'stripe' # Payment Processing
 
 # Production
 group :production do
   gem 'rails_12factor'
+end
+
+group :test do
+  gem 'poltergeist'
+  gem 'database_cleaner'
 end
 
 group :development, :test do
@@ -31,11 +37,10 @@ group :development, :test do
   gem 'factory_girl'
   gem 'valid_attribute'
   gem 'shoulda-matchers', require: false
+  gem 'dotenv-rails'
 end
 
 group :development do
   gem 'annotate'
-  gem 'quiet_assets'
-  gem 'better_errors'
 end
 

@@ -1,0 +1,29 @@
+<h1>Payment Information</h1>
+
+<%= form_for @payment_info do |f| %>
+  <%= f.hidden_field :stripe_card_token %>
+
+  <div class="form-group">
+    <%= label_tag :card_number, "Credit Card Number" %>
+    <%= text_field_tag :card_number, nil, name: nil %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :card_code, "Security Code on Card (CVV)" %>
+    <%= text_field_tag :card_code, nil, name: nil %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :card_month, "Card Expiration" %>
+    <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"} %>
+    <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"} %>
+  </div>
+
+  <%= f.submit 'Save Credit Card', class: "btn btn-success" %>
+<% end %>
+
+<%= link_to 'Skip Payment Info', services_path, class: 'btn btn-warning pull-right' %>
+
+<%= content_for :extra_footer do %>
+  <%= javascript_include_tag 'https://js.stripe.com/v2/' %>
+<% end %>

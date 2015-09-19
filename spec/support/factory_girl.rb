@@ -26,4 +26,10 @@ FactoryGirl.define do
     gender 'Male'
     user
   end
+
+  factory :payment_info do
+    user
+    stripe_customer_token "sldkfj23kjlsdf"
+    stripe_card_token "slfkjaa234lk234s"
+  end
 end

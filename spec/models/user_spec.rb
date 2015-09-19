@@ -47,6 +47,7 @@ RSpec.describe User, type: :model do
     # Need to be refactored to add other parts of registration process
     it "should return true if registration process is empty" do
       client = FactoryGirl.create(:registration).user
+      FactoryGirl.create(:payment_info, user: client)
       expect(client.completed_registration?).to eq true
     end
 

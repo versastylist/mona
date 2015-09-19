@@ -20,7 +20,7 @@ feature 'client finishes registration' do
 
     click_on 'Register'
 
-    expected_url = "/users/#{client.id}"
+    expected_url = "/payment_infos/new"
     expect(current_url).to match(Regexp.new(expected_url))
   end
 end

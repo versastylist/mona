@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   end
 
   def completed_registration?
-    [registration].all?
+    [registration, payment_info].all?
     # [registration, questionnaire, payment_info].all?
     # final impementation once other models are done
   end

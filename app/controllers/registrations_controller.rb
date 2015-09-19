@@ -1,4 +1,6 @@
 class RegistrationsController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @address = Address.new
     @registration = Registration.new
@@ -17,7 +19,7 @@ class RegistrationsController < ApplicationController
       if current_user.stylist?
         redirect_to stylist_path(current_user.username)
       else
-        redirect_to user_path(current_user)
+        redirect_to new_payment_info_path
       end
     else
       render "new"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916232217) do
+ActiveRecord::Schema.define(version: 20150919132338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(version: 20150916232217) do
     t.string   "city",                       null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+  end
+
+  create_table "payment_infos", force: :cascade do |t|
+    t.string   "stripe_customer_token"
+    t.string   "stripe_card_token"
+    t.integer  "user_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "registrations", force: :cascade do |t|
