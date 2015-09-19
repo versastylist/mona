@@ -13,13 +13,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-//
 
-$(function() {
-  alert('working');
-
-  $('#new_registration').submit(function(e) {
-    alert('working!');
-    e.preventDefault()
-  });
-});

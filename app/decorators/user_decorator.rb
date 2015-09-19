@@ -19,8 +19,7 @@ class UserDecorator < Draper::Decorator
       # To be added once josh submits PR
       '/'
     when not_filled_out_payment?
-      # to be added once payments are done
-      '/'
+      new_payment_info_path
     else
       root_path
     end
@@ -38,7 +37,6 @@ class UserDecorator < Draper::Decorator
   end
 
   def not_filled_out_payment?
-    # object.payment_info.blank?
-    false
+    object.payment_info.nil?
   end
 end

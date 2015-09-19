@@ -24,6 +24,11 @@ group :production do
   gem 'rails_12factor'
 end
 
+group :test do
+  gem 'poltergeist'
+  gem 'database_cleaner'
+end
+
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
