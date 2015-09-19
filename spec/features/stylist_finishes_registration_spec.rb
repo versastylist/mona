@@ -20,7 +20,7 @@ feature 'stylist finishes registration' do
 
     click_on 'Register'
 
-    expected_url = ".com/jamesbond"
+    expected_url = ".com/payment_infos/new"
     expect(current_url).to match(Regexp.new(expected_url))
   end
 end

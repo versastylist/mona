@@ -1,4 +1,4 @@
-<h1>Client Registration</h1>
+<h1>Registration</h1>
 
 <%= form_for @registration do |f| %>
   <% if @registration.errors.any? %>
@@ -78,7 +78,6 @@
 
     <%= fa.hidden_field :primary, value: true %>
   <% end %>
-
 
   <%= f.submit 'Register', class: 'btn btn-success' %>
 <% end %>

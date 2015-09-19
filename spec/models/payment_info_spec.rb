@@ -8,6 +8,7 @@
 #  user_id               :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  stripe_bank_token     :string
 #
 
 require 'rails_helper'

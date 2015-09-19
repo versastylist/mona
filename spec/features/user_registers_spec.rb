@@ -12,7 +12,7 @@ feature 'client registration' do
     find(:css, "#user_agree_to_terms").set(true)
 
     click_button 'Sign up'
-    expect(page).to have_content('Client Registration')
+    expect(page).to have_content('Registration')
   end
 
   context 'successfully' do
@@ -56,7 +56,7 @@ feature 'client registration' do
     scenario 'visits warning link to finish next phase of registration' do
       visit root_path
       click_on 'Click here to finish'
-      expect(page).to have_content 'Client Registration'
+      expect(page).to have_content 'Registration'
     end
   end
 end
