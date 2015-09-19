@@ -2,7 +2,7 @@ $(function() {
   if ($('#credit_card_info').length > 0) { // only execute if on page that needs stripe
     Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'));
 
-    function handleStripeResponse(status, resp) {
+    function handleCreditResponse(status, resp) {
       if (status == 200) {
         $('#payment_info_stripe_card_token').val(resp.id);
         $('#credit_card_info')[0].submit()
@@ -19,14 +19,14 @@ $(function() {
         expMonth: $('#card_month').val(),
         expYear: $('#card_year').val()
       }
-      Stripe.createToken(card, handleStripeResponse)
+      Stripe.createToken(card, handleCreditResponse)
     });
   }
 
   if ($('#bank_account_info').length > 0) { // only execute if on page that needs stripe
     Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'));
 
-    function handleStripeResponse(status, resp) {
+    function handleBankResponse(status, resp) {
       if (status == 200) {
         $('#payment_info_stripe_bank_token').val(resp.id);
         $('#bank_account_info')[0].submit()
@@ -43,7 +43,7 @@ $(function() {
         routing_number: $('#routing_number').val(),
         account_number: $('#account_number').val()
       }
-      Stripe.bankAccount.createToken(bank, handleStripeResponse)
+      Stripe.bankAccount.createToken(bank, handleBankResponse)
     });
   }
 });
