@@ -61,14 +61,13 @@ ActiveRecord::Schema.define(version: 20150920134004) do
 
   create_table "service_products", force: :cascade do |t|
     t.string   "name",                                                            null: false
-    t.integer  "hours"
-    t.integer  "minutes"
+    t.integer  "minute_duration",                                                 null: false
     t.decimal  "price",                    precision: 8, scale: 2,                null: false
     t.text     "details"
     t.text     "preparation_instructions"
     t.integer  "service_category_id",                                             null: false
     t.boolean  "displayed",                                        default: true
-    t.integer  "stylist_id",                                                      null: false
+    t.integer  "user_id",                                                         null: false
     t.datetime "created_at",                                                      null: false
     t.datetime "updated_at",                                                      null: false
   end

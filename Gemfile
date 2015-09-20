@@ -5,6 +5,7 @@ gem 'rails', '4.2.4'
 
 # Database/Search
 gem 'pg'
+gem 'searchkick'    # Elastic Search
 
 # Front end assets
 gem 'bootstrap-sass'
@@ -22,8 +23,8 @@ gem 'stripe'        # Payment Processing
 gem 'carrierwave'   # Image Uploading
 gem 'fog'           # S3 Cloud Uploading
 gem 'rmagick'       # Image Processing
-gem 'searchkick'    # Elastic Search
 gem 'faker'         # Seeding Fake Data
+gem 'cocoon'        # JQuery Nested Forms
 
 # Production
 group :production do
@@ -36,7 +37,7 @@ group :test do
 end
 
 group :development do
-  gem 'annotate'
+  gem 'annotate'   # Shows Schema in Model files
 end
 
 group :development, :test do
