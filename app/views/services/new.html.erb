@@ -1,10 +1,12 @@
 <%= form_for @service do |f| %>
   <% if @service.errors.any? %>
-    <ul>
-      <% @service.errors.full_messages.each do |error| %>
-        <li><%= error %></li>
-      <% end %>
-    </ul>
+    <div class="alert alert-danger">
+      <ul>
+        <% @service.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
   <div class="form-group">
     <%= f.label :service_menu_id, "Service Menu" %>

@@ -6,7 +6,7 @@ class ServicesController < ApplicationController
   def create
     @service = current_user.services.new(service_params)
     if @service.save
-      redirect_to root_path, success: "success!"
+      redirect_to root_path, success: "Successfully added services."
     else
       render 'new'
     end
@@ -28,7 +28,7 @@ class ServicesController < ApplicationController
         :price,
         :details,
         :preparation_instructions<
-        :_destroy
+        :_destroy # Needed for cocoon
       ]
     )
   end

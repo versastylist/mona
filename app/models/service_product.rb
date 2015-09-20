@@ -29,7 +29,7 @@ class ServiceProduct < ActiveRecord::Base
     presence: true,
     numericality: { greater_than_or_equal_to: 30 }
 
-  before_validation :set_minute_duration
+  before_validation :set_minute_duration, unless: :skip_callbacks
 
   private
 

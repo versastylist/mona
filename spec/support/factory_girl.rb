@@ -44,4 +44,8 @@ FactoryGirl.define do
     stripe_customer_token "sldkfj23kjlsdf"
     stripe_card_token "slfkjaa234lk234s"
   end
+
+  factory :service_menu do
+    name 'Barber'
+  end
 end

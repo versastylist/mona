@@ -14,4 +14,9 @@ class Service < ActiveRecord::Base
   belongs_to :user
   belongs_to :service_menu
   accepts_nested_attributes_for :service_products, reject_if: :all_blank, allow_destroy: true
+
+  validates :service_menu_id,
+    presence: true
+  validates :user_id,
+    presence: true
 end
