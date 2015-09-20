@@ -9,6 +9,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
     storage :file
   end
 
+  def default_url
+    "https://vs-media-dev.s3.amazonaws.com/uploads/registration/avatar/1/thumb_icon-user-default.png"
+  end
+
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
