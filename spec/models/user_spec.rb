@@ -30,7 +30,11 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   context "associations" do
     it { should have_one(:registration) }
+    it { should have_one(:payment_info) }
     it { should have_many(:addresses) }
+    it { should have_many(:services) }
+    it { should have_many(:service_products).through(:services) }
+    it { should have_many(:service_menus).through(:services) }
   end
 
   context "validations" do
@@ -44,11 +48,11 @@ RSpec.describe User, type: :model do
   end
 
   describe "#completed_registration?" do
-    # Need to be refactored to add other parts of registration process
     it "should return true if registration process is empty" do
-      client = FactoryGirl.create(:registration).user
-      FactoryGirl.create(:payment_info, user: client)
+      client = FactoryGirl.create(:registered_client)
+      stylist = FactoryGirl.create(:registered_stylist)
       expect(client.completed_registration?).to eq true
+      expect(stylist.completed_registration?).to eq true
     end
 
     it "should return false for a freshly created user" do

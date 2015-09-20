@@ -5,12 +5,14 @@ gem 'rails', '4.2.4'
 
 # Database/Search
 gem 'pg'
+gem 'searchkick'    # Elastic Search
 
 # Front end assets
 gem 'bootstrap-sass'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
+gem 'font-awesome-sass', '~> 4.4.0'
 
 # User Authentication
 gem 'devise'
@@ -21,8 +23,8 @@ gem 'stripe'        # Payment Processing
 gem 'carrierwave'   # Image Uploading
 gem 'fog'           # S3 Cloud Uploading
 gem 'rmagick'       # Image Processing
-gem 'searchkick'    # Elastic Search
 gem 'faker'         # Seeding Fake Data
+gem 'cocoon'        # JQuery Nested Forms
 
 # Production
 group :production do
@@ -32,6 +34,10 @@ end
 group :test do
   gem 'poltergeist'      # Javascript Feature Tests
   gem 'database_cleaner' 
+end
+
+group :development do
+  gem 'annotate'   # Shows Schema in Model files
 end
 
 group :development, :test do
@@ -44,8 +50,3 @@ group :development, :test do
   gem 'shoulda-matchers', require: false
   gem 'dotenv-rails'
 end
-
-group :development do
-  gem 'annotate'
-end
-

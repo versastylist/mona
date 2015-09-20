@@ -16,6 +16,18 @@ FactoryGirl.define do
     factory :stylist do
       role "stylist"
     end
+
+    factory :registered_client do
+      role "client"
+      registration
+      payment_info
+    end
+
+    factory :registered_stylist do
+      role "stylist"
+      registration
+      payment_info
+    end
   end
 
   factory :registration do
@@ -31,5 +43,9 @@ FactoryGirl.define do
     user
     stripe_customer_token "sldkfj23kjlsdf"
     stripe_card_token "slfkjaa234lk234s"
+  end
+
+  factory :service_menu do
+    name 'Barber'
   end
 end
