@@ -5,7 +5,7 @@ module StylistSearch
     searchkick
 
     def self.elastic_search(params)
-      params ? self.search(params) : self.all
+      params.present? ? self.search(params) : self.all
     end
   end
 end
