@@ -11,6 +11,7 @@ gem 'bootstrap-sass'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
+gem 'font-awesome-sass', '~> 4.4.0'
 
 # User Authentication
 gem 'devise'
@@ -34,6 +35,10 @@ group :test do
   gem 'database_cleaner' 
 end
 
+group :development do
+  gem 'annotate'
+end
+
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
@@ -44,8 +49,3 @@ group :development, :test do
   gem 'shoulda-matchers', require: false
   gem 'dotenv-rails'
 end
-
-group :development do
-  gem 'annotate'
-end
-
