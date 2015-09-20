@@ -1,0 +1,26 @@
+<div class="questionnaire-container">
+  <% @questions.each_with_index do |question, i| %>
+    <!-- if user is a client -->
+    <%= form_for @answers[i], :url => user_answers_path do |f| %>
+      <li>Client question: <%= question.client_question %></li>
+      <%= f.label :answer, 'yes' %>
+      <%= f.radio_button :answer, true, class: "answerInput answer#{i}" %>
+
+      <%= f.label :answer, 'no' %>
+      <%= f.radio_button :answer, false, class: "answerInput answer#{i}" %>
+
+      <% if i == 0 %>
+        <input type="hidden" value=<%= @questions[i].id %> name="answer[question_id]", class="questionId">
+        <input type="hidden" value=<%= @user.id %> name="answer[user_id]"
+          class="userId">
+        <input type="hidden" value=<%= @user.role %> name="answer[user_type]", class="userType">
+      <% end %>
+
+      <%= f.submit 'Save Answer' %>
+    <% end %>
+    <!-- if user is a stylist -->
+    <!-- <li>Stylist question: <%= question.stylist_question %></li> -->
+    <!-- if question requires additional info -->
+    <!-- <li>Additional Info: <%= question.additional_info ? 'Required' : 'Optional' %></li> -->
+  <% end %>
+</div>

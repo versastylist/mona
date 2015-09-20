@@ -11,7 +11,7 @@
 
 class Question < ActiveRecord::Base
   belongs_to :questionnaire
-  has_many :answers
+  has_many :answers, dependent: :destroy
 
   validates :client_question,
     presence: true
@@ -21,4 +21,6 @@ class Question < ActiveRecord::Base
     inclusion: {in: [true, false]}
   validates :questionnaire,
     presence: true
+
+  # accepts_nested_attributes_for :answers, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
 end

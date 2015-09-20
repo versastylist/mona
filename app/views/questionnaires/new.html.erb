@@ -1,15 +1,8 @@
 Successfully registered.
 Just a few questions to get started
-<a href="#skip">skip</a>
-<input type="checkbox" id="service-children">
-<input type="checkbox" id="have-pets">
-<input type="checkbox" id="indoor-smoker">
-<input type="checkbox" id="place-carpeted">
-<input type="checkbox" id="medical-skin-conditions">
 
-<input type="submit" value="Submit">
-</div>
-
-<%= form_for(@questionnaire) do |f| %>
-  <%= f.submit 'I WANT TO CREATE A QUESTIONNAIRE', class: 'btn btn-success' %>
-<% end %>
+<%= link_to 'COMPLETE QUESTIONNAIRE',
+    controller: 'questionnaires',
+    action: 'new',
+    questionnaire_id: Questionnaire.first #hard coded for now
+%>
