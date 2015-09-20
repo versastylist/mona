@@ -40,5 +40,5 @@ end
 
 categories = ["Hair Cut","Weave", "Blowout", "Natural", "Barber", "Nails", "Makeup"]
 categories.each do |cat|
-  ServiceCategory.find_or_create_by(name: cat)
+  ServiceMenu.find_or_create_by(name: cat)
 end

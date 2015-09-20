@@ -9,6 +9,10 @@
 #  updated_at       :datetime         not null
 #
 
-class ServiceCategory < ActiveRecord::Base
-  has_many :service_products
+require 'rails_helper'
+
+RSpec.describe ServiceMenu, type: :model do
+  context "associations" do
+    it { should have_many(:services) }
+  end
 end

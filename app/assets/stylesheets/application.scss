@@ -24,9 +24,12 @@
 @import "variables";
 @import "mixins";
 
+/* Components */
+@import "components/buttons";
+
 /* Pages */
 @import "pages/home";
 @import "pages/registration";
-@import "components/buttons";
+@import "pages/services";
 
 

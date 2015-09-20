@@ -1,6 +1,6 @@
-class CreateServiceCategories < ActiveRecord::Migration
+class CreateServiceMenus < ActiveRecord::Migration
   def change
-    create_table :service_categories do |t|
+    create_table :service_menus do |t|
       t.string :name
       t.boolean :licence_required, default: false
 

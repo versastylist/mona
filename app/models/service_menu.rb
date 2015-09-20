@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: service_categories
+# Table name: service_menus
 #
 #  id               :integer          not null, primary key
 #  name             :string
@@ -9,10 +9,6 @@
 #  updated_at       :datetime         not null
 #
 
-require 'rails_helper'
-
-RSpec.describe ServiceCategory, type: :model do
-  context "associations" do
-    it { should have_many(:service_products) }
-  end
+class ServiceMenu < ActiveRecord::Base
+  has_many :services
 end

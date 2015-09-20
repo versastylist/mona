@@ -32,6 +32,9 @@ RSpec.describe User, type: :model do
     it { should have_one(:registration) }
     it { should have_one(:payment_info) }
     it { should have_many(:addresses) }
+    it { should have_many(:services) }
+    it { should have_many(:service_products).through(:services) }
+    it { should have_many(:service_menus).through(:services) }
   end
 
   context "validations" do

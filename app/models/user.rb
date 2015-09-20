@@ -31,7 +31,9 @@ class User < ActiveRecord::Base
   has_one :questionnaire
   has_one :payment_info
   has_many :addresses
-  has_many :service_products
+  has_many :services
+  has_many :service_products, through: :services
+  has_many :service_menus, through: :services
 
   validates :username,
     presence: true,
