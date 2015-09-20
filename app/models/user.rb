@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
 
   delegate :avatar_url, to: :registration
 
-  scope :clients, -> { where(role: "client") }
+  scope :clients,  -> { where(role: "client") }
   scope :stylists, -> { where(role: "stylist") }
 
 

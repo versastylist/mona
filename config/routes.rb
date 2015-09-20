@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :registrations, only: [:show, :new, :create]
   resources :services, only: :index
   resources :payment_infos, only: [:new, :create]
+  resources :service_products, only: [:new, :create]
 
   # This should remain towards bottom for pattern matching purposes
   get '/:id', as: :stylist, to: 'users#show'

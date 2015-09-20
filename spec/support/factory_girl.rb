@@ -16,6 +16,18 @@ FactoryGirl.define do
     factory :stylist do
       role "stylist"
     end
+
+    factory :registered_stylist do
+      role "client"
+      registration
+      payment_info
+    end
+
+    factory :registered_stylist do
+      role "stylist"
+      registration
+      payment_info
+    end
   end
 
   factory :registration do

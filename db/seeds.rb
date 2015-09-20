@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create!(
+User.create(
   username: "client",
   email: "client@email.com",
   password: "password",
@@ -15,7 +15,7 @@ User.create!(
   agree_to_terms: true
 )
 
-User.create!(
+User.create(
   username: "stylist",
   email: "stylist@email.com",
   password: "password",
@@ -26,7 +26,7 @@ User.create!(
 
 100.times do |n|
   User.create(
-    username: Faker::Internet.user_name.gsub(' ', ''),
+    username: Faker::Name.first_name.gsub(' ', ''),
     email: Faker::Internet.email,
     password: "password",
     password_confirmation: "password",
@@ -35,4 +35,10 @@ User.create!(
   )
 end
 
-User.reindex
+# Elastic Search
+# User.reindex
+
+categories = ["Hair Cut","Weave", "Blowout", "Natural", "Barber", "Nails", "Makeup"]
+categories.each do |cat|
+  ServiceCategory.find_or_create_by(name: cat)
+end
