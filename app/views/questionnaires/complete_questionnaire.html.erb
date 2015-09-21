@@ -8,30 +8,32 @@
         <li>Stylist question: <%= question.stylist_question %></li>
       <% end %>
 
-      <%= f.label :answer, 'yes' %>
       <% if @answers[i].id %>
-        <%= f.radio_button :answer, true, class: "answerInput answer#{i}", checked: true %>
+        <%= f.label :answer, 'yes' %>
+        <%= f.radio_button :answer, true, class: "answerInput answer#{i}",
+          checked: @answers[i].answer == true %>
+        <%= f.label :answer, 'no' %>
+        <%= f.radio_button :answer, false, class: "answerInput answer#{i}",
+          checked: @answers[i].answer == false %>
       <% else %>
+        <%= f.label :answer, 'yes' %>
         <%= f.radio_button :answer, true, class: "answerInput answer#{i}" %>
-      <% end %>
-
-      <%= f.label :answer, 'no' %>
-      <% if @answers[i].id %>
-      <%= f.radio_button :answer, false, class: "answerInput answer#{i}", checked: true %>
-      <% else %>
+        <%= f.label :answer, 'no' %>
         <%= f.radio_button :answer, false, class: "answerInput answer#{i}" %>
       <% end %>
 
+      <% if @questions[i].additional_info %>
+        <%= f.text_area :additional_info, required: true %>
+      <% end %>
+
+      <input type="hidden" value=<%= @questions[i].id %> name="answer[question_id]", class="questionId">
+
       <% if i == 0 %>
-        <input type="hidden" value=<%= @questions[i].id %> name="answer[question_id]", class="questionId">
         <input type="hidden" value=<%= @user.id %> name="answer[user_id]"
           class="userId">
         <input type="hidden" value=<%= @user.role %> name="answer[user_type]", class="userType">
       <% end %>
     <% end %>
-    <!-- if user is a stylist -->
-    <!-- <li>Stylist question: <%= question.stylist_question %></li> -->
-    <!-- if question requires additional info -->
-    <!-- <li>Additional Info: <%= question.additional_info ? 'Required' : 'Optional' %></li> -->
   <% end %>
+  <input type="submit" value="Next" style="display: none" class="btn btn-success" id="completeRegistrationButton">
 </div>

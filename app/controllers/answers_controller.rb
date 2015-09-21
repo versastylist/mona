@@ -1,13 +1,16 @@
 class AnswersController < ApplicationController
   def create
     # find
-    @answer = fetch_or_create_answer(answer_params)
+    @user = current_user
+    @answer = fetch_or_initialize_answer(answer_params)
 
     if @answer.save
-      binding.pry
-      render json: {status: 200}
+      if @user
+        questionnaire_complete = Questionnaire.first.questions.count == @user.answers.count
+      end
+      render json: {status: 200, questionnaireComplete: questionnaire_complete}
     else
-      render json: {status: 400}
+      render json: {status: 400, questionnaireComplete: questionnaire_complete}
     end
   end
 
@@ -27,10 +30,11 @@ class AnswersController < ApplicationController
     )
   end
 
-  def fetch_or_create_answer(params)
+  def fetch_or_initialize_answer(params)
     question = Question.find(params[:question_id])
     user = User.find(params[:user_id])
     answer = Answer.where(question: question, user: user)
+
     if question && answer.any?
       answer = Answer.where(question: question, user: user)[0]
       answer.update_attributes(params)

@@ -14,7 +14,7 @@ class QuestionnairesController < ApplicationController
           user_id: @user.id
         }
 
-        answer = fetch_or_intialize_answer(ids)
+        answer = fetch_or_initialize_answer(ids)
         @answers << answer
       end
       render :complete_questionnaire
@@ -38,7 +38,7 @@ class QuestionnairesController < ApplicationController
 
   private
 
-  def fetch_or_intialize_answer(ids)
+  def fetch_or_initialize_answer(ids)
     check_answer = Answer.where(
       question_id: ids[:question_id],
       user_id: ids[:user_id]

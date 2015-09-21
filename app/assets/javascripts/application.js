@@ -19,7 +19,8 @@ $('.questionnaire-container .answerInput').on('click', function(e) {
   var questionnaireContainer = $('.questionnaire-container');
   var userId = questionnaireContainer.find('.userId')[0].value;
   var currentIndex = e.target.className.replace('answerInput answer', '');
-  var questionId = questionnaireContainer.find('.questionId')[0].value;
+  var questionId = questionnaireContainer.find('.questionId')[currentIndex].value;
+  console.log(questionId)
   var userType = questionnaireContainer.find('.userType')[0].value;
   var answer = e.target.value;
 
@@ -35,7 +36,9 @@ $('.questionnaire-container .answerInput').on('click', function(e) {
       }
     }
   })
-  request.done(function(msg) {
-    console.log(msg)
+  request.done(function(data) {
+    if (data.questionnaireComplete) {
+      $('#completeRegistrationButton').show()
+    }
   })
 });
