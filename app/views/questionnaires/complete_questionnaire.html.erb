@@ -35,5 +35,9 @@
       <% end %>
     <% end %>
   <% end %>
-  <input type="submit" value="Next" style="display: none" class="btn btn-success" id="completeRegistrationButton">
+  <% if @questionnaire_complete %>
+    <input type="submit" value="Next" class="btn btn-success" id="completeRegistrationButton">
+  <% else %>
+    <input type="submit" value="Next" style="display: none" class="btn btn-success" id="completeRegistrationButton">
+  <% end %>
 </div>

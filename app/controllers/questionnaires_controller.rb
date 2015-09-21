@@ -17,6 +17,8 @@ class QuestionnairesController < ApplicationController
         answer = fetch_or_initialize_answer(ids)
         @answers << answer
       end
+
+      @questionnaire_complete = Questionnaire.first.questions.count == @user.answers.count
       render :complete_questionnaire
     end
   end
