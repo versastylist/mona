@@ -2,13 +2,9 @@ class AnswersController < ApplicationController
   def create
     # find
     @answer = fetch_or_create_answer(answer_params)
-    # question = Question.find(params[:answer][:question_id])
-    # user = User.find(params[:answer][:user_id])
-    # question_params = {question: question, user: user}
-    # @answer = question ? Answer.where(question_params) : Answer.new(answer_params)
-    binding.pry
 
     if @answer.save
+      binding.pry
       render json: {status: 200}
     else
       render json: {status: 400}
@@ -34,9 +30,10 @@ class AnswersController < ApplicationController
   def fetch_or_create_answer(params)
     question = Question.find(params[:question_id])
     user = User.find(params[:user_id])
-    binding.pry
-    if question
-      answer = Answer.find_by(question: question, user: user)[0].update(params)
+    answer = Answer.where(question: question, user: user)
+    if question && answer.any?
+      answer = Answer.where(question: question, user: user)[0]
+      answer.update_attributes(params)
     else
       answer = Answer.new(params)
     end

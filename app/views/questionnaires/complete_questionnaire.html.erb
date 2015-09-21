@@ -2,12 +2,25 @@
   <% @questions.each_with_index do |question, i| %>
     <!-- if user is a client -->
     <%= form_for @answers[i], :url => user_answers_path do |f| %>
-      <li>Client question: <%= question.client_question %></li>
+      <% if @user && @user.role == 'client' %>
+        <li>Client question: <%= question.client_question %></li>
+      <% elsif @user && @user.role == 'stylist' %>
+        <li>Stylist question: <%= question.stylist_question %></li>
+      <% end %>
+
       <%= f.label :answer, 'yes' %>
-      <%= f.radio_button :answer, true, class: "answerInput answer#{i}" %>
+      <% if @answers[i].id %>
+        <%= f.radio_button :answer, true, class: "answerInput answer#{i}", checked: true %>
+      <% else %>
+        <%= f.radio_button :answer, true, class: "answerInput answer#{i}" %>
+      <% end %>
 
       <%= f.label :answer, 'no' %>
-      <%= f.radio_button :answer, false, class: "answerInput answer#{i}" %>
+      <% if @answers[i].id %>
+      <%= f.radio_button :answer, false, class: "answerInput answer#{i}", checked: true %>
+      <% else %>
+        <%= f.radio_button :answer, false, class: "answerInput answer#{i}" %>
+      <% end %>
 
       <% if i == 0 %>
         <input type="hidden" value=<%= @questions[i].id %> name="answer[question_id]", class="questionId">
@@ -15,8 +28,6 @@
           class="userId">
         <input type="hidden" value=<%= @user.role %> name="answer[user_type]", class="userType">
       <% end %>
-
-      <%= f.submit 'Save Answer' %>
     <% end %>
     <!-- if user is a stylist -->
     <!-- <li>Stylist question: <%= question.stylist_question %></li> -->

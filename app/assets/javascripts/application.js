@@ -37,6 +37,5 @@ $('.questionnaire-container .answerInput').on('click', function(e) {
   })
   request.done(function(msg) {
     console.log(msg)
-    debugger;
   })
 });

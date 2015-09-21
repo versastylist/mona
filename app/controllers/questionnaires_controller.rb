@@ -9,7 +9,13 @@ class QuestionnairesController < ApplicationController
       @answers = []
 
       @questions.length.times do |i|
-        @answers << Answer.new
+        ids = {
+          question_id: @questions[i].id,
+          user_id: @user.id
+        }
+
+        answer = fetch_or_intialize_answer(ids)
+        @answers << answer
       end
       render :complete_questionnaire
     end
@@ -32,17 +38,11 @@ class QuestionnairesController < ApplicationController
 
   private
 
-  # def registration_params
-  #   params.require(:client_registration).permit(
-  #     :first_name,
-  #     :last_name,
-  #     :phone_number,
-  #     :avatar,
-  #     :dob,
-  #     :gender,
-  #     :timezone,
-  #     :facebook,
-  #     :linked_in
-  #   )
-  # end
+  def fetch_or_intialize_answer(ids)
+    check_answer = Answer.where(
+      question_id: ids[:question_id],
+      user_id: ids[:user_id]
+    )
+    answer = check_answer.any? ? check_answer.first : Answer.new
+  end
 end
