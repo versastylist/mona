@@ -24,6 +24,7 @@
 
       <!-- <input type="checkbox" name="my-checkbox" checked> -->
 
+<!-- this should only show if a user answers yes where an additional info field is true -->
       <% if @questions[i].additional_info %>
         <%= f.text_area :additional_info, required: true %>
       <% end %>
