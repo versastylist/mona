@@ -42,3 +42,5 @@ $('.questionnaire-container .answerInput').on('click', function(e) {
     }
   })
 });
+
+$("[name='my-checkbox']").bootstrapSwitch();

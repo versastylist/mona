@@ -10,17 +10,19 @@
 
       <% if @answers[i].id %>
         <%= f.label :answer, 'yes' %>
-        <%= f.radio_button :answer, true, class: "answerInput answer#{i}",
+        <%= f.check_box :answer, true, class: "answerInput answer#{i}", name: 'my-checkbox',
           checked: @answers[i].answer == true %>
         <%= f.label :answer, 'no' %>
-        <%= f.radio_button :answer, false, class: "answerInput answer#{i}",
+        <%= f.check_box :answer, false, class: "answerInput answer#{i}", name: 'my-checkbox',
           checked: @answers[i].answer == false %>
       <% else %>
         <%= f.label :answer, 'yes' %>
-        <%= f.radio_button :answer, true, class: "answerInput answer#{i}" %>
+        <%= f.check_box :answer, true, class: "answerInput answer#{i}", name: 'my-checkbox' %>
         <%= f.label :answer, 'no' %>
-        <%= f.radio_button :answer, false, class: "answerInput answer#{i}" %>
+        <%= f.check_box :answer, false, class: "answerInput answer#{i}", name: 'my-checkbox' %>
       <% end %>
+
+      <!-- <input type="checkbox" name="my-checkbox" checked> -->
 
       <% if @questions[i].additional_info %>
         <%= f.text_area :additional_info, required: true %>
