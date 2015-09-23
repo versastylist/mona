@@ -20,8 +20,6 @@
         <%= f.radio_button :answer, false, class: "answerInput answer#{i}" %>
       <% end %>
 
-      <!-- <input type="checkbox" name="my-checkbox" checked> -->
-
       <input type="hidden" value=<%= @questions[i].id %> name="answer[question_id]", class="questionId">
 
       <% if i == 0 %>

@@ -6,7 +6,7 @@ class AnswersController < ApplicationController
 
     if @answer.save
       if @user
-        questionnaire_complete = Questionnaire.first.questions.count == @user.answers.count
+        questionnaire_complete = Questionnaire.first.completed?
       end
       render json: {status: 200, questionnaireComplete: questionnaire_complete}
     else
@@ -24,7 +24,6 @@ class AnswersController < ApplicationController
     params.require(:answer).permit(
       :user_type,
       :answer,
-      :additional_info,
       :user_id,
       :question_id
     )

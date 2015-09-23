@@ -1,8 +1,9 @@
 class QuestionnairesController < ApplicationController
   def new
     @user = current_user
-    questionnaire_id = params[:questionnaire_id]
-    @questionnaire = questionnaire_id ? Questionnaire.find(questionnaire_id) : Questionnaire.new
+    questionnaire_id = Questionnaire.first
+
+    @questionnaire = Questionnaire.new.fetch_or_initialize(questionnaire_id)
 
     if @questionnaire && @questionnaire.questions.any? #need to add completed field
       @questions = @questionnaire.questions
@@ -14,16 +15,19 @@ class QuestionnairesController < ApplicationController
           user_id: @user.id
         }
 
-        answer = fetch_or_initialize_answer(ids)
+        answer = Answer.new.fetch_or_initialize(ids)
         @answers << answer
       end
 
-      @questionnaire_complete = Questionnaire.first.questions.count == @user.answers.count
+      #@questionnaire_complete = Questionnaire.first.questions.count == @user.answers.count
+      @questionnaire_complete = Questionnaire.first.completed?(@user)
+
       render :complete_questionnaire
     end
   end
 
   def create
+    # might need to remove this if we will not let anyone create/modify questionnaires
     @questionnaire = Questionnaire.new
     if @questionnaire.save
       # redirect_to some_path
@@ -35,16 +39,8 @@ class QuestionnairesController < ApplicationController
   end
 
   def index
-    @questionnaires = Questionnaire.all #hard-code, re-factor later
+    @questionnaires = Questionnaire.all
   end
 
   private
-
-  def fetch_or_initialize_answer(ids)
-    check_answer = Answer.where(
-      question_id: ids[:question_id],
-      user_id: ids[:user_id]
-    )
-    answer = check_answer.any? ? check_answer.first : Answer.new
-  end
 end
