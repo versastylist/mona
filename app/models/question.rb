@@ -5,7 +5,6 @@
 #  id               :integer          not null, primary key
 #  client_question  :string
 #  stylist_question :string
-#  additional_info  :boolean
 #  questionnaire_id :integer
 #
 
@@ -17,10 +16,6 @@ class Question < ActiveRecord::Base
     presence: true
   validates :stylist_question,
     presence: true
-  validates :additional_info,
-    inclusion: {in: [true, false]}
   validates :questionnaire,
     presence: true
-
-  # accepts_nested_attributes_for :answers, :reject_if => lambda { |a| a[:content].blank? }, :allow_destroy => true
 end

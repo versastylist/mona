@@ -10,24 +10,17 @@
 
       <% if @answers[i].id %>
         <%= f.label :answer, 'yes' %>
-        <%= f.check_box :answer, true, class: "answerInput answer#{i}", name: 'my-checkbox',
-          checked: @answers[i].answer == true %>
+        <%= f.radio_button :answer, true, class: "answerInput answer#{i}", checked: @answers[i].answer == true %>
         <%= f.label :answer, 'no' %>
-        <%= f.check_box :answer, false, class: "answerInput answer#{i}", name: 'my-checkbox',
-          checked: @answers[i].answer == false %>
+        <%= f.radio_button :answer, false, class: "answerInput answer#{i}", checked: @answers[i].answer == false %>
       <% else %>
         <%= f.label :answer, 'yes' %>
-        <%= f.check_box :answer, true, class: "answerInput answer#{i}", name: 'my-checkbox' %>
+        <%= f.radio_button :answer, true, class: "answerInput answer#{i}" %>
         <%= f.label :answer, 'no' %>
-        <%= f.check_box :answer, false, class: "answerInput answer#{i}", name: 'my-checkbox' %>
+        <%= f.radio_button :answer, false, class: "answerInput answer#{i}" %>
       <% end %>
 
       <!-- <input type="checkbox" name="my-checkbox" checked> -->
-
-<!-- this should only show if a user answers yes where an additional info field is true -->
-      <% if @questions[i].additional_info %>
-        <%= f.text_area :additional_info, required: true %>
-      <% end %>
 
       <input type="hidden" value=<%= @questions[i].id %> name="answer[question_id]", class="questionId">
 

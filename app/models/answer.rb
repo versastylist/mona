@@ -2,12 +2,11 @@
 #
 # Table name: answers
 #
-#  id              :integer          not null, primary key
-#  user_type       :integer
-#  answer          :boolean
-#  additional_info :string
-#  user_id         :integer
-#  question_id     :integer
+#  id          :integer          not null, primary key
+#  user_type   :integer
+#  answer      :boolean
+#  user_id     :integer
+#  question_id :integer
 #
 
 class Answer < ActiveRecord::Base

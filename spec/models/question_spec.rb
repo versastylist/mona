@@ -5,7 +5,6 @@
 #  id               :integer          not null, primary key
 #  client_question  :string
 #  stylist_question :string
-#  additional_info  :boolean
 #  questionnaire_id :integer
 #
 
