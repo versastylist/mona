@@ -25,6 +25,10 @@ class UserDecorator < Draper::Decorator
     end
   end
 
+  def profile_path
+    object.stylist? ? stylist_path(object) : user_path(object)
+  end
+
   private
 
   def not_registered?
