@@ -19,27 +19,10 @@ class QuestionnairesController < ApplicationController
         @answers << answer
       end
 
-      #@questionnaire_complete = Questionnaire.first.questions.count == @user.answers.count
       @questionnaire_complete = Questionnaire.first.completed?(@user)
 
       render :complete_questionnaire
     end
-  end
-
-  def create
-    # might need to remove this if we will not let anyone create/modify questionnaires
-    @questionnaire = Questionnaire.new
-    if @questionnaire.save
-      # redirect_to some_path
-      # success
-    else
-      # errors
-      render :new
-    end
-  end
-
-  def index
-    @questionnaires = Questionnaire.all
   end
 
   private

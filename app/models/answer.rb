@@ -30,6 +30,22 @@ class Answer < ActiveRecord::Base
     answer = check_answer.any? ? check_answer.first : Answer.new
   end
 
+  def update_or_initialize(params)
+    question = Question.find(params[:question_id])
+    user = User.find(params[:user_id])
+    answer = Answer.where(question: question, user: user)
+
+    if question && answer.any?
+      answer = answer.first
+      answer.update_attributes(params)
+    else
+      answer = Answer.new(params)
+    end
+
+    answer
+  end
+
+# we may be able to remove this && even the user_type field, let me know what you think
   def user_type_to_s
     case self.user_type
     when 0

@@ -18,6 +18,6 @@ class Questionnaire < ActiveRecord::Base
 
   def completed?(user)
     answers = user.answers
-    questions && user && answers && questions.count == questions.joins(:answers).count
+    questions && user && answers && questions.count == user.answers.count
   end
 end
