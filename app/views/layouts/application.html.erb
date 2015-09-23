@@ -14,20 +14,6 @@
       <%= yield %>
     </div>
 
-  <% if current_user %>
-    <% if Questionnaire.count == 0 %>
-      <%= link_to 'Add Questionnaire',
-                  new_questionnaire_path,
-                  class: 'btn btn-success'
-      %>
-    <% else %>
-      <%= link_to 'View Questionnaires',
-                  questionnaires_path,
-                  class: 'btn btn-success'
-      %>
-    <% end %>
-  <% end %>
-
     <%= javascript_include_tag 'application' %>
     <%= yield :extra_footer %>
   </body>
