@@ -12,6 +12,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def verify_completed_registration!
+    unless current_user.completed_registration?
+      flash[:warning] = "Make sure to complete your registration!"
+      redirect_to current_user.next_registration_step
+    end
+  end
+
   protected
 
   def devise_permitted_paramters

@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   resources :payment_infos, only: [:new, :create]
 
   # This should remain towards bottom for pattern matching purposes
-  get '/:id', as: :stylist, to: 'users#show'
+  get '/:id', as: :stylist, to: 'stylists#show'
 end
