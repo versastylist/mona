@@ -3,9 +3,9 @@
 # Table name: questions
 #
 #  id               :integer          not null, primary key
-#  client_question  :string
-#  stylist_question :string
-#  questionnaire_id :integer
+#  client_question  :string           not null
+#  stylist_question :string           not null
+#  questionnaire_id :integer          not null
 #
 
 class Question < ActiveRecord::Base

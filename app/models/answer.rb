@@ -3,10 +3,10 @@
 # Table name: answers
 #
 #  id          :integer          not null, primary key
-#  user_type   :integer
-#  answer      :boolean
-#  user_id     :integer
-#  question_id :integer
+#  user_type   :integer          not null
+#  answer      :boolean          not null
+#  user_id     :integer          not null
+#  question_id :integer          not null
 #
 
 class Answer < ActiveRecord::Base
