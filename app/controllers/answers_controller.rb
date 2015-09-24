@@ -1,11 +1,11 @@
 class AnswersController < ApplicationController
   def create
     # find
-    @user = current_user
+    current_user
     @answer = Answer.new.update_or_initialize(answer_params)
 
-    if @user && @answer.save
-      questionnaire_complete = Questionnaire.first.completed?(@user)
+    if current_user && @answer.save
+      questionnaire_complete = Questionnaire.first.completed?(current_user)
 
       render json: {status: 200, questionnaireComplete: questionnaire_complete}
     else
