@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   has_many :services
   has_many :service_products, through: :services
   has_many :service_menus, through: :services
-  has_many :weekly_schedules
+  has_many :weekly_schedules, foreign_key: 'stylist_id'
 
   validates :username,
     presence: true,
@@ -71,6 +71,12 @@ class User < ActiveRecord::Base
 
   def stylist?
     role == "stylist"
+  end
+
+  def verified_by_management?
+    # This needs to be changed once we have the concept
+    # of verifying a stylist to be able to work
+    true
   end
 
   def completed_registration?

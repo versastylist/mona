@@ -14,10 +14,6 @@ module ApplicationHelper
     registrations.include?(action)
   end
 
-  def days_of_the_week
-    ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-  end
-
   def us_states
     [
       ['Alabama', 'AL'],

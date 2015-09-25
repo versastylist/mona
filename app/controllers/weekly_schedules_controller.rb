@@ -1,4 +1,6 @@
 class WeeklySchedulesController < ApplicationController
+  before_action :stylist_has_been_verified!
+
   def new
     @schedule = WeeklySchedule.new
   end
@@ -9,6 +11,8 @@ class WeeklySchedulesController < ApplicationController
 
     if @schedule.save
       redirect_to root_path, success: 'Success!'
+    else
+      redirect_to root_path, warning: 'Failure'
     end
   end
 
@@ -17,7 +21,7 @@ class WeeklySchedulesController < ApplicationController
   def weekly_schedule_params
     params.require(:weekly_schedule).permit(
       :name,
-      week_days_attributes: [:day_of_week, :start_time, :end_time]
+      week_days_attributes: [:day_of_week, :start_time, :end_time, :active]
     )
   end
 end

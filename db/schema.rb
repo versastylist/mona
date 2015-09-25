@@ -113,7 +113,6 @@ ActiveRecord::Schema.define(version: 20150925013038) do
 
   create_table "weekly_schedules", force: :cascade do |t|
     t.integer  "stylist_id", null: false
-    t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

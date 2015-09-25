@@ -19,6 +19,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def stylist_has_been_verified!
+    unless current_user.verified_by_management?
+      flash[:danger] = "You need to be verified by management first."
+      redirect_to :back
+    end
+  end
+
   protected
 
   def devise_permitted_paramters
