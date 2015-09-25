@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: service_categories
+# Table name: service_menus
 #
 #  id               :integer          not null, primary key
 #  name             :string

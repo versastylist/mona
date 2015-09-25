@@ -1,23 +1,6 @@
 <h1>Schedule</h1>
 
-<table class="table table-hover">
-  <thead>
-    <th>Name</th>
-    <th>Status</th>
-    <th>Duration</th>
-    <th>Settings</th>
-  </thead>
-  <tbody>
-    <% @service_products.each do |service| %>
-      <tr>
-        <td><%= service.name %></td>
-        <td>ON</td>
-        <td><%= service.minute_duration %></td>
-        <td>
-          <i class="fa fa-cog fa-2x"></i>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<%= link_to new_weekly_schedule_path, class: 'btn btn-success' do %>
+  <i class="fa fa-plus"></i>
+  Add Weekly Schedule
+<% end %>

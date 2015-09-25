@@ -1,0 +1,52 @@
+<h1>New Weekly Schedule</h1>
+
+<%= form_for @schedule do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <% days_of_the_week.each do |week_day| %>
+    <%= f.fields_for :week_days, @schedule.week_days.find_or_initialize_by(day_of_week: week_day) do |wday| %>
+        <p><%= week_day.capitalize %></p>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <%= wday.label :active %>
+              <%= wday. %>
+            </div>
+
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <%= wday.label :start_time %>
+              <div class="input-group clockpicker">
+                <%= wday.text_field :start_time, class: 'form-control', value: '9:00' %>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+                <%= wday.label :end_time %>
+              <div class="input-group clockpicker">
+                <%= wday.text_field :end_time, class: 'form-control', value: '5:00' %>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <%= wday.hidden_field :day_of_week, value: week_day %>
+    <% end %>
+  <% end %>
+
+  <%= f.submit 'Create Schedule', class: 'btn btn-success' %>
+<% end %>

@@ -14,5 +14,12 @@
 //= require jquery_ujs
 //= require cocoon
 //= require bootstrap-sprockets
+//= require bootstrap-clockpicker.min
 //= require_tree .
+
+$(function() {
+  $('.clockpicker').clockpicker({
+    donetext: 'Done'
+  });
+});
 

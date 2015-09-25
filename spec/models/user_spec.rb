@@ -35,6 +35,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:services) }
     it { should have_many(:service_products).through(:services) }
     it { should have_many(:service_menus).through(:services) }
+    # it { should have_many(:weekly_schedules) } # figure out why this isnt' working
   end
 
   context "validations" do
