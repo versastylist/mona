@@ -15,11 +15,11 @@
 //= require cocoon
 //= require bootstrap-sprockets
 //= require bootstrap-clockpicker.min
+//= require bootstrap-timepicker.min
 //= require_tree .
 
 $(function() {
-  $('.clockpicker').clockpicker({
-    donetext: 'Done'
-  });
+  $('.start-timepicker').timepicker('setTime', '9:00 AM')
+  $('.end-timepicker').timepicker('setTime', '5:00 PM');
 });
 

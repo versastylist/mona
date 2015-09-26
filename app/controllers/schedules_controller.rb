@@ -1,12 +1,12 @@
-class WeeklySchedulesController < ApplicationController
+class SchedulesController < ApplicationController
   before_action :stylist_has_been_verified!
 
   def new
-    @schedule = WeeklySchedule.new
+    @schedule = Schedule.new
   end
 
   def create
-    @schedule = WeeklySchedule.new(weekly_schedule_params)
+    @schedule = Schedule.new(schedule_params)
     @schedule.stylist_id = current_user.id
 
     if @schedule.save
@@ -18,9 +18,9 @@ class WeeklySchedulesController < ApplicationController
 
   private
 
-  def weekly_schedule_params
-    params.require(:weekly_schedule).permit(
-      :name,
+  def schedule_params
+    params.require(:schedule).permit(
+      :name, :start_date, :end_date,
       week_days_attributes: [:day_of_week, :start_time, :end_time, :active]
     )
   end

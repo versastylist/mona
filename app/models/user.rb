@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   has_many :services
   has_many :service_products, through: :services
   has_many :service_menus, through: :services
-  has_many :weekly_schedules, foreign_key: 'stylist_id'
+  has_many :schedules, foreign_key: 'stylist_id'
 
   validates :username,
     presence: true,

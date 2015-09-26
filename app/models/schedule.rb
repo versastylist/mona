@@ -1,14 +1,17 @@
 # == Schema Information
 #
-# Table name: weekly_schedules
+# Table name: schedules
 #
 #  id         :integer          not null, primary key
 #  stylist_id :integer          not null
+#  state      :string
+#  start_date :date
+#  end_date   :date
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class WeeklySchedule < ActiveRecord::Base
+class Schedule < ActiveRecord::Base
   belongs_to :stylist, class_name: 'User'
   has_many :week_days
 

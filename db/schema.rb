@@ -52,6 +52,15 @@ ActiveRecord::Schema.define(version: 20150925013038) do
     t.string   "avatar_cache"
   end
 
+  create_table "schedules", force: :cascade do |t|
+    t.integer  "stylist_id", null: false
+    t.string   "state"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "service_menus", force: :cascade do |t|
     t.string   "name"
     t.boolean  "licence_required", default: false
@@ -102,19 +111,13 @@ ActiveRecord::Schema.define(version: 20150925013038) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "week_days", force: :cascade do |t|
-    t.string   "day_of_week",                       null: false
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.integer  "weekly_schedule_id"
-    t.boolean  "active",             default: true
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-  end
-
-  create_table "weekly_schedules", force: :cascade do |t|
-    t.integer  "stylist_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.date     "day_of_week",                null: false
+    t.time     "start_time"
+    t.time     "end_time"
+    t.integer  "schedule_id"
+    t.boolean  "active",      default: true
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
 end
