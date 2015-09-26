@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require cocoon
 //= require bootstrap-sprockets
-//= require bootstrap-clockpicker.min
 //= require bootstrap-timepicker.min
 //= require_tree .
 
