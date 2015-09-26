@@ -2,9 +2,9 @@
   <% @questions.each_with_index do |question, i| %>
     <!-- if user is a client -->
     <%= form_for @answers[i], :url => user_answers_path do |f| %>
-      <% if @user && @user.role == 'client' %>
+      <% if current_user && current_user.role == 'client' %>
         <li>Client question: <%= question.client_question %></li>
-      <% elsif @user && @user.role == 'stylist' %>
+      <% elsif current_user && current_user.role == 'stylist' %>
         <li>Stylist question: <%= question.stylist_question %></li>
       <% end %>
 
@@ -23,9 +23,9 @@
       <input type="hidden" value=<%= @questions[i].id %> name="answer[question_id]", class="questionId">
 
       <% if i == 0 %>
-        <input type="hidden" value=<%= @user.id %> name="answer[user_id]"
+        <input type="hidden" value=<%= current_user.id %> name="answer[user_id]"
           class="userId">
-        <input type="hidden" value=<%= @user.role %> name="answer[user_type]", class="userType">
+        <input type="hidden" value=<%= current_user.role %> name="answer[user_type]", class="userType">
       <% end %>
     <% end %>
   <% end %>
