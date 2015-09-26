@@ -18,7 +18,7 @@
 #
 
 class Registration < ActiveRecord::Base
-  GENDERS = ['Male', 'Female']
+  GENDERS = ['Female', 'Male']
   belongs_to :user
 
   validates_presence_of :dob,
