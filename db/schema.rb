@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150920151958) do
+ActiveRecord::Schema.define(version: 20150925013038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,15 @@ ActiveRecord::Schema.define(version: 20150920151958) do
     t.datetime "updated_at",   null: false
     t.string   "avatar"
     t.string   "avatar_cache"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.integer  "stylist_id", null: false
+    t.string   "state"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "service_menus", force: :cascade do |t|
@@ -100,5 +109,15 @@ ActiveRecord::Schema.define(version: 20150920151958) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "week_days", force: :cascade do |t|
+    t.date     "day_of_week",                null: false
+    t.time     "start_time"
+    t.time     "end_time"
+    t.integer  "schedule_id"
+    t.boolean  "active",      default: true
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
 end

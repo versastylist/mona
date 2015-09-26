@@ -14,5 +14,11 @@
 //= require jquery_ujs
 //= require cocoon
 //= require bootstrap-sprockets
+//= require bootstrap-timepicker.min
 //= require_tree .
+
+$(function() {
+  $('.start-timepicker').timepicker('setTime', '9:00 AM')
+  $('.end-timepicker').timepicker('setTime', '5:00 PM');
+});
 

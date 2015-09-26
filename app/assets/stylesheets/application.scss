@@ -15,6 +15,7 @@
 /* Frameworks */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-timepicker.min";
 
 /* Fonts */
 @import "font-awesome-sprockets";
@@ -32,5 +33,4 @@
 @import "pages/registration";
 @import "pages/services";
 @import "pages/stylists";
-
-
+@import "pages/schedules";
