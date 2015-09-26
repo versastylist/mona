@@ -1,0 +1,36 @@
+<p><%= week_day.strftime('%A, %m/%d/%y') %></p>
+
+<%= bs_row do %>
+  <%= bs_column(4) do %>
+    <%= wday.label :active %>
+    <div class="form-group">
+      <%= wday.check_box :active, value: "1" %>
+    </div>
+  <% end %>
+
+  <%= bs_column(4) do %>
+    <div class="form-group">
+      <%= wday.label :start_time %>
+      <div class="input-group">
+        <%= wday.text_field :start_time, class: 'form-control start-timepicker' %>
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-time"></span>
+        </span>
+      </div>
+    </div>
+  <% end %>
+
+  <%= bs_column(4) do %>
+    <div class="form-group">
+      <%= wday.label :end_time %>
+      <div class="input-group ">
+        <%= wday.text_field :end_time, class: 'form-control end-timepicker' %>
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-time"></span>
+        </span>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<%= wday.hidden_field :day_of_week, value: week_day %>
