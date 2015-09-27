@@ -6,14 +6,9 @@
 
     <ul class="nav navbar-nav navbar-right">
       <%- if current_user.authenticated? -%>
-        <li>
-          <%# Some weird reason my browser won't regonize method delete with a tags %>
-          <%# I started using button but that seems broken, going to find solution %>
-          <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
-        </li>
-        <li> <%= link_to 'Stylists', users_path %></li>
         <li> <%= link_to 'Profile', current_user.profile_path %></li>
         <li> <%= link_to 'Find Service', menu_filters_path %></li>
+        <li> <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %> </li>
       <%- else -%>
         <li><%= link_to 'Sign Up', new_user_registration_path %></li>
         <li><%= link_to 'Sign In', new_user_session_path %></li>
