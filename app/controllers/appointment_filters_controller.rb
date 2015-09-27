@@ -7,7 +7,7 @@ class AppointmentFiltersController < ApplicationController
       @service_products = ServiceProduct.search(
         params[:query],
         page: params[:page],
-        per_page: 2,
+        per_page: 10,
         where: {
           service_menu: [@service_menu.name],
           price: {gt: lower_bound, lt: upper_bound}
