@@ -37,7 +37,8 @@
       <%= f.submit %>
     <% end %>
   <% end %>
-  <% if @questionnaire_complete %>
+  <% binding.pry %>
+  <% if @questionnaire.completed?(current_user) %>
     <input type="submit" value="Next" class="btn btn-success" id="completeRegistrationButton">
     Acknowledgement Statement:
       I have []

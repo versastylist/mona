@@ -2,7 +2,8 @@
 #
 # Table name: questionnaires
 #
-#  id :integer          not null, primary key
+#  id                 :integer          not null, primary key
+#  questionnaire_type :integer          not null
 #
 
 require 'rails_helper'
