@@ -9,15 +9,15 @@
   <div class="form-group">
     <%= label_tag :price_range %>
     <br />
-    <span>$20</span>
+    <span class="label label-success">$20</span>
     <%= text_field_tag :price_range, '', class: "appt-cost-slider", data: {
       :"slider-min" => 20,
       :"slider-max" => 150,
       :"slider-step" => 5,
-      :"slider-value" => [20, 100],
+      :"slider-value" => [30, 100],
       :"slider-orientation" => "horizontal",
     } %>
-    <span>$150</span>
+    <span class="label label-success">$150</span>
   </div>
   <%= submit_tag "Search", name: nil, class: 'btn btn-success' %>
 <% end %>

@@ -63,6 +63,6 @@ FactoryGirl.define do
 
   factory :service do
     service_menu
-    user
+    stylist
   end
 end

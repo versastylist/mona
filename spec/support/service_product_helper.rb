@@ -2,7 +2,7 @@ module ServiceProductHelper
   def create_service_product(stylist, options = {})
     options = service_product_defaults.merge(options)
 
-    service = FactoryGirl.create(:service, user: stylist)
+    service = FactoryGirl.create(:service, stylist: stylist)
     options[:service] = service
 
     product = FactoryGirl.create(:service_product, options)

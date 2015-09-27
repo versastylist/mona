@@ -22,6 +22,7 @@ RSpec.describe ServiceProduct, type: :model do
   context "associations" do
     it { should belong_to(:service) }
     it { should have_one(:service_menu).through(:service) }
+    it { should have_one(:stylist).through(:service) }
   end
 
   context "validations" do

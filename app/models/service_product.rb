@@ -19,6 +19,7 @@
 class ServiceProduct < ActiveRecord::Base
   belongs_to :service
   has_one :service_menu, through: :service
+  has_one :stylist, through: :service
 
   validates :name,
     presence: true

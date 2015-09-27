@@ -13,7 +13,7 @@ require 'rails_helper'
 
 RSpec.describe Service, type: :model do
   context "associations" do
-    it { should belong_to(:user) }
+    it { should belong_to(:stylist) }
     it { should belong_to(:service_menu) }
     it { should have_many(:service_products) }
     it { should accept_nested_attributes_for(:service_products) }
