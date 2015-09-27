@@ -3,16 +3,19 @@ require 'rails_helper'
 feature 'stylist creates a weekly schedule' do
   let(:stylist) { FactoryGirl.create(:registered_stylist) }
 
-  scenario 'successfully', js: true do
-    sign_in stylist
-    visit stylist_path(stylist)
+  # not going to build feature specs for this until the process is more
+  # solidified
 
-    click_on 'Schedule'
-    click_on 'Add Weekly Schedule'
+  scenario 'successfully', js: true
+    # sign_in stylist
+    # visit stylist_path(stylist)
 
-    fill_in 'Name', with: 'Normal Schedule'
+    # click_on 'Schedule'
+    # click_on 'Add Weekly Schedule'
 
-    click_on 'Create Schedule'
-    expect(page).to have_content('Successfully created schedule')
-  end
+    # fill_in 'Name', with: 'Normal Schedule'
+
+    # click_on 'Create Schedule'
+    # expect(page).to have_content('Successfully created schedule')
+  # end
 end

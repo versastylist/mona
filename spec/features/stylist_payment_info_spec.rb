@@ -26,7 +26,7 @@ feature 'stylist enters their banking information' do
       visit new_payment_info_path
 
       click_on 'Skip Payment Info'
-      expect(page).to have_content('Services')
+      expect(page).to have_content('Service Menu')
       expect(page).to have_content("You still havn't finished your registration. Click here to finish")
     end
   end

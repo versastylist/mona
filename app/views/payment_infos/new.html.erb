@@ -2,7 +2,7 @@
 
 <%= render "payment_infos/#{current_user.role}_payment" %>
 
-<%= link_to 'Skip Payment Info', services_path, class: 'btn btn-warning pull-right' %>
+<%= link_to 'Skip Payment Info', menu_filters_path, class: 'btn btn-warning pull-right' %>
 
 <%= content_for :extra_footer do %>
   <%= javascript_include_tag 'https://js.stripe.com/v2/' %>
