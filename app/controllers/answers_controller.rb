@@ -1,15 +1,49 @@
 class AnswersController < ApplicationController
   def create
-    # find
     current_user
     @answer = Answer.new.update_or_initialize(answer_params)
 
-    if current_user && @answer.save
-      questionnaire_complete = Questionnaire.first.completed?(current_user)
+    questionnaire_complete = Questionnaire.first.completed?(current_user)
 
-      render json: {status: 200, questionnaireComplete: questionnaire_complete}
-    else
-      render json: {status: 400, questionnaireComplete: questionnaire_complete}
+    respond_to do |format|
+      if current_user && @answer.save
+        status = 200
+      else
+        status = 400
+      end
+
+      # format.html { render :complete_questionnaire }
+
+      format.html { redirect_to new_user_questionnaire_path }
+      format.json {
+        render json: {
+          status: status, questionnaireComplete: questionnaire_complete
+        }
+      }
+    end
+  end
+
+  def update
+    current_user
+    @answer = Answer.new.update_or_initialize(answer_params)
+
+    questionnaire_complete = Questionnaire.first.completed?(current_user)
+
+    respond_to do |format|
+      if current_user && @answer.save
+        status = 200
+      else
+        status = 400
+      end
+
+      # format.html { render :complete_questionnaire }
+
+      format.html { redirect_to new_user_questionnaire_path }
+      format.json {
+        render json: {
+          status: status, questionnaireComplete: questionnaire_complete
+        }
+      }
     end
   end
 

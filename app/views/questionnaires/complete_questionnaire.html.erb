@@ -1,12 +1,23 @@
 <div class="questionnaire-container">
   <% @questions.each_with_index do |question, i| %>
-    <!-- if user is a client -->
-    <%= form_for @answers[i], :url => user_answers_path do |f| %>
-      <% if current_user && current_user.role == 'client' %>
-        <li>Client question: <%= question.client_question %></li>
+    <% binding.pry if i == @answers[i].nil? %>
+  <!-- set urls for form action -->
+    <% update_url = @answers[i].nil? ? '' : user_answer_path(current_user, @answers[i]) %>
+    <% create_url = user_answers_path %>
+    <% answer_exists = !@answers[i].nil? %>
+    <% url = answer_exists ? update_url : create_url %>
+
+
+
+  <!-- set question type -->
+    <% if current_user && current_user.role == 'client' %>
+        <% question = question.client_question %>
       <% elsif current_user && current_user.role == 'stylist' %>
-        <li>Stylist question: <%= question.stylist_question %></li>
+        <% question = question.stylist_question %>
       <% end %>
+
+    <%= form_for @answers[i], :url => url do |f| %>
+      <li>Stylist question: <%= question %></li>
 
       <% if @answers[i].id %>
         <%= f.label :answer, 'yes' %>
@@ -22,11 +33,11 @@
 
       <input type="hidden" value=<%= @questions[i].id %> name="answer[question_id]", class="questionId">
 
-      <% if i == 0 %>
-        <input type="hidden" value=<%= current_user.id %> name="answer[user_id]"
-          class="userId">
-        <input type="hidden" value=<%= current_user.role %> name="answer[user_type]", class="userType">
-      <% end %>
+      <input type="hidden" value=<%= current_user.id %> name="answer[user_id]"
+        class="userId">
+      <input type="hidden" value=<%= current_user.role %> name="answer[user_type]", class="userType">
+
+      <%= f.submit %>
     <% end %>
   <% end %>
   <% if @questionnaire_complete %>

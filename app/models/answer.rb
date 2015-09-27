@@ -27,6 +27,7 @@ class Answer < ActiveRecord::Base
       question_id: ids[:question_id],
       user_id: ids[:user_id]
     )
+
     answer = check_answer.any? ? check_answer.first : Answer.new
   end
 
