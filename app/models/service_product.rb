@@ -31,6 +31,14 @@ class ServiceProduct < ActiveRecord::Base
 
   before_validation :set_minute_duration, unless: :skip_callbacks
 
+  searchkick
+
+  def search_data
+    attributes.merge(
+      service_menu: service_menu.name
+    )
+  end
+
   private
 
   def set_minute_duration

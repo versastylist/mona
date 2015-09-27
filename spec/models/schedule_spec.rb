@@ -10,12 +10,13 @@
 
 require 'rails_helper'
 
-RSpec.describe WeeklySchedule, type: :model do
+describe Schedule, type: :model do
   context "associations" do
     it { should belong_to(:stylist) }
+    it { should have_many(:week_days) }
+    it { should accept_nested_attributes_for(:week_days) }
   end
 
   context "validations" do
-    it { should validate_presence_of(:name) }
   end
 end

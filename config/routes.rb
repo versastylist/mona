@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   resources :payment_infos, only: [:new, :create]
   resources :schedules, only: [:new, :create]
 
+  resources :service_menu_filters, only: :index, as: :menu_filters do
+    resources :appointment_filters, only: [:new, :index], as: :appointments
+  end
+
   # This should remain towards bottom for pattern matching purposes
   get '/:id', as: :stylist, to: 'stylists#show'
 end

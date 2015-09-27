@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   has_one :registration
   has_one :questionnaire
   has_one :payment_info
+  has_one :primary_address, -> { where(primary: true) }, class_name: 'Address'
   has_many :addresses
   has_many :services
   has_many :service_products, through: :services
@@ -59,10 +60,6 @@ class User < ActiveRecord::Base
 
   def to_param
     stylist? ? username.parameterize : id.to_s
-  end
-
-  def primary_address
-    addresses.find_by(primary: true)
   end
 
   def client?

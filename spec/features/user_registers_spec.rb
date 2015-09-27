@@ -28,7 +28,7 @@ feature 'client registration' do
       page.find('#registration_dob').set("06/19/1992")
       select 'Male', from: 'Gender'
 
-      # Address sub form
+      # Address nested form
       fill_in 'Zip code', with: '02460'
       fill_in 'Address', with: '1 Congress St'
       fill_in 'City', with: 'Boston'
@@ -49,7 +49,7 @@ feature 'client registration' do
       visit new_registration_path
       click_on 'Skip Registration'
 
-      expect(page).to have_content('Services')
+      expect(page).to have_content('Service Menu')
       expect(page).to have_content("You still havn't finished your registration. Click here to finish")
     end
 

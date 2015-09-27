@@ -11,4 +11,5 @@
 
 class ServiceMenu < ActiveRecord::Base
   has_many :services
+  has_many :service_products, through: :services
 end

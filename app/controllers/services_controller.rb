@@ -12,10 +12,6 @@ class ServicesController < ApplicationController
     end
   end
 
-  def index
-    @services = ['haircut', 'coloring', 'styling']
-  end
-
   private
 
   def service_params

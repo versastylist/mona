@@ -1,0 +1,7 @@
+<h1>Service Menu</h1>
+
+<h3>What kind of service are you looking for?</h3>
+
+<% @service_menus.each do |menu| %>
+  <%= link_to menu.name, new_menu_filter_appointment_path(menu), class: 'btn btn-info' %>
+<% end %>

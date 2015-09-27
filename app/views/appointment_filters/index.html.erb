@@ -1,0 +1,25 @@
+<h1>Results</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Duration</th>
+      <th>Price</th>
+      <th>Details</th>
+      <th>Prep Instructions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @service_products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.minute_duration %></td>
+        <td><%= product.price %></td>
+        <td><%= product.details %></td>
+        <td><%= product.preparation_instructions %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
