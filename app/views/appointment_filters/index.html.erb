@@ -1,7 +1,14 @@
 <h1>Find Appointment For <%= @service_menu.name %></h1>
 
 <%= form_tag menu_filter_appointments_path(@service_menu), method: :get do %>
-  <%= text_field_tag :query, params[:query], id: "product-search" %>
+  <div class="form-group">
+    <%= label_tag :keyword %>
+    <%= text_field_tag :query, params[:query], id: "product-search", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <input type="text" class="appt-cost-slider" value="" data-slider-min="20" data-slider-max="150" data-slider-step="5" data-slider-value="[30, 70]" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="">
+  </div>
   <%= submit_tag "Search", name: nil, class: 'btn btn-success' %>
 <% end %>
 
