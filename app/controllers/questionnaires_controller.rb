@@ -20,7 +20,6 @@ class QuestionnairesController < ApplicationController
       end
 
       @questionnaire_complete = Questionnaire.first.completed?(@user)
-
       render :complete_questionnaire
     end
   end

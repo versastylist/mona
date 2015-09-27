@@ -1,13 +1,10 @@
 <div class="questionnaire-container">
   <% @questions.each_with_index do |question, i| %>
-    <% binding.pry if i == @answers[i].nil? %>
   <!-- set urls for form action -->
-    <% update_url = @answers[i].nil? ? '' : user_answer_path(current_user, @answers[i]) %>
+    <% update_url = @answers[i].id.nil? ? '' : user_answer_path(current_user, @answers[i]) %>
     <% create_url = user_answers_path %>
-    <% answer_exists = !@answers[i].nil? %>
+    <% answer_exists = !@answers[i].id.nil? %>
     <% url = answer_exists ? update_url : create_url %>
-
-
 
   <!-- set question type -->
     <% if current_user && current_user.role == 'client' %>
@@ -17,7 +14,7 @@
       <% end %>
 
     <%= form_for @answers[i], :url => url do |f| %>
-      <li>Stylist question: <%= question %></li>
+      <li><%= question %></li>
 
       <% if @answers[i].id %>
         <%= f.label :answer, 'yes' %>
@@ -42,6 +39,11 @@
   <% end %>
   <% if @questionnaire_complete %>
     <input type="submit" value="Next" class="btn btn-success" id="completeRegistrationButton">
+    Acknowledgement Statement:
+      I have []
+      I have []
+      I have []
+      I have []
   <% else %>
     <input type="submit" value="Next" style="display: none" class="btn btn-success" id="completeRegistrationButton">
   <% end %>
