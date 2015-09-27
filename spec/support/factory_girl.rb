@@ -48,4 +48,21 @@ FactoryGirl.define do
   factory :service_menu do
     name 'Barber'
   end
+
+  factory :service_product do
+    name 'Buzz Cut'
+    minute_duration 30
+    hours 0
+    minutes 30
+    price 25
+    details "A buzz cut for kids"
+    preparation_instructions "Be prepared to have no more hair after the buzz cut"
+    displayed true
+    service
+  end
+
+  factory :service do
+    service_menu
+    user
+  end
 end

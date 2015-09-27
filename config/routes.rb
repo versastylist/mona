@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :schedules, only: [:new, :create]
 
   resources :service_menu_filters, only: :index, as: :menu_filters do
-    resources :appointment_filters, only: :index, as: :appointments
+    resources :appointment_filters, only: [:new, :index], as: :appointments
   end
 
   # This should remain towards bottom for pattern matching purposes

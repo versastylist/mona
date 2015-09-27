@@ -14,5 +14,6 @@ require 'rails_helper'
 RSpec.describe ServiceMenu, type: :model do
   context "associations" do
     it { should have_many(:services) }
+    it { should have_many(:service_products).through(:services) }
   end
 end
