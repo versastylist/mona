@@ -6,6 +6,7 @@ gem 'rails', '4.2.4'
 # Database/Search
 gem 'pg'
 gem 'searchkick'    # Elastic Search
+gem 'kaminari'      # Pagination
 
 # Front end assets
 gem 'bootstrap-sass'
