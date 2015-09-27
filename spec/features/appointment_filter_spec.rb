@@ -12,7 +12,7 @@ feature 'user searching for appointments' do
                              details: 'A buzz cut for kids')
 
       menu = FactoryGirl.create(:service_menu, name: 'Barber')
-      visit new_menu_filter_appointment_path(menu)
+      visit menu_filter_appointments_path(menu)
 
       fill_in 'product-search', with: 'buzz cut'
       click_on 'Search'

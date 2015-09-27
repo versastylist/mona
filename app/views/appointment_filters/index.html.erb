@@ -1,25 +1,53 @@
-<h1>Results</h1>
+<h1>Find Appointment For <%= @service_menu.name %></h1>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Duration</th>
-      <th>Price</th>
-      <th>Details</th>
-      <th>Prep Instructions</th>
-    </tr>
-  </thead>
+<%= form_tag menu_filter_appointments_path(@service_menu), method: :get do %>
+  <div class="form-group">
+    <%= label_tag :keyword %>
+    <%= text_field_tag :query, params[:query], id: "product-search", class: 'form-control' %>
+  </div>
 
-  <tbody>
-    <% @service_products.each do |product| %>
+  <div class="form-group">
+    <%= label_tag :price_range %>
+    <br />
+    <span class="label label-success">$20</span>
+    <%= text_field_tag :price_range, '', class: "appt-cost-slider", data: {
+      :"slider-min" => 20,
+      :"slider-max" => 150,
+      :"slider-step" => 5,
+      :"slider-value" => [30, 100],
+      :"slider-orientation" => "horizontal",
+    } %>
+    <span class="label label-success">$150</span>
+  </div>
+  <%= submit_tag "Search", name: nil, class: 'btn btn-success' %>
+<% end %>
+
+<% if @service_products %>
+  <h1>Results</h1>
+
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td><%= product.name %></td>
-        <td><%= product.minute_duration %></td>
-        <td><%= product.price %></td>
-        <td><%= product.details %></td>
-        <td><%= product.preparation_instructions %></td>
+        <th>Name</th>
+        <th>Duration</th>
+        <th>Price</th>
+        <th>Details</th>
+        <th>Prep Instructions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @service_products.each do |product| %>
+        <tr>
+          <td><%= product.name %></td>
+          <td><%= product.minute_duration %></td>
+          <td><%= product.price %></td>
+          <td><%= product.details %></td>
+          <td><%= product.preparation_instructions %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @service_products %>
+<% end %>
