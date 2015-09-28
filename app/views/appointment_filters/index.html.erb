@@ -28,24 +28,18 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>Name</th>
+        <th></th>
+        <th>Stylist</th>
+        <th>Rating</th>
         <th>Duration</th>
+        <th>Name</th>
         <th>Price</th>
         <th>Details</th>
-        <th>Prep Instructions</th>
       </tr>
     </thead>
 
     <tbody>
-      <% @service_products.each do |product| %>
-        <tr>
-          <td><%= product.name %></td>
-          <td><%= product.minute_duration %></td>
-          <td><%= product.price %></td>
-          <td><%= product.details %></td>
-          <td><%= product.preparation_instructions %></td>
-        </tr>
-      <% end %>
+      <%= render partial: "appointment_filters/service_product", collection: @service_products, as: :product %>
     </tbody>
   </table>
 

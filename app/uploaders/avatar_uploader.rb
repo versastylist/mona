@@ -24,4 +24,8 @@ class AvatarUploader < CarrierWave::Uploader::Base
   version :thumb do
     process :resize_to_limit => [200, 200]
   end
+
+  version :micro do
+    process :resize_to_limit => [50, 50]
+  end
 end
