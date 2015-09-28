@@ -12,6 +12,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def verify_completed_registration!
+    unless current_user.completed_registration?
+      flash[:warning] = "Make sure to complete your registration!"
+      redirect_to current_user.next_registration_step
+    end
+  end
+
+  def stylist_has_been_verified!
+    unless current_user.verified_by_management?
+      flash[:danger] = "You need to be verified by management first."
+      redirect_to :back
+    end
+  end
+
   protected
 
   def devise_permitted_paramters

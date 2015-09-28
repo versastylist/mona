@@ -15,15 +15,23 @@
 /* Frameworks */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-timepicker.min";
+@import "slider";
 
 /* Fonts */
-/* put font imports here */
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 /* Globals */
 @import "variables";
 @import "mixins";
 
+/* Components */
+@import "components/buttons";
+
 /* Pages */
 @import "pages/home";
-
-
+@import "pages/registration";
+@import "pages/services";
+@import "pages/stylists";
+@import "pages/schedules";

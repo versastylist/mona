@@ -1,0 +1,23 @@
+<%= form_for @service do |f| %>
+  <% if @service.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @service.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :service_menu_id, "Service Menu" %>
+    <%= f.select :service_menu_id, ServiceMenu.all.collect { |s| [s.name, s.id] }, { prompt: 'Select Service Menu' }, { class: 'form-control' } %>
+  </div>
+
+  <div class="links" style="padding-left: 10px;">
+    <%= link_to_add_association 'Add New Product', f, :service_products, class: 'btn btn-info' %>
+  </div>
+
+  <div class="actions pull-right">
+    <%= f.submit 'Create Services', class: 'btn btn-success' %>
+  </div>
+<% end %>

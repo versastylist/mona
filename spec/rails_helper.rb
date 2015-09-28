@@ -9,14 +9,26 @@ require 'shoulda-matchers'
 require File.join(File.dirname(__FILE__), 'support/valid_attribute')
 require File.join(File.dirname(__FILE__), 'support/factory_girl')
 require 'capybara/rspec'
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
 
   config.include AuthenticationHelper
+  config.include ServiceProductHelper
+
+  config.before(:all, callbacks: true) do
+    ActiveRecord::Base.skip_callbacks = false
+  end
+
+  config.after(:all, callbacks: true) do
+    ActiveRecord::Base.skip_callbacks = true
+  end
 end
+ActiveRecord::Base.skip_callbacks = true

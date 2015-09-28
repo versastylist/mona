@@ -12,6 +12,10 @@ Running the test suite:
 rspec spec  
 ```
 
+**Stripe Credentials**
+[Go here to get test CC's and Bank Account Info](https://stripe.com/docs/testing)
+
+
 ## Workflow  
 ### Pull Request & Branching  
 When checking out a branch use initials and then description of feature followed by

@@ -14,29 +14,33 @@ class UserDecorator < Draper::Decorator
   def next_registration_step
     case
     when not_registered?
-      new_client_registration_path
+      new_registration_path
     when not_answered_questions?
       # To be added once josh submits PR
       '/'
     when not_filled_out_payment?
-      # to be added once payments are done
-      '/'
+      new_payment_info_path
     else
       root_path
     end
   end
 
+  def profile_path
+    object.stylist? ? stylist_path(object) : user_path(object)
+  end
+
   private
 
   def not_registered?
-    object.registration_process.include?('registration')
+    object.registration.nil?
   end
 
   def not_answered_questions?
-    object.registration_process.include?('questions')
+    # object.questionnaire.blank?
+    false
   end
 
   def not_filled_out_payment?
-    object.registration_process.include?('payment')
+    object.payment_info.nil?
   end
 end

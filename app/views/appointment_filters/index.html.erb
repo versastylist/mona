@@ -1,0 +1,47 @@
+<h1>Find Appointment For <%= @service_menu.name %></h1>
+
+<%= form_tag menu_filter_appointments_path(@service_menu), method: :get do %>
+  <div class="form-group">
+    <%= label_tag :keyword %>
+    <%= text_field_tag :query, params[:query], id: "product-search", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :price_range %>
+    <br />
+    <span class="label label-success">$20</span>
+    <%= text_field_tag :price_range, '', class: "appt-cost-slider", data: {
+      :"slider-min" => 20,
+      :"slider-max" => 150,
+      :"slider-step" => 5,
+      :"slider-value" => [30, 100],
+      :"slider-orientation" => "horizontal",
+    } %>
+    <span class="label label-success">$150</span>
+  </div>
+  <%= submit_tag "Search", name: nil, class: 'btn btn-success' %>
+<% end %>
+
+<% if @service_products %>
+  <h1>Results</h1>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Stylist</th>
+        <th>Rating</th>
+        <th>Duration</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= render partial: "appointment_filters/service_product", collection: @service_products, as: :product %>
+    </tbody>
+  </table>
+
+  <%= paginate @service_products %>
+<% end %>

@@ -5,21 +5,41 @@ gem 'rails', '4.2.4'
 
 # Database/Search
 gem 'pg'
+gem 'searchkick'    # Elastic Search
+gem 'kaminari'      # Pagination
 
 # Front end assets
 gem 'bootstrap-sass'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
+gem 'font-awesome-sass', '~> 4.4.0'
 
 # User Authentication
 gem 'devise'
 
 # Assorted
-gem 'draper'
+gem 'draper'        # ViewModels
+gem 'stripe'        # Payment Processing
+gem 'carrierwave'   # Image Uploading
+gem 'fog'           # S3 Cloud Uploading
+gem 'rmagick'       # Image Processing
+gem 'faker'         # Seeding Fake Data
+gem 'cocoon'        # JQuery Nested Forms
 
 # Production
-gem 'rails_12factor'
+group :production do
+  gem 'rails_12factor' # Required for Heroku
+end
+
+group :test do
+  gem 'poltergeist'      # Javascript Feature Tests
+  gem 'database_cleaner' 
+end
+
+group :development do
+  gem 'annotate'   # Shows Schema in Model files
+end
 
 group :development, :test do
   gem 'pry-rails'
@@ -29,11 +49,5 @@ group :development, :test do
   gem 'factory_girl'
   gem 'valid_attribute'
   gem 'shoulda-matchers', require: false
+  gem 'dotenv-rails'
 end
-
-group :development do
-  gem 'annotate'
-  gem 'quiet_assets'
-  gem 'better_errors'
-end
-

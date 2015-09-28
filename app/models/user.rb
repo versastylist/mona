@@ -18,8 +18,6 @@
 #  username               :string           not null
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
-#  registration_id        :integer
-#  registration_process   :string           default("registration questions payment")
 #
 # Indexes
 #
@@ -28,30 +26,38 @@
 #
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  include StylistSearch
+  has_one :registration
+  has_one :questionnaire
+  has_one :payment_info
+  has_one :primary_address, -> { where(primary: true) }, class_name: 'Address'
+  has_many :addresses
+  has_many :services
+  has_many :service_products, through: :services
+  has_many :service_menus, through: :services
+  has_many :schedules, foreign_key: 'stylist_id'
+  has_one :registration
+  has_many :answers
 
   validates :username,
     presence: true,
     length: { minimum: 2, maximum: 24 },
-    uniqueness: true
-  validates :username,
+    uniqueness: true,
     format: { with: /\A[a-zA-Z0-9]+\Z/, message: "cannot contain spaces" }
   validates :agree_to_terms, presence: true
-  validates :role, inclusion: %w{client stylist admin}
+  validates :role, inclusion: %w{user client stylist admin}
 
-  has_one :registration
-  has_many :answers
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
 
-  scope :clients, -> { where(role: "client") }
-  scope :stylists, -> { where(role: "stylists") }
+  delegate :avatar_url, to: :registration
 
-  def self.from_param(param)
-    if stylist?
-      find_by_username!(param)
-    else
-      find!(param)
-    end
+  scope :clients,  -> { where(role: "client") }
+  scope :stylists, -> { where(role: "stylist") }
+
+
+  def self.from_params(params)
+    find_by(id: params) || find_by(username: params)
   end
 
   def to_param
@@ -66,15 +72,19 @@ class User < ActiveRecord::Base
     role == "stylist"
   end
 
+  def verified_by_management?
+    # This needs to be changed once we have the concept
+    # of verifying a stylist to be able to work
+    true
+  end
+
   def completed_registration?
-    registration_process.empty?
+    [registration, payment_info].all?
+    # [registration, questionnaire, payment_info].all?
+    # final impementation once other models are done
   end
 
   def authenticated?
     true
-  end
-
-  def registration_process
-    self[:registration_process].split(' ')
   end
 end

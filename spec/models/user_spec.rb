@@ -18,8 +18,6 @@
 #  username               :string           not null
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
-#  registration_id        :integer
-#  registration_process   :string           default("registration questions payment")
 #
 # Indexes
 #
@@ -32,6 +30,13 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   context "associations" do
     it { should have_one(:registration) }
+    it { should have_one(:payment_info) }
+    it { should have_one(:primary_address) }
+    it { should have_many(:addresses) }
+    it { should have_many(:services) }
+    it { should have_many(:service_products).through(:services) }
+    it { should have_many(:service_menus).through(:services) }
+    # it { should have_many(:weekly_schedules) } # figure out why this isnt' working
   end
 
   context "validations" do
@@ -44,35 +49,17 @@ RSpec.describe User, type: :model do
     it { should_not have_valid(:role).when('', nil, 'super user') }
   end
 
-  describe "#registration_process" do
-    it "should return an array of whats left to complete" do
-      client = FactoryGirl.build_stubbed(:client)
-      expect(client.registration_process).
-        to eq ['registration', 'questions', 'payment']
-    end
-  end
-
   describe "#completed_registration?" do
     it "should return true if registration process is empty" do
-      client = FactoryGirl.build_stubbed(:client, registration_process: '')
+      client = FactoryGirl.create(:registered_client)
+      stylist = FactoryGirl.create(:registered_stylist)
       expect(client.completed_registration?).to eq true
+      expect(stylist.completed_registration?).to eq true
     end
 
     it "should return false for a freshly created user" do
-      client = FactoryGirl.build_stubbed(:client)
+      client = FactoryGirl.create(:client)
       expect(client.completed_registration?).to eq false
-    end
-
-    it "should return false if at least one piece of the process remains" do
-      needs_questions = FactoryGirl.build_stubbed(
-        :client, registration_process: 'questions'
-      )
-      needs_payment = FactoryGirl.build_stubbed(
-        :client, registration_process: 'payment'
-      )
-
-      expect(needs_questions.completed_registration?).to eq false
-      expect(needs_payment.completed_registration?).to eq false
     end
   end
 

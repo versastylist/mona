@@ -1,1 +1,10 @@
-<h2>Profile Page</h2>
+<h2>
+  Profile Page of <%= @user.username %>
+</h2>
+
+<%= image_tag @user.avatar_url(:thumb) if @user.avatar_url %>
+
+<%= link_to new_service_path, class: 'btn btn-success' do %>
+  <i class="fa fa-plus"></i>
+  Add Service
+<% end %>
