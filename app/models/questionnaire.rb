@@ -14,11 +14,15 @@ class Questionnaire < ActiveRecord::Base
     unless result
       # send admin e-mail to create/fix questionnaire
     end
-    result
+    return result
   end
 
   def completed?(user)
-    answers = user.answers
-    questions && user && answers && questions.count == user.answers.count
+    # find each question_id from answers
+    q_ids = user.answers.map { |a| a.question_id }
+    # see if each question has an answer
+    questions.each { |q| return false unless q_ids.include?(q.id) }
+
+    return true
   end
 end

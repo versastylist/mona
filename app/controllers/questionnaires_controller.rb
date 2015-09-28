@@ -3,7 +3,7 @@ class QuestionnairesController < ApplicationController
     @user = current_user
     preferences_questionnaire = fetch_questionnaire_type('stylist_preferences')
 
-    @questionnaire = Questionnaire.new.fetch_or_initialize(preferences_questionnaire)
+    @questionnaire = preferences_questionnaire
 
     if @questionnaire && @questionnaire.questions.any? #need to add completed field
       @questions = @questionnaire.questions
@@ -20,7 +20,6 @@ class QuestionnairesController < ApplicationController
       end
 
       @acknowledgement_statement = fetch_questionnaire_type('acknowledgement_statement')
-      binding.pry
       render :complete_questionnaire
     end
   end
