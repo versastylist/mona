@@ -2,8 +2,8 @@ class AnswersController < ApplicationController
   def create
     current_user
     @answer = Answer.new.update_or_initialize(answer_params)
-
-    questionnaire_complete = Questionnaire.first.completed?(current_user)
+    questionnaire_type = @answer.question.questionnaire.questionnaire_type
+    questionnaire_complete = Questionnaire.find_by(questionnaire_type: questionnaire_type).completed?(current_user)
 
     respond_to do |format|
       if current_user && @answer.save
@@ -26,8 +26,8 @@ class AnswersController < ApplicationController
   def update
     current_user
     @answer = Answer.new.update_or_initialize(answer_params)
-
-    questionnaire_complete = Questionnaire.first.completed?(current_user)
+    questionnaire_type = @answer.question.questionnaire.questionnaire_type
+    questionnaire_complete = Questionnaire.find_by(questionnaire_type: questionnaire_type).completed?(current_user)
 
     respond_to do |format|
       if current_user && @answer.save

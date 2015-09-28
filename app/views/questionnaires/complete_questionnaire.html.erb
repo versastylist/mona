@@ -38,14 +38,44 @@
     <% end %>
   <% end %>
 
-  <% if @questionnaire.completed?(current_user) %>
-    <input type="submit" value="Next" class="btn btn-success" id="completeRegistrationButton">
-    Acknowledgement Statement:
-      I have []
-      I have []
-      I have []
-      I have []
+  <% if @questionnaire.completed?(current_user) && current_user.role == 'client' %>
+    <ul>
+      <header><h3>Acknowledgement Statement</h3></header>
+      <% @acknowledgement_questions.each_with_index do |question, i| %>
+        <% update_url = @acknowledgement_answers[i].id.nil? ? '' : user_answer_path(current_user, @acknowledgement_answers[i]) %>
+        <% create_url = user_answers_path %>
+        <% answer_exists = !@acknowledgement_answers[i].id.nil? %>
+        <% url = answer_exists ? update_url : create_url %>
+
+        <%= form_for @acknowledgement_answers[i], :url => url do |f| %>
+          <%= @acknowledgement_questions[i].client_question %>
+          <% if @acknowledgement_answers[i].id %>
+            <%= f.label :answer, 'yes' %>
+            <%= f.radio_button :answer, true, class: "answerInput answer#{i}", checked: @acknowledgement_answers[i].answer == true %>
+            <%= f.label :answer, 'no' %>
+            <%= f.radio_button :answer, false, class: "answerInput answer#{i}", checked: @acknowledgement_answers[i].answer == false %>
+          <% else %>
+            <%= f.label :answer, 'yes' %>
+            <%= f.radio_button :answer, true, class: "answerInput answer#{i}" %>
+            <%= f.label :answer, 'no' %>
+            <%= f.radio_button :answer, false, class: "answerInput answer#{i}" %>
+          <% end %>
+
+          <input type="hidden" value=<%= @acknowledgement_questions[i].id %> name="answer[question_id]", class="questionId">
+
+          <input type="hidden" value=<%= current_user.id %> name="answer[user_id]"
+            class="userId">
+          <input type="hidden" value=<%= current_user.role %> name="answer[user_type]", class="userType">
+
+          <%= f.submit %>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if (@questionnaire.completed?(current_user) && current_user.role == 'stylist') || (@acknowledgement_statement.completed?(current_user) && current_user.role == 'client') %>
+    <input type="submit" value="Got it!" class="btn btn-success" id="completeRegistrationButton">
   <% else %>
-    <input type="submit" value="Next" style="display: none" class="btn btn-success" id="completeRegistrationButton">
+    <input type="submit" value="Got it!" style="display: none" class="btn btn-success" id="completeRegistrationButton">
   <% end %>
 </div>
