@@ -8,7 +8,7 @@ feature 'user picks service menu for filter' do
     FactoryGirl.create(:service_menu, name: 'Barber')
 
     visit menu_filters_path
-    click_on 'Barber'
+    click_on 'barber'
 
     expect(page).to have_content('Find Appointment For Barber')
   end

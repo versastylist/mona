@@ -6,7 +6,10 @@
   <% @service_menus.each do |menu| %>
     <%= bs_column(3) do %>
       <h3><%= menu.name %></h3>
-      <%= link_to image_tag("https://placeholdit.imgix.net/~text?txtsize=33&txt=300%C3%97300&w=300&h=300"), menu_filter_appointments_path(menu), class: 'thumbnail' %>
+      <%= link_to image_tag("https://placeholdit.imgix.net/~text?txtsize=33&txt=300%C3%97300&w=300&h=300"),
+          menu_filter_appointments_path(menu),
+          class: 'thumbnail',
+          id: menu.name.downcase %>
     <% end %>
   <% end %>
 <% end %>
