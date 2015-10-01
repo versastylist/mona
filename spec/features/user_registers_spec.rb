@@ -36,8 +36,18 @@ feature 'client registration' do
 
       click_on 'Register'
 
+<<<<<<< HEAD:spec/features/client_registers_spec.rb
+      expect(page).to have_content('Just a few questions to get started')
+      expect(client.registration.first_name).to eq 'Johnny'
+      expect(client.registration.last_name).to eq 'Jones'
+      expect(client.registration.phone_number).to eq '6178945641'
+      # add dob
+      expect(client.registration.gender).to eq 'Male'
+      expect(client.registration.timezone).to eq 'East'
+=======
       expect(page).to have_content('Successfully registered.')
       expect(page).to have_content('Payment Information')
+>>>>>>> 39ee96998835ac8b7a239753612e58d67a8003e5:spec/features/user_registers_spec.rb
     end
   end
 

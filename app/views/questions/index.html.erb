@@ -1,0 +1,13 @@
+<% @questions.each_with_index do |question, i| %>
+  <% if i == 0 %>
+    <%= link_to 'ADD QUESTIONS TO THIS QUESTIONNAIRE', new_questionnaire_question_path(question.questionnaire),
+      class: 'btn btn-success' %>
+  <% end %>
+  <ul>
+    <header><h3>Question <%= i + 1 %></h3></header>
+    <li>Client Question: <%= question.client_question %></li>
+    <li>Stylist Question: <%= question.stylist_question %></li>
+    <li>Additional info: <%= question.additional_info ? 'Required' : 'Optional' %></li>
+  </ul>
+<% end %>
+

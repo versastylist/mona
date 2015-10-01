@@ -36,6 +36,8 @@ class User < ActiveRecord::Base
   has_many :service_products, through: :services
   has_many :service_menus, through: :services
   has_many :schedules, foreign_key: 'stylist_id'
+  has_one :registration
+  has_many :answers
 
   validates :username,
     presence: true,
