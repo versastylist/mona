@@ -1,6 +1,7 @@
 class RegistrationSurveysController < ApplicationController
-  def new
-    # @survey = Survey.find_correct_survey(current_user)
-    # @completion
+  def show
+    @survey = Survey.find_or_create_registration_survey(current_user)
+    @questions = @survey.questions
+    @completion = @survey.completions.new
   end
 end

@@ -26,6 +26,11 @@ FactoryGirl.define do
     trait :with_registration do
       registration
       payment_info
+
+      after :create do |user|
+        survey = create(:survey, title: "#{user.role.capitalize} Registration")
+        create(:completion, survey: survey, user: user)
+      end
     end
   end
 
@@ -49,6 +54,11 @@ FactoryGirl.define do
     author
   end
 
+  factory :completion do
+    survey
+    user
+  end
+
   factory :confirm_submittable do
   end
 
@@ -57,7 +67,7 @@ FactoryGirl.define do
   end
 
   factory :multiple_choice_submittable do
-    ignore do
+    transient do
       options_texts { [] }
     end
 

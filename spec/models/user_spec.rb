@@ -36,7 +36,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:services) }
     it { should have_many(:service_products).through(:services) }
     it { should have_many(:service_menus).through(:services) }
-    # it { should have_many(:weekly_schedules) } # figure out why this isnt' working
+    it { should have_many(:schedules) }
   end
 
   context "validations" do
@@ -103,6 +103,27 @@ RSpec.describe User, type: :model do
     it "always returns true" do
       client = build_stubbed(:client)
       expect(client.authenticated?).to eq true
+    end
+  end
+
+  describe "#registration_survey" do
+    it "returns true if user is an admin" do
+      admin = build_stubbed(:admin)
+      expect(admin.registration_survey).to eq true
+    end
+
+    it "returns completion object for the registration survey if it exists" do
+      client = create(:client)
+      survey = create(:survey, title: 'Client Registration')
+      completion = create(:completion, user: client, survey: survey)
+      expect(client.registration_survey).to eq completion
+    end
+
+    it "also works for stylists" do
+      stylist = create(:stylist)
+      survey = create(:survey, title: 'Stylist Registration')
+      completion = create(:completion, user: stylist, survey: survey)
+      expect(stylist.registration_survey).to eq completion
     end
   end
 end
