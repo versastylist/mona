@@ -8,8 +8,6 @@
 #  phone_number :string           not null
 #  dob          :string           not null
 #  gender       :string           not null
-#  facebook     :string
-#  linked_in    :string
 #  user_id      :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -33,9 +31,5 @@ RSpec.describe Registration, type: :model do
     it { should_not have_valid(:first_name).when('$pencer') }
     it { should have_valid(:first_name).when('spencer-charles') }
     it { should have_valid(:gender).when('Male', 'Female') }
-    it { should have_valid(:facebook).when('https://www.facebook.com/spencer') }
-    it { should_not have_valid(:facebook).when('www.google.com/spencer', 'www.facebook.com') }
-    it { should have_valid(:linked_in).when('https://www.linkedin.com/spencer') }
-    it { should_not have_valid(:linked_in).when('www.google.com/spencer', 'www.linkedin.com') }
   end
 end
