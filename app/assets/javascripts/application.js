@@ -16,11 +16,19 @@
 //= require bootstrap-sprockets
 //= require bootstrap-timepicker.min
 //= require bootstrap-slider
+//= require bootstrap-switch
 //= require_tree .
 
 $(function() {
-  $('.start-timepicker').timepicker('setTime', '9:00 AM')
+  $('.start-timepicker').timepicker('setTime', '9:00 AM');
   $('.end-timepicker').timepicker('setTime', '5:00 PM');
-  $('.appt-cost-slider').slider()
+  $('.appt-cost-slider').slider();
+  $('.survey-checkbox').bootstrapSwitch({
+    onText: 'Yes',
+    offText: 'No',
+    size: 'small',
+    onColor: 'success',
+    offColor: 'danger'
+  });
 });
 
