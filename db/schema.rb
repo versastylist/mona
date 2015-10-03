@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150925013038) do
+ActiveRecord::Schema.define(version: 20151002235907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,34 @@ ActiveRecord::Schema.define(version: 20150925013038) do
     t.datetime "updated_at",                 null: false
   end
 
+  create_table "answers", force: :cascade do |t|
+    t.integer  "completion_id", null: false
+    t.integer  "question_id",   null: false
+    t.string   "text",          null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "completions", force: :cascade do |t|
+    t.integer  "survey_id",  null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "confirm_submittables", force: :cascade do |t|
+    t.boolean  "confirmed",  default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "options", force: :cascade do |t|
+    t.integer  "question_id", null: false
+    t.string   "text",        null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "payment_infos", force: :cascade do |t|
     t.string   "stripe_customer_token"
     t.string   "stripe_card_token"
@@ -35,6 +63,15 @@ ActiveRecord::Schema.define(version: 20150925013038) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.string   "stripe_bank_token"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string   "title",            null: false
+    t.integer  "survey_id",        null: false
+    t.integer  "submittable_id"
+    t.string   "submittable_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "registrations", force: :cascade do |t|
@@ -87,6 +124,13 @@ ActiveRecord::Schema.define(version: 20150925013038) do
     t.integer  "service_menu_id", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "surveys", force: :cascade do |t|
+    t.string   "title",      null: false
+    t.integer  "author_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
