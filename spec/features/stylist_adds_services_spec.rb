@@ -10,7 +10,8 @@ feature 'stylist adds a service product offering' do
     end
 
     scenario 'adds a single service', js: true, callbacks: true do
-      visit user_path(stylist)
+      visit stylist_path(stylist)
+      click_on 'Services'
       click_on 'Add Service'
 
       select 'Barber', from: 'Service Menu'
