@@ -5,7 +5,30 @@ class SurveyBuilder
     new.build_client_registration
   end
 
-  attr_reader :client_survey
+  def self.build_stylist_registration
+    new.build_stylist_registration
+  end
+
+  attr_reader :client_survey, :stylist_survey
+  def client_survey
+    @client_survey ||= Survey.create(title: "Client Registration", author: admin_user)
+  end
+
+  def stylist_survey
+    @stylist_survey ||= Survey.create(title: "Stylist Registration", author: admin_user)
+  end
+
+  def build_stylist_registration
+    stylist_questions do |question|
+      q = Question.new(title: question["title"])
+      opts = question["submittable_options"] || {}
+      q.build_submittable(question["submittable_type"], opts)
+      q.survey = stylist_survey
+      q.save!
+    end
+    stylist_survey
+  end
+
   def build_client_registration
     client_questions do |question|
       q = Question.new(title: question["title"])
@@ -17,16 +40,20 @@ class SurveyBuilder
     client_survey
   end
 
-  def client_questions
-    filename = Rails.root.join('db', 'seed_data', 'client_registration.yml')
+  def stylist_questions
+    filename = Rails.root.join('db', 'seed_data', 'stylist_registration.yml')
     yaml_file = YAML.load(File.read(filename))
     yaml_file["questions"].each do |question|
       yield question
     end
   end
 
-  def client_survey
-    @client_survey ||= Survey.create(title: "Client Registration", author: admin_user)
+  def client_questions
+    filename = Rails.root.join('db', 'seed_data', 'client_registration.yml')
+    yaml_file = YAML.load(File.read(filename))
+    yaml_file["questions"].each do |question|
+      yield question
+    end
   end
 
   def admin_user

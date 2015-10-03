@@ -20,4 +20,16 @@ RSpec.describe Question, type: :model do
     it { should belong_to(:submittable) }
     it { should accept_nested_attributes_for(:submittable) }
   end
+
+  describe '#build_submittable' do
+    it 'builds a submittable with the given type and attributes' do
+      expected_value = 1.day.ago
+      question = build(:question)
+
+      question.build_submittable('ConfirmSubmittable', created_at: expected_value)
+
+      expect(question.submittable.created_at).to eq expected_value
+      expect(question.submittable).to be_a(ConfirmSubmittable)
+    end
+  end
 end
