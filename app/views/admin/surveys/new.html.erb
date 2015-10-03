@@ -1,0 +1,10 @@
+<h1>Create New Survey</h1>
+
+<%= form_for [:admin, @survey] do |f| %>
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <%= f.submit 'Create Survey', class: 'btn btn-success' %>
+<% end %>

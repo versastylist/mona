@@ -1,6 +1,15 @@
 require 'csv'
 
 User.create(
+  username: "admin",
+  email: "admin@email.com",
+  password: "password",
+  password_confirmation: "password",
+  role: "admin",
+  agree_to_terms: true
+)
+
+User.create(
   username: "client",
   email: "client@email.com",
   password: "password",

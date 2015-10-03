@@ -9,6 +9,12 @@ FactoryGirl.define do
     agree_to_terms true
     role 'user'
 
+    factory :admin do
+      role "admin"
+      registration
+      payment_info
+    end
+
     factory :client do
       role "client"
     end

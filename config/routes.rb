@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     resources :appointment_filters, only: [:index], as: :appointments
   end
 
+  namespace :admin do
+    resources :surveys, only: [:new, :create, :index]
+  end
+
   # This should remain towards bottom for pattern matching purposes
   get '/:id', as: :stylist, to: 'stylists#show'
 end

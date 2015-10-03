@@ -26,6 +26,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate_admin!
+    unless current_user.admin?
+      redirect_to root_path, danger: "No longer available"
+    end
+  end
+
   protected
 
   def devise_permitted_paramters

@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
     role == "stylist"
   end
 
+  def admin?
+    role == "admin"
+  end
+
   def verified_by_management?
     # This needs to be changed once we have the concept
     # of verifying a stylist to be able to work
