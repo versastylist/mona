@@ -17,4 +17,9 @@ class Question < ActiveRecord::Base
   belongs_to :submittable, polymorphic: true
 
   accepts_nested_attributes_for :submittable
+
+  def build_submittable(type, attributes)
+    submittable_class = type.sub('Question', 'Submittable').constantize
+    self.submittable = submittable_class.new(attributes.merge(question: self))
+  end
 end

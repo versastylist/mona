@@ -49,6 +49,28 @@ FactoryGirl.define do
     author
   end
 
+  factory :confirm_submittable do
+  end
+
+  factory :question do
+    sequence(:title) { |n| "Question #{n}" }
+    submittable factory: :confirm_submittable
+    survey
+
+    # Will want to create these types of questions soon
+    # factory :multiple_choice_question do
+      # submittable factory: :multiple_choice_submittable
+    # end
+
+    # factory :open_question do
+      # submittable factory: :open_submittable
+    # end
+
+    factory :confirm_question do
+      submittable factory: :scale_submittable
+    end
+  end
+
   factory :service_menu do
     name 'Barber'
   end

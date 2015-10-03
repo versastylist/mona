@@ -20,6 +20,10 @@ class Admin::SurveysController < ApplicationController
     @surveys = Survey.all.limit(25)
   end
 
+  def show
+    @survey = Survey.find(params[:id])
+  end
+
   private
 
   def survey_params

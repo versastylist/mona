@@ -1,0 +1,10 @@
+<h1>Survey: <%= @survey.title %></h1>
+
+<%= link_to(
+  'Add Confirmable Question',
+  new_admin_survey_question_path(
+    @survey,
+    question: { submittable_type: 'ConfirmSubmittable' }
+  ),
+  class: 'btn btn-success'
+) %>
