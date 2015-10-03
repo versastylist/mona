@@ -52,18 +52,29 @@ FactoryGirl.define do
   factory :confirm_submittable do
   end
 
+  factory :multiple_choice_submittable do
+    ignore do
+      options_texts { [] }
+    end
+
+    options do |attributes|
+      attributes.options_texts.map do |text|
+        FactoryGirl.build(:option, text: text, question_id: attributes.id)
+      end
+    end
+  end
+
   factory :question do
     sequence(:title) { |n| "Question #{n}" }
     submittable factory: :confirm_submittable
     survey
 
-    # Will want to create these types of questions soon
-    # factory :multiple_choice_question do
-      # submittable factory: :multiple_choice_submittable
-    # end
+    factory :multiple_choice_question do
+      submittable factory: :multiple_choice_submittable
+    end
 
     # factory :open_question do
-      # submittable factory: :open_submittable
+    # submittable factory: :open_submittable
     # end
 
     factory :confirm_question do

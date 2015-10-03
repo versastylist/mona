@@ -31,8 +31,11 @@ class Admin::QuestionsController < ApplicationController
   end
 
   def submittable_params
-    if submittable_attributes = params[:question][:submittable_attributes]
-      submittable_attributes.permit(:minimum, :maximum, :options_attributes)
+    if params[:question][:submittable_attributes]
+      submittable_attrs = params.require(:question).require(:submittable_attributes).permit(
+        options_attributes: [:text]
+      )
+      submittable_attrs
     else
       {}
     end

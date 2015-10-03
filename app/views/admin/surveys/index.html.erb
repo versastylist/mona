@@ -10,7 +10,7 @@
   <tbody>
   <% @surveys.each do |survey| %>
     <tr>
-      <td><%= survey.title %></td>
+      <td><%= link_to survey.title, admin_survey_path(survey) %></td>
       <td><%= survey.author_username %></td>
       <td>Edit goes here</td>
       <td>Delete goes here</td>

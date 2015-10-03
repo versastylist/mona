@@ -14,4 +14,8 @@ class GuestUser
   def profile_path
     '#'
   end
+
+  def admin?
+    false
+  end
 end

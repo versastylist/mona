@@ -6,8 +6,11 @@
           <div class="form-group">
             <%= submission_fields.label :text, question.title %>
             <%= render(
-              "admin/#{question.submittable.to_partial_path}",
-              submission_fields: submission_fields
+              partial: "admin/#{question.submittable.to_partial_path}",
+              locals: {
+                submittable_object: question.submittable,
+                submission_fields: submission_fields
+              }
             ) %>
           </div>
         <% end -%>

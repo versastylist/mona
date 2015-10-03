@@ -16,4 +16,17 @@ module Features
   def submit_answers
     click_on 'Submit Answers'
   end
+
+  def submit_question
+    click_on 'Add Question'
+  end
+
+  def add_confirm_question(title)
+    click_on 'Add Confirmable Question'
+    fill_in 'Title', with: title
+  end
+
+  def add_multiple_choice_question
+    click_on 'Add Multiple Choice Question'
+  end
 end

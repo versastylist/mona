@@ -8,3 +8,12 @@
   ),
   class: 'btn btn-success'
 ) %>
+
+<%= link_to(
+  'Add Multiple Choice Question',
+  new_admin_survey_question_path(
+    @survey,
+    question: { submittable_type: 'MultipleChoiceSubmittable' }
+  ),
+  class: 'btn btn-success'
+) %>

@@ -14,4 +14,10 @@ describe GuestUser do
       expect(user.completed_registration?).to eq true
     end
   end
+
+  describe "#admin?" do
+    it "should always return false" do
+      expect(user.admin?).to eq false
+    end
+  end
 end
