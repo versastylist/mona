@@ -1,8 +1,6 @@
-<ol>
-  <% submittable_object.options.each do |option| -%>
-    <li>
-      <%= submission_fields.text_field :text, option.text, id: dom_id(option) %>
-      <%= content_tag :label, option.text, for: dom_id(option) %>
-    </li>
-  <% end -%>
-</ol>
+<div class="form-group">
+  <%= submission_fields.select :text,
+    submittable_object.options.map { |o| [o.text] },
+    prompt: "Please select"
+  %>
+</div>

@@ -52,6 +52,10 @@ FactoryGirl.define do
   factory :confirm_submittable do
   end
 
+  factory :option do
+    text 'Hello'
+  end
+
   factory :multiple_choice_submittable do
     ignore do
       options_texts { [] }
@@ -73,6 +77,7 @@ FactoryGirl.define do
       submittable factory: :multiple_choice_submittable
     end
 
+    # Will implement open_question when I need it.
     # factory :open_question do
     # submittable factory: :open_submittable
     # end

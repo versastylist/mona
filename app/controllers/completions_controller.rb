@@ -10,6 +10,6 @@ class CompletionsController < ApplicationController
   private
 
   def completion_params
-    params.require(:completion).permit(:answers_attributes)
+    params.require(:completion).permit(answers_attributes: [:text])
   end
 end
