@@ -10,7 +10,11 @@
 #  updated_at    :datetime         not null
 #
 
-class Answer < ActiveRecord::Base
-  belongs_to :completion
-  belongs_to :question
+require 'rails_helper'
+
+RSpec.describe Answer, type: :model do
+  describe "associations" do
+    it { should belong_to(:completion) }
+    it { should belong_to(:question) }
+  end
 end

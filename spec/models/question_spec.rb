@@ -11,10 +11,13 @@
 #  updated_at       :datetime         not null
 #
 
-class Question < ActiveRecord::Base
-  has_many :answers
-  belongs_to :survey
-  belongs_to :submittable, polymorphic: true
+require 'rails_helper'
 
-  accepts_nested_attributes_for :submittable
+RSpec.describe Question, type: :model do
+  describe "associations" do
+    it { should have_many(:answers) }
+    it { should belong_to(:survey) }
+    it { should belong_to(:submittable) }
+    it { should accept_nested_attributes_for(:submittable) }
+  end
 end

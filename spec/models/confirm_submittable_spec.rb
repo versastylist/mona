@@ -8,6 +8,10 @@
 #  updated_at :datetime         not null
 #
 
-class ConfirmSubmittable < ActiveRecord::Base
-  has_one :question, as: :submittable
+require 'rails_helper'
+
+RSpec.describe ConfirmSubmittable, type: :model do
+  describe "associations" do
+    it { should have_one(:question) }
+  end
 end

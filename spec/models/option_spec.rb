@@ -9,6 +9,10 @@
 #  updated_at  :datetime         not null
 #
 
-class Option < ActiveRecord::Base
-  belongs_to :question
+require 'rails_helper'
+
+RSpec.describe Option, type: :model do
+  describe "associations" do
+    it { should belong_to(:question) }
+  end
 end

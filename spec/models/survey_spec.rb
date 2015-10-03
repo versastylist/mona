@@ -9,7 +9,11 @@
 #  updated_at :datetime         not null
 #
 
-class Survey < ActiveRecord::Base
-  belongs_to :author, class_name: 'User', foreign_key: :author_id
-  has_many :questions
+require 'rails_helper'
+
+RSpec.describe Survey, type: :model do
+  describe "associations" do
+    it { should belong_to(:author) }
+    it { should have_many(:questions) }
+  end
 end

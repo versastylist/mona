@@ -9,8 +9,12 @@
 #  updated_at :datetime         not null
 #
 
-class Completion < ActiveRecord::Base
-  belongs_to :survey
-  belongs_to :user
-  has_many :answers
+require 'rails_helper'
+
+RSpec.describe Completion, type: :model do
+  describe "associations" do
+    it { should belong_to(:survey) }
+    it { should belong_to(:user) }
+    it { should have_many(:answers) }
+  end
 end
