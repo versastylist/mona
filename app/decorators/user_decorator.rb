@@ -2,22 +2,12 @@ class UserDecorator < Draper::Decorator
   include Rails.application.routes.url_helpers
   delegate_all
 
-  # Define presentation-specific methods here. Helpers are accessed through
-  # `helpers` (aka `h`). You can override attributes, for example:
-  #
-  #   def created_at
-  #     helpers.content_tag :span, class: 'time' do
-  #       object.created_at.strftime("%a %m/%d/%y")
-  #     end
-  #   end
-
   def next_registration_step
     case
     when not_registered?
       new_registration_path
     when not_answered_questions?
-      # To be added once josh submits PR
-      '/'
+      registration_survey_path
     when not_filled_out_payment?
       new_payment_info_path
     else
@@ -36,8 +26,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def not_answered_questions?
-    # object.questionnaire.blank?
-    false
+    object.registration_survey.blank?
   end
 
   def not_filled_out_payment?
