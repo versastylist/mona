@@ -9,7 +9,7 @@ FactoryGirl.define do
     agree_to_terms true
     role 'user'
 
-    factory :admin do
+    factory :admin, aliases: [:author] do
       role "admin"
       registration
       payment_info
@@ -23,14 +23,7 @@ FactoryGirl.define do
       role "stylist"
     end
 
-    factory :registered_client do
-      role "client"
-      registration
-      payment_info
-    end
-
-    factory :registered_stylist do
-      role "stylist"
+    trait :with_registration do
       registration
       payment_info
     end
@@ -49,6 +42,11 @@ FactoryGirl.define do
     user
     stripe_customer_token "sldkfj23kjlsdf"
     stripe_card_token "slfkjaa234lk234s"
+  end
+
+  factory :survey do
+    title 'Client Registration'
+    author
   end
 
   factory :service_menu do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'admin creates a survey' do
   context 'when authenticated as admin' do
-    let(:admin) { FactoryGirl.create(:admin) }
+    let(:admin) { create(:admin) }
     scenario 'successfully' do
       sign_in admin
 
@@ -13,11 +13,13 @@ feature 'admin creates a survey' do
       expect(page).to have_content('Successfully created survey')
       expect(page).to have_content('Client Registration')
     end
+
+    scenario 'missing required fields shows errors'
   end
 
   context 'unauthenticated users' do
     scenario 'get redirected to root path' do
-      user = FactoryGirl.create(:registered_client)
+      user = create(:client, :with_registration)
       sign_in user
 
       visit new_admin_survey_path

@@ -51,57 +51,57 @@ RSpec.describe User, type: :model do
 
   describe "#completed_registration?" do
     it "should return true if registration process is empty" do
-      client = FactoryGirl.create(:registered_client)
-      stylist = FactoryGirl.create(:registered_stylist)
+      client = create(:client, :with_registration)
+      stylist = create(:stylist, :with_registration)
       expect(client.completed_registration?).to eq true
       expect(stylist.completed_registration?).to eq true
     end
 
     it "should return false for a freshly created user" do
-      client = FactoryGirl.create(:client)
+      client = create(:client)
       expect(client.completed_registration?).to eq false
     end
   end
 
   describe "#stylist?" do
     it "returns true if user is a stylist" do
-      stylist = FactoryGirl.build_stubbed(:stylist)
+      stylist = build_stubbed(:stylist)
       expect(stylist.stylist?).to eq true
     end
 
     it "returns false if user is not a stylist" do
-      client = FactoryGirl.build_stubbed(:client)
+      client = build_stubbed(:client)
       expect(client.stylist?).to eq false
     end
   end
 
   describe "#client?" do
     it "returns true if user is a client" do
-      client = FactoryGirl.build_stubbed(:client)
+      client = build_stubbed(:client)
       expect(client.client?).to eq true
     end
 
     it "returns false if user is not a client" do
-      stylist = FactoryGirl.build_stubbed(:stylist)
+      stylist = build_stubbed(:stylist)
       expect(stylist.client?).to eq false
     end
   end
 
   describe "#to_param" do
     it "returns id if client" do
-      client = FactoryGirl.build_stubbed(:client)
+      client = build_stubbed(:client)
       expect(client.to_param).to eq client.id.to_s
     end
 
     it "returns username if stylist" do
-      stylist = FactoryGirl.build_stubbed(:stylist, username: 'the-tiger')
+      stylist = build_stubbed(:stylist, username: 'the-tiger')
       expect(stylist.to_param).to eq 'the-tiger'
     end
   end
 
   describe "#authenticated?" do
     it "always returns true" do
-      client = FactoryGirl.build_stubbed(:client)
+      client = build_stubbed(:client)
       expect(client.authenticated?).to eq true
     end
   end

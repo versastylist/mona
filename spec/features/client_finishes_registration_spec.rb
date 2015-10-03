@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'client finishes registration' do
   scenario 'they get redirected to their profile page at /users/:id' do
-    client = FactoryGirl.create(:client)
+    client = create(:client)
     sign_in client
     visit new_registration_path
 

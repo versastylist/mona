@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'client enters their payment info' do
   context 'successfully' do
-    let(:client) { FactoryGirl.create(:client) }
+    let(:client) { create(:client) }
     before { sign_in client }
 
     scenario 'successfully enters payment info', js: true do
@@ -19,8 +19,8 @@ feature 'client enters their payment info' do
 
   context 'skips payment info' do
     scenario 'skips payment info part' do
-      new_client = FactoryGirl.create(:client)
-      FactoryGirl.create(:registration, user: new_client)
+      new_client = create(:client)
+      create(:registration, user: new_client)
       sign_in new_client
 
       visit new_payment_info_path
