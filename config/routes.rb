@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   }
   get '/client_terms', as: :client_terms_of_service, to: "static#client_terms"
   get '/stylist_terms', as: :stylist_terms_of_service, to: "static#stylist_terms"
+  get '/surveys/registration', as: :registration_survey, to: 'registration_surveys#show'
 
   resources :users, only: [:show, :index]
   resources :registrations, only: [:show, :new, :create]
@@ -15,6 +16,16 @@ Rails.application.routes.draw do
 
   resources :service_menu_filters, only: :index, as: :menu_filters do
     resources :appointment_filters, only: [:index], as: :appointments
+  end
+
+  namespace :admin do
+    resources :surveys, only: [:new, :create, :index, :show] do
+      resources :questions, only: [:new, :create]
+    end
+  end
+
+  resources :surveys, only: [:show] do
+    resources :completions, only: :create
   end
 
   # This should remain towards bottom for pattern matching purposes

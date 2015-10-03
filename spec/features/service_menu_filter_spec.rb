@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'user picks service menu for filter' do
-  let(:client) { FactoryGirl.create(:registered_client) }
+  let(:client) { create(:client, :with_registration) }
   before { sign_in client }
 
   scenario 'selects Barber successfully' do

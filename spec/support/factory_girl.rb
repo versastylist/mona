@@ -9,6 +9,12 @@ FactoryGirl.define do
     agree_to_terms true
     role 'user'
 
+    factory :admin, aliases: [:author] do
+      role "admin"
+      registration
+      payment_info
+    end
+
     factory :client do
       role "client"
     end
@@ -17,16 +23,14 @@ FactoryGirl.define do
       role "stylist"
     end
 
-    factory :registered_client do
-      role "client"
+    trait :with_registration do
       registration
       payment_info
-    end
 
-    factory :registered_stylist do
-      role "stylist"
-      registration
-      payment_info
+      after :create do |user|
+        survey = create(:survey, title: "#{user.role.capitalize} Registration")
+        create(:completion, survey: survey, user: user)
+      end
     end
   end
 
@@ -43,6 +47,54 @@ FactoryGirl.define do
     user
     stripe_customer_token "sldkfj23kjlsdf"
     stripe_card_token "slfkjaa234lk234s"
+  end
+
+  factory :survey do
+    title 'Client Registration'
+    author
+  end
+
+  factory :completion do
+    survey
+    user
+  end
+
+  factory :confirm_submittable do
+  end
+
+  factory :option do
+    text 'Hello'
+  end
+
+  factory :multiple_choice_submittable do
+    transient do
+      options_texts { [] }
+    end
+
+    options do |attributes|
+      attributes.options_texts.map do |text|
+        FactoryGirl.build(:option, text: text, question_id: attributes.id)
+      end
+    end
+  end
+
+  factory :question do
+    sequence(:title) { |n| "Question #{n}" }
+    submittable factory: :confirm_submittable
+    survey
+
+    factory :multiple_choice_question do
+      submittable factory: :multiple_choice_submittable
+    end
+
+    # Will implement open_question when I need it.
+    # factory :open_question do
+    # submittable factory: :open_submittable
+    # end
+
+    factory :confirm_question do
+      submittable factory: :scale_submittable
+    end
   end
 
   factory :service_menu do

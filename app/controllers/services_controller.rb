@@ -23,7 +23,7 @@ class ServicesController < ApplicationController
         :minutes,
         :price,
         :details,
-        :preparation_instructions<
+        :preparation_instructions,
         :_destroy # Needed for cocoon
       ]
     )

@@ -22,6 +22,9 @@ RSpec.configure do |config|
 
   config.include AuthenticationHelper
   config.include ServiceProductHelper
+  config.include RegistrationHelper
+  config.include Features, type: :feature
+  config.include FactoryGirl::Syntax::Methods
 
   config.before(:all, callbacks: true) do
     ActiveRecord::Base.skip_callbacks = false

@@ -36,7 +36,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:services) }
     it { should have_many(:service_products).through(:services) }
     it { should have_many(:service_menus).through(:services) }
-    # it { should have_many(:weekly_schedules) } # figure out why this isnt' working
+    it { should have_many(:schedules) }
   end
 
   context "validations" do
@@ -51,58 +51,79 @@ RSpec.describe User, type: :model do
 
   describe "#completed_registration?" do
     it "should return true if registration process is empty" do
-      client = FactoryGirl.create(:registered_client)
-      stylist = FactoryGirl.create(:registered_stylist)
+      client = create(:client, :with_registration)
+      stylist = create(:stylist, :with_registration)
       expect(client.completed_registration?).to eq true
       expect(stylist.completed_registration?).to eq true
     end
 
     it "should return false for a freshly created user" do
-      client = FactoryGirl.create(:client)
+      client = create(:client)
       expect(client.completed_registration?).to eq false
     end
   end
 
   describe "#stylist?" do
     it "returns true if user is a stylist" do
-      stylist = FactoryGirl.build_stubbed(:stylist)
+      stylist = build_stubbed(:stylist)
       expect(stylist.stylist?).to eq true
     end
 
     it "returns false if user is not a stylist" do
-      client = FactoryGirl.build_stubbed(:client)
+      client = build_stubbed(:client)
       expect(client.stylist?).to eq false
     end
   end
 
   describe "#client?" do
     it "returns true if user is a client" do
-      client = FactoryGirl.build_stubbed(:client)
+      client = build_stubbed(:client)
       expect(client.client?).to eq true
     end
 
     it "returns false if user is not a client" do
-      stylist = FactoryGirl.build_stubbed(:stylist)
+      stylist = build_stubbed(:stylist)
       expect(stylist.client?).to eq false
     end
   end
 
   describe "#to_param" do
     it "returns id if client" do
-      client = FactoryGirl.build_stubbed(:client)
+      client = build_stubbed(:client)
       expect(client.to_param).to eq client.id.to_s
     end
 
     it "returns username if stylist" do
-      stylist = FactoryGirl.build_stubbed(:stylist, username: 'the-tiger')
+      stylist = build_stubbed(:stylist, username: 'the-tiger')
       expect(stylist.to_param).to eq 'the-tiger'
     end
   end
 
   describe "#authenticated?" do
     it "always returns true" do
-      client = FactoryGirl.build_stubbed(:client)
+      client = build_stubbed(:client)
       expect(client.authenticated?).to eq true
+    end
+  end
+
+  describe "#registration_survey" do
+    it "returns true if user is an admin" do
+      admin = build_stubbed(:admin)
+      expect(admin.registration_survey).to eq true
+    end
+
+    it "returns completion object for the registration survey if it exists" do
+      client = create(:client)
+      survey = create(:survey, title: 'Client Registration')
+      completion = create(:completion, user: client, survey: survey)
+      expect(client.registration_survey).to eq completion
+    end
+
+    it "also works for stylists" do
+      stylist = create(:stylist)
+      survey = create(:survey, title: 'Stylist Registration')
+      completion = create(:completion, user: stylist, survey: survey)
+      expect(stylist.registration_survey).to eq completion
     end
   end
 end

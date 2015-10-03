@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'stylist adds a service product offering' do
   context 'successfully' do
-    let(:stylist) { FactoryGirl.create(:registered_stylist) }
+    let(:stylist) { create(:stylist, :with_registration) }
 
     before do
       FactoryGirl.create(:service_menu, name: 'Barber')
@@ -30,10 +30,10 @@ feature 'stylist adds a service product offering' do
   end
 
   context 'unsuccessfully' do
-    let(:stylist) { FactoryGirl.create(:registered_stylist) }
+    let(:stylist) { create(:stylist, :with_registration) }
 
     before do
-      FactoryGirl.create(:service_menu, name: 'Barber')
+      create(:service_menu, name: 'Barber')
       sign_in stylist
     end
 

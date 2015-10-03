@@ -28,7 +28,6 @@
 class User < ActiveRecord::Base
   include StylistSearch
   has_one :registration
-  has_one :questionnaire
   has_one :payment_info
   has_one :primary_address, -> { where(primary: true) }, class_name: 'Address'
   has_many :addresses
@@ -36,6 +35,7 @@ class User < ActiveRecord::Base
   has_many :service_products, through: :services
   has_many :service_menus, through: :services
   has_many :schedules, foreign_key: 'stylist_id'
+  has_many :completions
 
   validates :username,
     presence: true,
@@ -52,10 +52,15 @@ class User < ActiveRecord::Base
 
   scope :clients,  -> { where(role: "client") }
   scope :stylists, -> { where(role: "stylist") }
-
+  scope :admins, -> { where(role: "admin") }
 
   def self.from_params(params)
     find_by(id: params) || find_by(username: params)
+  end
+
+  def registration_survey
+    return true if admin? # should be replaced by NullObject pattern later
+    completions.joins(:survey).find_by(surveys: { title: "#{role.capitalize} Registration" })
   end
 
   def to_param
@@ -70,6 +75,10 @@ class User < ActiveRecord::Base
     role == "stylist"
   end
 
+  def admin?
+    role == "admin"
+  end
+
   def verified_by_management?
     # This needs to be changed once we have the concept
     # of verifying a stylist to be able to work
@@ -77,9 +86,7 @@ class User < ActiveRecord::Base
   end
 
   def completed_registration?
-    [registration, payment_info].all?
-    # [registration, questionnaire, payment_info].all?
-    # final impementation once other models are done
+    [registration, payment_info, registration_survey].all?
   end
 
   def authenticated?
