@@ -21,5 +21,48 @@ class OrderItem < ActiveRecord::Base
   belongs_to :service_product
   belongs_to :order
 
-  delegate :name, to: :service_product
+  validates :quantity,
+    presence: true,
+    numericality: { only_integer: true, greater_than: 0 }
+  validate :product_present
+  validate :order_present
+
+  before_save :finalize
+
+  delegate :name, :minute_duration, to: :service_product
+
+  def unit_price
+    if persisted?
+      self[:unit_price]
+    else
+      service_product.price
+    end
+  end
+
+  def total_price
+    unit_price * quantity
+  end
+
+  def total_minutes
+    quantity * minute_duration
+  end
+
+  private
+
+  def product_present
+    if service_product.nil?
+      errors.add(:product, "is not valid or is not active.")
+    end
+  end
+
+  def order_present
+    if order.nil?
+      errors.add(:order, "is not a valid order.")
+    end
+  end
+
+  def finalize
+    self[:unit_price] = unit_price
+    self[:total_price] = quantity * self[:unit_price]
+  end
 end
