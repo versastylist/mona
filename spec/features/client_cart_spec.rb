@@ -5,9 +5,7 @@ feature 'client views shopping cart' do
     client = create(:client)
     sign_in client
 
-    within(:css, '.navbar') do
-      click_on 'Cart'
-    end
+    find(:css, '#shopping-cart').click
 
     expect(page).to have_content('Shopping Cart')
     expect(page).to have_content('There are no services in your cart')

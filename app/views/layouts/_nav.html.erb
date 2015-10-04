@@ -9,7 +9,11 @@
         <li> <%= link_to 'Profile', current_user.profile_path %></li>
         <li> <%= link_to 'Find Service', menu_filters_path %></li>
         <li> <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %> </li>
-        <li> <%= link_to 'Cart', cart_path %> </li>
+        <li>
+          <%= link_to cart_path, id: "shopping-cart" do %>
+            <i class="fa fa-shopping-cart"></i>
+          <% end %>
+        </li>
       <%- else -%>
         <li><%= link_to 'Sign Up', new_user_registration_path %></li>
         <li><%= link_to 'Sign In', new_user_session_path %></li>
