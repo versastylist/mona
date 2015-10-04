@@ -2,6 +2,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :devise_permitted_paramters, if: :devise_controller?
   add_flash_types :info, :success, :warning, :danger
+  helper_method :current_order
+
+  def current_order
+    if !session[:order_id].nil?
+      Order.find(session[:order_id])
+    else
+      Order.new
+    end
+  end
 
   def current_user
     if warden.authenticate
