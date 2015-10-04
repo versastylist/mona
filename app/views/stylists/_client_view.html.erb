@@ -1,0 +1,37 @@
+<%= bs_row do %>
+  <%= bs_column(6) do %>
+    <%= image_tag @stylist.avatar_url(:thumb), class: 'img-rounded' %>
+  <% end %>
+
+  <%= bs_column(6) do %>
+    <%= bs_row do %>
+      <%= bs_column(12) do %>
+        <h2>Bio</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed laoreet justo sit amet ligula maximus, rutrum bibendum lacus faucibus. Mauris laoreet efficitur sapien, vitae molestie ex tempor sed. Ut eleifend nulla ut commodo convallis. Donec nec tincidunt eros. Ut aliquam dignissim luctus. Integer id tellus vitae erat varius sodales sit amet semper augue. Morbi faucibus odio at urna rutrum, tristique posuere purus varius. Ut in lorem velit. In pulvinar lacus in nisi iaculis egestas. Fusce eu molestie orci. Sed blandit convallis maximus. Sed tristique ante in odio pharetra, porta tincidunt dui vestibulum. Phasellus id ante porta, aliquet erat eu, efficitur nibh.
+        </p>
+      <% end %>
+      <%= bs_column(12) do %>
+        <h2>Rating/Sharing</h2>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= bs_row do %>
+  <%= bs_column(12) do %>
+    <h2>Service Products</h2>
+    <table class="table table-hover">
+      <thead>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Duration (minutes)</th>
+        <th>Quantity</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <%= render partial: 'stylists/service_product', collection: @service_products %>
+      </tbody>
+    </table>
+  <% end %>
+<% end %>

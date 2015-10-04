@@ -17,9 +17,11 @@
 #  index_order_items_on_service_product_id  (service_product_id)
 #
 
-class OrderItem < ActiveRecord::Base
-  belongs_to :service_product
-  belongs_to :order
+require 'rails_helper'
 
-  delegate :name, to: :service_product
+RSpec.describe OrderItem, type: :model do
+  context "associations" do
+    it { should belong_to(:order) }
+    it { should belong_to(:service_product) }
+  end
 end

@@ -1,5 +1,6 @@
 require 'csv'
 
+# Create admin user
 User.create(
   username: "admin",
   email: "admin@email.com",
@@ -9,6 +10,11 @@ User.create(
   agree_to_terms: true
 )
 
+# Use admin to build registration surveys
+SurveyBuilder.build_client_registration
+SurveyBuilder.build_stylist_registration
+
+# Build unregistered client/stylists for testing
 User.create(
   username: "client",
   email: "client@email.com",
@@ -27,8 +33,7 @@ User.create(
   agree_to_terms: true
 )
 
-## Create Registered Stylist ##
-
+# Create Registered Stylist
 reg_stylist = User.create(
   username: "registeredstylist",
   email: "rsty@email.com",
@@ -51,6 +56,10 @@ p = reg_stylist.build_payment_info(
   stripe_customer_token: '234lkj234',
 )
 p.save!
+
+# Complete stylist registraiton survey without answers
+survey = Survey.find_by(name: 'Stylist Registration')
+reg_stylist.completions.create(survey_id: survey.id)
 
 ## Create Service Menu Categories ##
 categories = ["Hair Cut","Weave", "Blowout And Sets", "Natural", "Barber", "Nails", "Makeup", "Specialties"]
