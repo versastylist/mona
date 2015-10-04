@@ -9,5 +9,14 @@
 #
 
 class OrderStatus < ActiveRecord::Base
+  STATUS_NAMES = [
+    'In Progress',
+    'Complete'
+  ].freeze
+
   has_many :orders
+
+  validates :name,
+    presence: true,
+    inclusion: { in: STATUS_NAMES }
 end

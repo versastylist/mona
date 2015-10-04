@@ -14,4 +14,9 @@ RSpec.describe OrderStatus, type: :model do
   context "associations" do
     it { should have_many(:orders) }
   end
+
+  context "validations" do
+    it { should have_valid(:name).when('In Progress', 'Complete') }
+    it { should_not have_valid(:name).when('', 'random', nil, 0) }
+  end
 end
