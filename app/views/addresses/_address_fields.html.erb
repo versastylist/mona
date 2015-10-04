@@ -1,0 +1,25 @@
+<div class="form-group">
+  <%= address.label :address %>
+  <%= address.text_field :address, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= address.label "Apt Num" %>
+  <%= address.text_field :appt_num, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= address.label :city %>
+  <%= address.text_field :city, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= address.label :zip_code %>
+  <%= address.text_field :zip_code, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= address.label :state %>
+  <%= address.select :state, us_states, class: "form-control" %>
+</div>
+
