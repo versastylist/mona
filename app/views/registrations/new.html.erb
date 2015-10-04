@@ -1,75 +1,13 @@
 <h1>Registration</h1>
 
 <%= form_for @registration, multipart: true do |f| %>
-  <% if @registration.errors.any? %>
-    <ul>
-      <% @registration.errors.full_messages.each do |error|  %>
-        <li><%= error %></li>
-      <% end %>
-    </ul>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :phone_number %>
-    <%= f.phone_field :phone_number, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
-    <span class="btn btn-default btn-file">
-      Upload Avatar Image<%= f.file_field :avatar, id: "avatar-upload" %>
-    </span>
-    <%= f.hidden_field :avatar_cache %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label "Date of birth" %>
-    <%= f.date_field :dob %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :gender %>
-    <%= f.select :gender, Registration::GENDERS, prompt: 'Please Select' %>
-  </div>
+  <%= render "shared/errors", object: f.object %>
+  <%= render "registrations/registration_fields", f: f %>
 
   <h4>Primary Address:</h4>
-  <%= fields_for @address do |fa| %>
-    <div class="form-group">
-      <%= fa.label :address %>
-      <%= fa.text_field :address, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= fa.label "Apt Num" %>
-      <%= fa.text_field :appt_num, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= fa.label :city %>
-      <%= fa.text_field :city, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= fa.label :zip_code %>
-      <%= fa.text_field :zip_code, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= fa.label :state %>
-      <%= fa.select :state, us_states, class: "form-control" %>
-    </div>
-
-    <%= fa.hidden_field :primary, value: true %>
+  <%= fields_for @address do |address| %>
+    <%= render "addresses/address_fields", address: address %>
+    <%= address.hidden_field :primary, value: true %>
   <% end %>
 
   <%= f.submit 'Register', class: 'btn btn-success' %>
