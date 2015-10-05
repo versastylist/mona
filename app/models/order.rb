@@ -30,7 +30,7 @@ class Order < ActiveRecord::Base
   private
 
   def set_order_status
-    status = OrderStatus.find_by(name: "In Progress")
+    status = OrderStatus.find_or_create_by(name: "In Progress")
     self.order_status_id = status.id
   end
 

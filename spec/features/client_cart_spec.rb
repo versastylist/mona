@@ -23,7 +23,7 @@ feature 'client views shopping cart' do
       click_on 'Add To Cart'
     end
 
-    visit cart_path
+    find(:css, '#shopping-cart').click
     expect(page).to have_content('Buzz cut')
   end
 

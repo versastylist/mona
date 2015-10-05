@@ -58,7 +58,7 @@ p = reg_stylist.build_payment_info(
 p.save!
 
 # Complete stylist registraiton survey without answers
-survey = Survey.find_by(name: 'Stylist Registration')
+survey = Survey.find_by(title: 'Stylist Registration')
 reg_stylist.completions.create(survey_id: survey.id)
 
 ## Create Service Menu Categories ##
