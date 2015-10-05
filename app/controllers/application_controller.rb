@@ -1,7 +1,17 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :devise_permitted_paramters, if: :devise_controller?
+  before_action :set_shopping_cart, if: :should_set_cart?
   add_flash_types :info, :success, :warning, :danger
+  helper_method :current_order
+
+  def current_order
+    if !session[:order_id].nil?
+      Order.find(session[:order_id])
+    else
+      Order.new
+    end
+  end
 
   def current_user
     if warden.authenticate
@@ -33,6 +43,15 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def should_set_cart?
+    current_user.authenticated?
+  end
+
+  def set_shopping_cart
+    @current_order = current_order
+    @order_items = @current_order.order_items
+  end
 
   def devise_permitted_paramters
     devise_parameter_sanitizer.for(:sign_up) << [:username, :agree_to_terms, :role]

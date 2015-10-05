@@ -30,5 +30,8 @@ $(function() {
     onColor: 'success',
     offColor: 'danger'
   });
+  $('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').focus()
+  })
 });
 

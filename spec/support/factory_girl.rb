@@ -117,4 +117,18 @@ FactoryGirl.define do
     service_menu
     stylist
   end
+
+  factory :order do
+    order_status
+  end
+
+  factory :order_status do
+    name "In Progress"
+  end
+
+  factory :order_item do
+    quantity 1
+    order
+    service_product
+  end
 end

@@ -23,6 +23,8 @@ RSpec.describe ServiceProduct, type: :model do
     it { should belong_to(:service) }
     it { should have_one(:service_menu).through(:service) }
     it { should have_one(:stylist).through(:service) }
+    it { should have_many(:order_items) }
+    it { should have_many(:orders).through(:order_items) }
   end
 
   context "validations" do

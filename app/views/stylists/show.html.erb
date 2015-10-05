@@ -1,42 +1,44 @@
 <h1><%= @stylist.username %>'s profile</h1>
 
-<div class="row">
-  <aside class="col-md-3">
-    <%= image_tag @stylist.avatar_url(:thumb), class: 'img-rounded profile-photo' %>
+<% if current_user == @stylist %>
+  <div class="row">
+    <aside class="col-md-3">
+      <%= image_tag @stylist.avatar_url(:thumb), class: 'img-rounded profile-photo' %>
 
-    <div class="social-media">
-      <div class="btn-group" role="group" aria-label="...">
-      </div>
-    </div>
-  </aside>
-
-  <section class="col-md-9">
-    <% if current_user == @stylist %>
-      <ul class="nav nav-tabs" role="tablist" id="stylistTab">
-        <li role="presentation" class="active"><a href="#appointments" aria-controls="appointments" role="tab" data-toggle="tab">Appointments</a></li>
-        <li role="presentation"><a href="#schedule" aria-controls="schedule" role="tab" data-toggle="tab">Schedule</a></li>
-        <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
-        <li role="presentation"><a href="#services" aria-controls="services" role="tab" data-toggle="tab">Services</a></li>
-        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-      </ul>
-
-      <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="appointments">
-          <%= render 'stylists/appointments' %>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="schedule">
-          <%= render 'stylists/schedule' %>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="clients">
-          <%= render 'stylists/clients' %>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="services">
-          <%= render 'stylists/services' %>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="settings">
-          <%= render 'stylists/settings' %>
+      <div class="social-media">
+        <div class="btn-group" role="group" aria-label="...">
         </div>
       </div>
-    <% end %>
-  </section>
-</div>
+    </aside>
+
+    <section class="col-md-9">
+        <ul class="nav nav-tabs" role="tablist" id="stylistTab">
+          <li role="presentation" class="active"><a href="#appointments" aria-controls="appointments" role="tab" data-toggle="tab">Appointments</a></li>
+          <li role="presentation"><a href="#schedule" aria-controls="schedule" role="tab" data-toggle="tab">Schedule</a></li>
+          <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
+          <li role="presentation"><a href="#services" aria-controls="services" role="tab" data-toggle="tab">Services</a></li>
+          <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="appointments">
+            <%= render 'stylists/appointments' %>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="schedule">
+            <%= render 'stylists/schedule' %>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="clients">
+            <%= render 'stylists/clients' %>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="services">
+            <%= render 'stylists/services' %>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="settings">
+            <%= render 'stylists/settings' %>
+          </div>
+        </div>
+    </section>
+  </div>
+<% else %>
+  <%= render 'stylists/client_view' %>
+<% end %>
