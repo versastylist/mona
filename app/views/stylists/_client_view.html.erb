@@ -19,20 +19,35 @@
 <% end %>
 
 <%= bs_row do %>
-  <%= bs_column(12) do %>
-    <h2>Service Products</h2>
-    <table class="table table-hover">
-      <thead>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Duration (minutes)</th>
-        <th>Details</th>
-        <th>Quantity</th>
-        <th></th>
-      </thead>
-      <tbody>
-        <%= render partial: 'stylists/service_product', collection: @service_products %>
-      </tbody>
-    </table>
-  <% end %>
+  <ul class="nav nav-tabs" role="tablist" id="clientViewTab">
+    <li role="presentation" class="active"><a href="#service_products" aria-controls="appointments" role="tab" data-toggle="tab">Service Products</a></li>
+    <li role="presentation"><a href="#stylist_comments" aria-controls="schedule" role="tab" data-toggle="tab">Comments</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="service_products">
+      <%= bs_column(12) do %>
+        <h2>Service Products</h2>
+        <table class="table table-hover">
+          <thead>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Duration (minutes)</th>
+            <th>Details</th>
+            <th>Quantity</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <%= render partial: 'stylists/service_product', collection: @service_products %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="stylist_comments">
+      <%= bs_column(12) do %>
+        <h1>Stylist Reviews/Comments</h1>
+      <% end %>
+    </div>
+  </div>
 <% end %>
