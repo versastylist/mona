@@ -42,6 +42,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'railroady'
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'capybara'
