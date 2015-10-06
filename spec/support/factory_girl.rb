@@ -87,7 +87,7 @@ FactoryGirl.define do
       submittable factory: :multiple_choice_submittable
     end
 
-    # Will implement open_question when I need it.
+    # Will implement open_question when I need it. 10/3
     # factory :open_question do
     # submittable factory: :open_submittable
     # end
