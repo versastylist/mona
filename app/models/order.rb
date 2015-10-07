@@ -27,6 +27,14 @@ class Order < ActiveRecord::Base
     order_items.collect { |oi| oi.valid? ? oi.total_price : 0 }.sum
   end
 
+  def total_items
+    order_items.pluck(:quantity).sum
+  end
+
+  def total_time
+    order_items.inject(0) { |sum, oi| sum + oi.total_minutes }
+  end
+
   private
 
   def set_order_status

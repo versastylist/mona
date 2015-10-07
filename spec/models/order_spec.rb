@@ -23,4 +23,13 @@ RSpec.describe Order, type: :model do
     it { should have_many(:order_items) }
     it { should have_many(:service_products).through(:order_items) }
   end
+
+  describe "#total_items" do
+    it "sums the total quantity of all order items" do
+      order = create(:order)
+      create(:order_item, quantity: 2, order: order)
+      create(:order_item, quantity: 1, order: order)
+      expect(order.total_items).to eq 3
+    end
+  end
 end

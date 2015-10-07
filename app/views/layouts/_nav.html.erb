@@ -9,13 +9,15 @@
         <li> <%= link_to 'Profile', current_user.profile_path %></li>
         <li> <%= link_to 'Find Service', menu_filters_path %></li>
         <li> <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %> </li>
-        <li>
-          <%= link_to '#', id: "shopping-cart", data: { target: "#myModal", toggle: "modal" } do %>
-            <i class="fa fa-shopping-cart"></i>
-          <% end %>
-        </li>
+        <% if current_user.client? %>
+          <li>
+            <%= link_to '#', id: "shopping-cart", data: { target: "#myModal", toggle: "modal" } do %>
+              <i class="fa fa-shopping-cart"></i>
+            <% end %>
+          </li>
+        <% end %>
         <% if current_user.admin? %>
-          <li> <%= link_to 'Create Survey', new_admin_survey_path %> </li>
+          <li> <%= link_to 'Add Survey', new_admin_survey_path %> </li>
           <li> <%= link_to 'View Surveys', admin_surveys_path %> </li>
         <% end %>
       <%- else -%>
@@ -39,10 +41,17 @@
             <thead>
               <th>Service</th>
               <th>Quantity</th>
+              <th>Time (mins)</th>
               <th>Price</th>
             </thead>
             <tbody>
               <%= render @order_items %>
+              <tr>
+                <td>Total:</td>
+                <td><%= @current_order.total_items %></td>
+                <td><%= @current_order.total_time %></td>
+                <td><%= number_to_currency @current_order.subtotal %></td>
+              </tr>
             </tbody>
           </table>
         <% else %>
