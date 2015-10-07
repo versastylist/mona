@@ -41,6 +41,7 @@
             <%= render partial: 'stylists/service_product', collection: @service_products %>
           </tbody>
         </table>
+        <%= paginate @service_products %>
       <% end %>
     </div>
 
