@@ -20,9 +20,11 @@
 //= require_tree .
 
 $(function() {
-  $('.start-timepicker').timepicker('setTime', '9:00 AM');
-  $('.end-timepicker').timepicker('setTime', '5:00 PM');
+
+  // Cost Slider in Filter page
   $('.appt-cost-slider').slider();
+
+  // Survey checkboxes
   $('.survey-checkbox').bootstrapSwitch({
     onText: 'Yes',
     offText: 'No',
@@ -30,8 +32,28 @@ $(function() {
     onColor: 'success',
     offColor: 'danger'
   });
+
+  // Set up Shopping Cart Modal
   $('#myModal').on('shown.bs.modal', function () {
     $('#myInput').focus()
   })
+
+  // Schedule checkboxes
+  $('.weekday-checkbox').bootstrapSwitch({
+    onText: 'Available',
+    offText: 'Busy',
+    size: 'small',
+    onColor: 'success',
+    offColor: 'danger'
+  });
+
+  // Timepickers for schedules
+  $('.start-timepicker').timepicker('setTime', '9:00 AM');
+  $('.end-timepicker').timepicker('setTime', '5:00 PM');
+
+  $('#new_schedule').on('cocoon:after-insert', function(e, insert) {
+    $('.interval-start-timepicker').timepicker('setTime', '11:30 AM');
+    $('.interval-end-timepicker').timepicker('setTime', '12:30 PM');
+  });
 });
 

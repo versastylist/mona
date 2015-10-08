@@ -16,6 +16,11 @@
 #  index_order_items_on_order_id            (order_id)
 #  index_order_items_on_service_product_id  (service_product_id)
 #
+# Foreign Keys
+#
+#  fk_rails_31e5b13010  (service_product_id => service_products.id)
+#  fk_rails_e3cb28f071  (order_id => orders.id)
+#
 
 class OrderItem < ActiveRecord::Base
   belongs_to :service_product
