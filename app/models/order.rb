@@ -14,6 +14,10 @@
 #
 #  index_orders_on_order_status_id  (order_status_id)
 #
+# Foreign Keys
+#
+#  fk_rails_7a22cf8b0e  (order_status_id => order_statuses.id)
+#
 
 class Order < ActiveRecord::Base
   belongs_to :order_status

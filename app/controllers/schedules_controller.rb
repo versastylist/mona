@@ -21,7 +21,19 @@ class SchedulesController < ApplicationController
   def schedule_params
     params.require(:schedule).permit(
       :name, :start_date, :end_date,
-      week_days_attributes: [:day_of_week, :start_time, :end_time, :active]
+      week_days_attributes: [
+        :day_of_week,
+        :start_time,
+        :end_time,
+        :active,
+        time_intervals_attributes: [
+          :id,
+          :title,
+          :start_time,
+          :end_time,
+          :_destroy
+        ]
+      ]
     )
   end
 end

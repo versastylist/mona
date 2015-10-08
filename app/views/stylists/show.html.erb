@@ -13,15 +13,15 @@
 
     <section class="col-md-9">
         <ul class="nav nav-tabs" role="tablist" id="stylistTab">
-          <li role="presentation" class="active"><a href="#appointments" aria-controls="appointments" role="tab" data-toggle="tab">Appointments</a></li>
+          <li role="presentation" class="active"><a href="#services" aria-controls="services" role="tab" data-toggle="tab">Services</a></li>
+          <li role="presentation"><a href="#appointments" aria-controls="appointments" role="tab" data-toggle="tab">Appointments</a></li>
           <li role="presentation"><a href="#schedule" aria-controls="schedule" role="tab" data-toggle="tab">Schedule</a></li>
           <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
-          <li role="presentation"><a href="#services" aria-controls="services" role="tab" data-toggle="tab">Services</a></li>
           <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
         </ul>
 
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="appointments">
+          <div role="tabpanel" class="tab-pane" id="appointments">
             <%= render 'stylists/appointments' %>
           </div>
           <div role="tabpanel" class="tab-pane" id="schedule">
@@ -30,7 +30,7 @@
           <div role="tabpanel" class="tab-pane" id="clients">
             <%= render 'stylists/clients' %>
           </div>
-          <div role="tabpanel" class="tab-pane" id="services">
+          <div role="tabpanel" class="tab-pane active" id="services">
             <%= render 'stylists/services' %>
           </div>
           <div role="tabpanel" class="tab-pane" id="settings">
