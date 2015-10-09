@@ -17,6 +17,7 @@
 //= require bootstrap-timepicker.min
 //= require bootstrap-slider
 //= require bootstrap-switch
+//= require underscore-min
 //= require moment/moment
 //= require fullcalendar/dist/fullcalendar.min
 //= require_tree .
@@ -56,19 +57,5 @@ $(function() {
     $('.interval-start-timepicker').timepicker('setTime', '11:30 AM');
     $('.interval-end-timepicker').timepicker('setTime', '12:30 PM');
   });
-
-  // Full Calendar
-  var myCalendar = $('#calendar').fullCalendar({
-    // put your options and callbacks here
-    contentHeight: 600,
-  })
-
-  var myEvent = {
-    title:"my new event",
-    allDay: true,
-    start: new Date(),
-    end: new Date()
-  };
-  myCalendar.fullCalendar( 'renderEvent', myEvent );
 });
 
