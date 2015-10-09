@@ -13,7 +13,7 @@
 #
 
 class WeekDay < ActiveRecord::Base
-  belongs_to :weekly_schedule
+  belongs_to :schedule
   has_many :time_intervals
 
   accepts_nested_attributes_for :time_intervals, reject_if: :all_blank, allow_destroy: true

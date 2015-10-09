@@ -17,7 +17,7 @@
 //= require bootstrap-timepicker.min
 //= require bootstrap-slider
 //= require bootstrap-switch
-//= require underscore-min
+//= require underscore/underscore-min
 //= require moment/moment
 //= require fullcalendar/dist/fullcalendar.min
 //= require_tree .

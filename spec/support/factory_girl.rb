@@ -131,4 +131,19 @@ FactoryGirl.define do
     order
     service_product
   end
+
+  factory :schedule do
+    state "Current"
+    start_date 1.day.from_now
+    end_date 14.days.from_now
+    stylist
+  end
+
+  factory :week_day do
+    day_of_week 1.day.from_now
+    start_time Time.parse("9:00am")
+    end_time Time.parse("5:00pm")
+    schedule
+    active true
+  end
 end
