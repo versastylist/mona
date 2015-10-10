@@ -20,10 +20,9 @@ class WeekDay < ActiveRecord::Base
 
   accepts_nested_attributes_for :time_intervals, reject_if: :all_blank, allow_destroy: true
 
-  def in_interval?(appiontment_end)
+  def in_interval?(appointment_end)
     time_intervals.any? do |interval|
-      # if true then it conflicts
-      appiontment_end.between?(interval.start_time, interval.end_time)
+      appointment_end.between?(interval.start_time, interval.end_time)
     end
   end
 

@@ -21,12 +21,17 @@ RSpec.describe WeekDay, type: :model do
   end
 
   describe "#in_interval?" do
-    it "returns true if start/end time are in an interval" do
+    let(:week_day) { create(:week_day, day_of_week: 1.day.from_now) }
 
+    it "returns true if appointment end time are in an interval" do
+      create(:time_interval, start_time: "11:00am", end_time: "1:00pm", week_day: week_day)
+      appointment_end_time = 1.day.from_now.change({hour: 12, min: 30})
+      expect(week_day.in_interval?(appointment_end_time)).to eq true
     end
 
-    it "returns false if start/end time are not in an any interval" do
-
+    it "returns false if appointment end time is not in an any interval" do
+      appointment_end_time = 1.day.from_now.change({hour: 12, min: 30})
+      expect(week_day.in_interval?(appointment_end_time)).to eq false
     end
   end
 end
