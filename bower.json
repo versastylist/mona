@@ -1,0 +1,21 @@
+{
+  "name": "mona",
+  "version": "0.0.0",
+  "homepage": "https://github.com/versastylist/mona",
+  "authors": [
+    "Spencer Dixon <spencercdixon@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/components",
+    "test",
+    "tests"
+  ]
+}

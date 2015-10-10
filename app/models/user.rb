@@ -30,6 +30,14 @@ class User < ActiveRecord::Base
   has_one :registration
   has_one :payment_info
   has_one :primary_address, -> { where(primary: true) }, class_name: 'Address'
+  has_one :current_schedule,
+    -> { where(state: "Current") },
+    class_name: "Schedule",
+    foreign_key: "stylist_id"
+  has_one :future_schedule,
+    -> { where(state: "Future") },
+    class_name: "Schedule",
+    foreign_key: "stylist_id"
   has_many :addresses
   has_many :services
   has_many :service_products, through: :services

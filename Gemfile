@@ -35,6 +35,7 @@ end
 group :test do
   gem 'poltergeist'      # Javascript Feature Tests
   gem 'database_cleaner' 
+  gem 'timecop'
 end
 
 group :development do

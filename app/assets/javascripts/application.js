@@ -17,10 +17,12 @@
 //= require bootstrap-timepicker.min
 //= require bootstrap-slider
 //= require bootstrap-switch
+//= require underscore/underscore-min
+//= require moment/moment
+//= require fullcalendar/dist/fullcalendar.min
 //= require_tree .
 
 $(function() {
-
   // Cost Slider in Filter page
   $('.appt-cost-slider').slider();
 

@@ -1,0 +1,27 @@
+<h1>Book Appointment With <%= @stylist.username %></h1>
+<%# TODO: create a partial for the shopping cart view %>
+
+<% if @order_items.present? %>
+  <table class="table table-hover">
+    <thead>
+      <th>Service</th>
+      <th>Quantity</th>
+      <th>Time (mins)</th>
+      <th>Price</th>
+    </thead>
+    <tbody>
+      <%= render @order_items %>
+      <tr>
+        <td>Total:</td>
+        <td><%= @current_order.total_items %></td>
+        <td><%= @current_order.total_time %></td>
+        <td><%= number_to_currency @current_order.subtotal %></td>
+      </tr>
+    </tbody>
+  </table>
+<% else %>
+  <p>There are no services in your cart</p>
+  <%= link_to 'Find A Service', menu_filters_path, class: 'btn btn-success' %>
+<% end %>
+
+

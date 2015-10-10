@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :payment_infos, only: [:new, :create]
   resources :schedules, only: [:new, :create]
   resources :order_items, only: [:create]
+  resources :appointments, only: [:new, :create]
 
   resources :service_menu_filters, only: :index, as: :menu_filters do
     resources :appointment_filters, only: [:index], as: :appointments
