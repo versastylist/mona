@@ -141,9 +141,16 @@ FactoryGirl.define do
 
   factory :week_day do
     day_of_week 1.day.from_now
-    start_time Time.parse("9:00am")
-    end_time Time.parse("5:00pm")
+    start_time DateTime.parse("9:00am")
+    end_time DateTime.parse("5:00pm")
     schedule
     active true
+  end
+
+  factory :time_interval do
+    title "Lunch"
+    start_time DateTime.parse("11:00am")
+    end_time DateTime.parse("12:00pm")
+    week_day
   end
 end

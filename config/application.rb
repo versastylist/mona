@@ -33,5 +33,8 @@ module Mona
     config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+
+    # Set default time zones for everything
+    # http://danilenko.org/2012/7/6/rails_timezones/
   end
 end

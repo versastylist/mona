@@ -18,4 +18,8 @@ class GuestUser
   def admin?
     false
   end
+
+  def verified_by_management?
+    false
+  end
 end

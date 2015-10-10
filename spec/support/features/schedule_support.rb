@@ -1,7 +1,6 @@
 module Features
   def open_schedule_for_stylist(stylist, opts = {})
-    stylist = create(:stylist)
-    options = default_schedule_opts.merge(opts)
+    options = schedule_weekday_options.merge(opts)
     schedule = create(:schedule,
                       stylist: stylist,
                       state: options[:state])
@@ -18,7 +17,7 @@ module Features
 
   private
 
-  def default_schedule_opts
+  def schedule_weekday_options
     { start_time: "9:00am",
       end_time: "5:00pm",
       state: "Current" }

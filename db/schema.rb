@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007122751) do
+ActiveRecord::Schema.define(version: 20151010153218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,11 +168,11 @@ ActiveRecord::Schema.define(version: 20151007122751) do
 
   create_table "time_intervals", force: :cascade do |t|
     t.string   "title"
-    t.time     "start_time",  null: false
-    t.time     "end_time",    null: false
     t.integer  "week_day_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
   end
 
   add_index "time_intervals", ["week_day_id"], name: "index_time_intervals_on_week_day_id", using: :btree
@@ -199,13 +199,13 @@ ActiveRecord::Schema.define(version: 20151007122751) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "week_days", force: :cascade do |t|
-    t.date     "day_of_week",                null: false
-    t.time     "start_time"
-    t.time     "end_time"
     t.integer  "schedule_id"
     t.boolean  "active",      default: true
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "day_of_week"
   end
 
   add_foreign_key "order_items", "orders"
