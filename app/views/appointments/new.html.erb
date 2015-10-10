@@ -24,4 +24,8 @@
   <%= link_to 'Find A Service', menu_filters_path, class: 'btn btn-success' %>
 <% end %>
 
-
+<div id="appointmentCalendar"></div>
+<%= content_tag "div",
+  id: "availableAppointments",
+  data: {appointments: @available_appointments } do %>
+<% end %>
