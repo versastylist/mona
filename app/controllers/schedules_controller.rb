@@ -9,6 +9,9 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.new(schedule_params)
     @schedule.stylist_id = current_user.id
 
+    # TODO: find a better solution for this, shouldn't be hard coded in.
+    @schedule.state = "Current"
+
     if @schedule.save
       redirect_to root_path, success: 'Success!'
     else

@@ -18,7 +18,8 @@ class WeekDay < ActiveRecord::Base
 
   before_save :convert_times_to_correct_date
 
-  accepts_nested_attributes_for :time_intervals, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :time_intervals,
+    reject_if: :all_blank, allow_destroy: true
 
   def in_interval?(appointment_end)
     time_intervals.any? do |interval|
