@@ -21,12 +21,16 @@ describe AvailabilityChecker do
 
     it "should return array of available times" do
       expect(checker.find_times).to include(
-      { start: 1.day.from_now.change({hour: 9, min: 0}),
-        end: 1.day.from_now.change({hour: 10, min: 0})
+      { id: "1_0",
+        start: 1.day.from_now.change({hour: 9, min: 0}),
+        end: 1.day.from_now.change({hour: 10, min: 0}),
+        title: "Available Appointment"
       })
       expect(checker.find_times).to include(
-      { start: 1.day.from_now.change({hour: 10, min: 0}),
-        end: 1.day.from_now.change({hour: 11, min: 0})
+      { id: "1_1",
+        start: 1.day.from_now.change({hour: 10, min: 0}),
+        end: 1.day.from_now.change({hour: 11, min: 0}),
+        title: "Available Appointment"
       })
     end
 
@@ -36,8 +40,10 @@ describe AvailabilityChecker do
              end_time: "11:30am",
              week_day: one_day_from_now)
       expect(checker.find_times).to include(
-      { start: 1.day.from_now.change({hour: 9, min: 0}),
-        end: 1.day.from_now.change({hour: 10, min: 0})
+      { id: "2_0",
+        start: 1.day.from_now.change({hour: 9, min: 0}),
+        end: 1.day.from_now.change({hour: 10, min: 0}),
+        title: "Available Appointment"
       })
     end
 
@@ -50,17 +56,29 @@ describe AvailabilityChecker do
 
       times = checker.find_times
       expect(times).to eq [
-        { start: 1.day.from_now.change({hour: 9, min: 0}),
-          end: 1.day.from_now.change({hour: 10, min: 0})
+        {
+          id: "3_0",
+          start: 1.day.from_now.change({hour: 9, min: 0}),
+          end: 1.day.from_now.change({hour: 10, min: 0}),
+          title: "Available Appointment"
         },
-        { start: 1.day.from_now.change({hour: 10, min: 0}),
-          end: 1.day.from_now.change({hour: 11, min: 0})
+        {
+          id: "3_1",
+          start: 1.day.from_now.change({hour: 10, min: 0}),
+          end: 1.day.from_now.change({hour: 11, min: 0}),
+          title: "Available Appointment"
         },
-        { start: 2.days.from_now.change({hour: 13, min: 0}),
-          end: 2.days.from_now.change({hour: 14, min: 0})
+        {
+          id: "4_0",
+          start: 2.days.from_now.change({hour: 13, min: 0}),
+          end: 2.days.from_now.change({hour: 14, min: 0}),
+          title: "Available Appointment"
         },
-        { start: 2.days.from_now.change({hour: 14, min: 0}),
-          end: 2.days.from_now.change({hour: 15, min: 0})
+        {
+          id: "4_1",
+          start: 2.days.from_now.change({hour: 14, min: 0}),
+          end: 2.days.from_now.change({hour: 15, min: 0}),
+          title: "Available Appointment"
         }
       ]
     end

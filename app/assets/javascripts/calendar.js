@@ -1,64 +1,31 @@
 $(function() {
-  // Full Calendar
-  var myCalendar = $('#calendar').fullCalendar({
+  if ($('#availableAppointments').length > 0) {
+    // Full Calendar
+    var myCalendar = $('#appointmentCalendar').fullCalendar({
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,agendaDay'
+        right: 'agendaWeek,agendaDay'
       },
-      defaultDate: '2014-06-12',
-      defaultView: 'agendaDay',
+      defaultDate: new Date(),
+      defaultView: 'agendaWeek',
       editable: false,
-      events: [
-        {
-          title: 'All Day Event',
-          start: '2014-06-01'
-        },
-        {
-          title: 'Long Event',
-          start: '2014-06-07',
-          end: '2014-06-10'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2014-06-09T16:00:00'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2014-06-16T16:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2014-06-12T10:30:00',
-          end: '2014-06-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2014-06-12T12:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2014-06-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: '2014-06-28'
-        }
-      ],
+      events: $('#availableAppointments').data().appointments,
       eventClick: function(calEvent, jsEvent, view) {
+        $('#startTime').text(calEvent.start.format('LLLL'));
+        $('#endTime').text(calEvent.end.format('LLLL'));
+        $('#bookLink').attr('href', function(i, h) {
+          var paramString = '&start=' + calEvent.start.format() + '&end=' + calEvent.end.format();
+          return h + paramString
+        });
 
-          alert('Event: ' + calEvent.title);
-          alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-          alert('View: ' + view.name);
-
-          // change the border color just for fun
-          $(this).css('border-color', 'red');
-
+        $('#appointmentConfirmation').modal('show');
+      },
+      eventAfterRender:function( event, element, view ) {
+        $(element).attr("id","event_id_"+event._id);
       }
-  });
+    });
+  }
 
   // myCalendar.fullCalendar( 'renderEvent', myEvent );
 });

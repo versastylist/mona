@@ -32,6 +32,8 @@ RSpec.describe User, type: :model do
     it { should have_one(:registration) }
     it { should have_one(:payment_info) }
     it { should have_one(:primary_address) }
+    it { should have_many(:stylist_appointments) }
+    it { should have_many(:client_appointments) }
     it { should have_many(:addresses) }
     it { should have_many(:services) }
     it { should have_many(:service_products).through(:services) }

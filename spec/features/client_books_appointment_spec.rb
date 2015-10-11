@@ -5,8 +5,8 @@ feature 'client books an appointment with stylist' do
     let(:client) { create(:client, :with_registration)  }
     let(:stylist) { create(:stylist, :with_registration) }
 
-    scenario 'successfully' do
-      stylist_schedule = open_schedule_for_stylist(stylist)
+    scenario 'successfully', js: true do
+      open_schedule_for_stylist(stylist)
       product = create_service_product(
         stylist,
         name: 'Buzz cut',
@@ -21,7 +21,10 @@ feature 'client books an appointment with stylist' do
       expect(page).to have_content('Added service to cart')
 
       click_on 'Book Appointment'
-      click_on 'Morning'
+      find(:css, "#event_id_1_0").click
+
+      click_on 'Book Appointment'
+      expect(page).to have_content 'Successfully booked appointment'
     end
   end
 end
