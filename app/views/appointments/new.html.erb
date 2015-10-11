@@ -25,7 +25,46 @@
 <% end %>
 
 <div id="appointmentCalendar"></div>
+
 <%= content_tag "div",
   id: "availableAppointments",
   data: {appointments: @available_appointments } do %>
 <% end %>
+
+<div class="modal fade" id="appointmentConfirmation">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">Appointment Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <h5>Confirm that these times are correct:</h5>
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <th>Start Time</th>
+              <td id="startTime"></td>
+            </tr>
+            <tr>
+              <th>End Time</th>
+              <td id="endTime"></td>
+            </tr>
+            <tr>
+              <th>Cost</th>
+              <td><%= number_to_currency @current_order.subtotal %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= link_to 'Book Appointment',
+          appointments_path,
+          method: :post,
+          class: 'btn btn-success',
+          id: 'bookLink' %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

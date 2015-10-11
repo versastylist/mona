@@ -10,8 +10,13 @@ class AvailabilityChecker
     schedule.week_days.each do |week_day|
       start_times = find_acceptable_start_times([], week_day, week_day.start_time, appointment_length)
 
-      start_times.each do |s_time|
-        available_times << { start: s_time, end: s_time + appointment_length.minutes }
+      start_times.each_with_index do |s_time, index|
+        available_times << {
+          id: "#{week_day.id}_#{index}",
+          title: "Available Appointment",
+          start: s_time,
+          end: s_time + appointment_length.minutes
+        }
       end
     end
     available_times

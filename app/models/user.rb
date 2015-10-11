@@ -44,6 +44,12 @@ class User < ActiveRecord::Base
   has_many :service_menus, through: :services
   has_many :schedules, foreign_key: 'stylist_id'
   has_many :completions
+  has_many :stylist_appointments,
+    foreign_key: 'stylist_id',
+    class_name: 'Appointment'
+  has_many :client_appointments,
+    foreign_key: 'client_id',
+    class_name: 'Appointment'
 
   validates :username,
     presence: true,

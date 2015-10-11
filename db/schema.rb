@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151010153218) do
+ActiveRecord::Schema.define(version: 20151011162050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,20 @@ ActiveRecord::Schema.define(version: 20151010153218) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
+
+  create_table "appointments", force: :cascade do |t|
+    t.datetime "start_time", null: false
+    t.datetime "end_time",   null: false
+    t.integer  "order_id"
+    t.integer  "stylist_id"
+    t.integer  "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "appointments", ["client_id"], name: "index_appointments_on_client_id", using: :btree
+  add_index "appointments", ["order_id"], name: "index_appointments_on_order_id", using: :btree
+  add_index "appointments", ["stylist_id"], name: "index_appointments_on_stylist_id", using: :btree
 
   create_table "completions", force: :cascade do |t|
     t.integer  "survey_id",  null: false
@@ -208,6 +222,7 @@ ActiveRecord::Schema.define(version: 20151010153218) do
     t.datetime "day_of_week"
   end
 
+  add_foreign_key "appointments", "orders"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "service_products"
   add_foreign_key "orders", "order_statuses"
