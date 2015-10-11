@@ -1,7 +1,11 @@
 <%= bs_row do %>
   <%= bs_column(6) do %>
     <%= image_tag @stylist.avatar_url(:thumb), class: 'img-rounded' %>
-    <%= link_to 'Book Appointment', new_appointment_path(stylist_id: @stylist.id), class: 'btn btn-success' %>
+    <%= bs_row do %>
+      <%= link_to 'Book Appointment',
+        new_appointment_path(stylist_id: @stylist.id),
+        class: 'btn btn-success btn-block book-appointment' %>
+    <% end %>
   <% end %>
 
   <%= bs_column(6) do %>
