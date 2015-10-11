@@ -15,7 +15,7 @@ $(function() {
         $('#startTime').text(calEvent.start.format('LLLL'));
         $('#endTime').text(calEvent.end.format('LLLL'));
         $('#bookLink').attr('href', function(i, h) {
-          var paramString = '?start=' + calEvent.start.format() + '&end=' + calEvent.end.format();
+          var paramString = '&start=' + calEvent.start.format() + '&end=' + calEvent.end.format();
           return h + paramString
         });
 

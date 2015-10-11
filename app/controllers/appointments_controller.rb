@@ -7,6 +7,18 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    binding.pry
+    @stylist = User.find(params[:stylist_id])
+    @client = current_user
+    @appointment = AppointmentBooker.new(
+      client: @client,
+      stylist: @stylist,
+      order: @current_order,
+      start: params[:start],
+      end: params[:end],
+    )
+    if @appointment.book
+      flash[:success] = "Successfully booked appointment"
+    end
+    redirect_to root_path
   end
 end

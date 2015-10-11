@@ -60,7 +60,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <%= link_to 'Book Appointment',
-          appointments_path,
+          appointments_path(stylist_id: @stylist.id),
           method: :post,
           class: 'btn btn-success',
           id: 'bookLink' %>
