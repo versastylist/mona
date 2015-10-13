@@ -45,6 +45,10 @@ class AvailabilityChecker
     end
   end
 
+  def buffer_time
+    GlobalSetting.instance.appointment_buffer
+  end
+
   private
 
   def schedule

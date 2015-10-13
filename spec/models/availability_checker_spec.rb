@@ -83,4 +83,12 @@ describe AvailabilityChecker do
       ]
     end
   end
+
+  describe "#buffer_time" do
+    it "should use the apps singleton setting for buffer time" do
+      GlobalSetting.instance.update(appointment_buffer: 30)
+      checker = described_class.new(stylist, order_time)
+      expect(checker.buffer_time).to eq 30
+    end
+  end
 end
