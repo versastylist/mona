@@ -10,4 +10,8 @@
 
 class GlobalSetting < ActiveRecord::Base
   acts_as_singleton
+
+  def appointment_buffer
+    self[:appointment_buffer] || 30
+  end
 end

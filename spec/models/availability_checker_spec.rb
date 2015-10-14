@@ -28,8 +28,8 @@ describe AvailabilityChecker do
       })
       expect(checker.find_times).to include(
       { id: "1_1",
-        start: 1.day.from_now.change({hour: 10, min: 0}),
-        end: 1.day.from_now.change({hour: 11, min: 0}),
+        start: 1.day.from_now.change({hour: 10, min: 30}),
+        end: 1.day.from_now.change({hour: 11, min: 30}),
         title: "Available Appointment"
       })
     end
@@ -39,6 +39,7 @@ describe AvailabilityChecker do
              start_time: "10:30am",
              end_time: "11:30am",
              week_day: one_day_from_now)
+
       expect(checker.find_times).to include(
       { id: "2_0",
         start: 1.day.from_now.change({hour: 9, min: 0}),
@@ -64,8 +65,8 @@ describe AvailabilityChecker do
         },
         {
           id: "3_1",
-          start: 1.day.from_now.change({hour: 10, min: 0}),
-          end: 1.day.from_now.change({hour: 11, min: 0}),
+          start: 1.day.from_now.change({hour: 10, min: 30}),
+          end: 1.day.from_now.change({hour: 11, min: 30}),
           title: "Available Appointment"
         },
         {
@@ -76,8 +77,8 @@ describe AvailabilityChecker do
         },
         {
           id: "4_1",
-          start: 2.days.from_now.change({hour: 14, min: 0}),
-          end: 2.days.from_now.change({hour: 15, min: 0}),
+          start: 2.days.from_now.change({hour: 14, min: 30}),
+          end: 2.days.from_now.change({hour: 15, min: 30}),
           title: "Available Appointment"
         }
       ]

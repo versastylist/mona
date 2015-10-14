@@ -23,11 +23,20 @@ class AvailabilityChecker
   end
 
   def find_acceptable_start_times(array, week_day, start_time, appointment_length)
-    end_time = start_time + appointment_length.minutes
+    end_time = start_time + appointment_length.minutes + buffer_time.minutes
 
     if start_time >= week_day.end_time
       return array
-    elsif week_day.in_interval?(end_time)
+    # Don't show times that are in a time interval
+    elsif week_day.in_interval?(start_time, end_time)
+      find_acceptable_start_times(
+        array,
+        week_day,
+        end_time,
+        appointment_length
+      )
+    # Don't show times in the past
+    elsif start_time < DateTime.now.in_time_zone
       find_acceptable_start_times(
         array,
         week_day,

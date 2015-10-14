@@ -14,9 +14,17 @@ $(function() {
       eventClick: function(calEvent, jsEvent, view) {
         $('#startTime').text(calEvent.start.format('LLLL'));
         $('#endTime').text(calEvent.end.format('LLLL'));
+
+        var weekdayID = calEvent.id.split('_')[0];
         $('#bookLink').attr('href', function(i, h) {
-          var paramString = '&start=' + calEvent.start.format() + '&end=' + calEvent.end.format();
-          return h + paramString
+          var paramHash = {
+            start: calEvent.start.format(),
+            end: calEvent.end.format(),
+            weekday_id: weekdayID,
+          }
+
+          var $params = $.param(paramHash);
+          return h + '&' + $params
         });
 
         $('#appointmentConfirmation').modal('show');

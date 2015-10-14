@@ -21,9 +21,11 @@ class WeekDay < ActiveRecord::Base
   accepts_nested_attributes_for :time_intervals,
     reject_if: :all_blank, allow_destroy: true
 
-  def in_interval?(appointment_end)
+  def in_interval?(appointment_start, appointment_end)
     time_intervals.any? do |interval|
-      appointment_end.between?(interval.start_time, interval.end_time)
+      (appointment_start < interval.end_time) && (appointment_end > interval.start_time)
+      # http://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
+      # This will allow the overlapping of start/end times
     end
   end
 

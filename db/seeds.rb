@@ -14,6 +14,12 @@ User.create(
 SurveyBuilder.build_client_registration
 SurveyBuilder.build_stylist_registration
 
+# Create GlobalSettings
+gs = GlobalSetting.instance
+gs.update(
+  appointment_buffer: 30,
+)
+
 # Build unregistered client/stylists for testing
 User.create(
   username: "client",
