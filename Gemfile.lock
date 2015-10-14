@@ -37,6 +37,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts_as_singleton (0.0.8)
+      activerecord (>= 3.1.0)
     addressable (2.3.8)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
@@ -348,6 +350,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_singleton
   annotate
   bootstrap-sass
   capybara

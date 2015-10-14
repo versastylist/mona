@@ -33,4 +33,14 @@ RSpec.describe Order, type: :model do
       expect(order.total_items).to eq 3
     end
   end
+
+  describe "#complete!" do
+    it "resets order status to be complete" do
+      order = create(:order)
+
+      expect(order.order_status.name).to eq "In Progress"
+      order.complete!
+      expect(order.order_status.name).to eq "Complete"
+    end
+  end
 end

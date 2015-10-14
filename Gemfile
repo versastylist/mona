@@ -19,13 +19,14 @@ gem 'font-awesome-sass', '~> 4.4.0'
 gem 'devise'
 
 # Assorted
-gem 'draper'        # ViewModels
-gem 'stripe'        # Payment Processing
-gem 'carrierwave'   # Image Uploading
-gem 'fog'           # S3 Cloud Uploading
-gem 'rmagick'       # Image Processing
-gem 'faker'         # Seeding Fake Data
-gem 'cocoon'        # JQuery Nested Forms
+gem 'draper'            # ViewModels
+gem 'stripe'            # Payment Processing
+gem 'carrierwave'       # Image Uploading
+gem 'fog'               # S3 Cloud Uploading
+gem 'rmagick'           # Image Processing
+gem 'faker'             # Seeding Fake Data
+gem 'cocoon'            # JQuery Nested Forms
+gem 'acts_as_singleton' # Allows Singleton Pattern for AR Objects
 
 # Production
 group :production do

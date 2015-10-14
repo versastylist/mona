@@ -21,6 +21,7 @@ class Order < ActiveRecord::Base
   has_many :service_products, through: :order_items
   has_one :appointment
   # belongs_to :client # figure out how to incorporate this
+
   before_create :set_order_status
   before_save :update_subtotal
 
@@ -34,6 +35,12 @@ class Order < ActiveRecord::Base
 
   def total_time
     order_items.inject(0) { |sum, oi| sum + oi.total_minutes }
+  end
+
+  def complete!
+    status = OrderStatus.find_or_create_by(name: "Complete")
+    self.order_status_id = status.id
+    save!
   end
 
   private
