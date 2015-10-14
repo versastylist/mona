@@ -4,5 +4,7 @@ class StylistsController < ApplicationController
     @service_products = ServiceProductDecorator.decorate_collection(
       @stylist.service_products.page(params[:page]).per(15)
     )
+    @review = StylistReview.new
+    @reviews = @stylist.stylist_reviews
   end
 end

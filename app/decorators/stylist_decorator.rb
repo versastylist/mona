@@ -1,6 +1,14 @@
 class StylistDecorator < Draper::Decorator
   delegate_all
 
+  def total_rating
+    object.stylist_reviews.average(:rating)
+  end
+
+  def num_reviews
+    object.stylist_reviews.count
+  end
+
   # Can use these for the Sharing links.  Just need to get the sharing URI
   # and replace for the registration links
   # def facebook_link

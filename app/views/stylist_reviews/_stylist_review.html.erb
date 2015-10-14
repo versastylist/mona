@@ -1,0 +1,19 @@
+<li class="stylist-review">
+  <div class="row">
+    <%= bs_column(2) do %>
+      <%= image_tag stylist_review.client.avatar_url(:thumb), class: 'img-responsive review-image' %>
+    <% end %>
+    <%= bs_column(10) do %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <strong><%= stylist_review.client.username %></strong>
+          <span class="text-muted">reviewed <%= time_ago_in_words(stylist_review.created_at) %></span>
+          <span class="badge pull-right"><%= stylist_review.rating %></span>
+        </div>
+        <div class="panel-body">
+          <p><%= stylist_review.body %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</li>

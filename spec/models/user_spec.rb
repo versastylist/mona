@@ -41,6 +41,10 @@ RSpec.describe User, type: :model do
     it { should have_many(:schedules) }
     it { should have_one(:current_schedule) }
     it { should have_one(:future_schedule) }
+    it { should have_many(:stylist_reviews) }
+    it { should have_many(:client_reviews) }
+    it { should have_many(:stylist_appointments) }
+    it { should have_many(:client_appointments) }
   end
 
   context "validations" do

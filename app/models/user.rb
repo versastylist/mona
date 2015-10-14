@@ -50,6 +50,12 @@ class User < ActiveRecord::Base
   has_many :client_appointments,
     foreign_key: 'client_id',
     class_name: 'Appointment'
+  has_many :stylist_reviews,
+    foreign_key: 'stylist_id',
+    class_name: 'StylistReview'
+  has_many :client_reviews,
+    foreign_key: 'client_id',
+    class_name: 'StylistReview'
 
   validates :username,
     presence: true,
