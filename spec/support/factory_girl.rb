@@ -153,4 +153,12 @@ FactoryGirl.define do
     end_time DateTime.parse("12:00pm")
     week_day
   end
+
+  factory :appointment do
+    start_time DateTime.parse("3:00pm")
+    end_time DateTime.parse("4:00pm")
+    order
+    stylist
+    client
+  end
 end

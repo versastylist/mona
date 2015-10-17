@@ -9,4 +9,9 @@ $(function() {
     e.preventDefault()
     $(this).tab('show')
   })
+
+  $('#showReviews').click(function (e) {
+    $('#sprod').removeClass('active');
+    $('#srev').addClass('active');
+  });
 });
