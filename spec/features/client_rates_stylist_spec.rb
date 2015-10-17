@@ -12,16 +12,14 @@ feature 'client rates stylist after appointment' do
       visit stylist_path(stylist)
       click_on 'Reviews'
 
-      select 5, from: 'Rating'
-      fill_in 'Body', with: 'Did a great job giving me a haircut!'
-      click_on 'Add Review'
+      find(:css, "a[data-rating='4']").click
+      fill_in 'Review', with: 'Did a great job giving me a haircut!'
+      click_on 'Create Review'
 
       expect(page).to have_content('Successfully created review')
-      expect(page).to have_content(5)
+      expect(page).to have_content('4.0 / 5')
     end
 
-    scenario "can't rate if they havn't had appointment" do
-
-    end
+    scenario "can't rate if they havn't had appointment"
   end
 end
