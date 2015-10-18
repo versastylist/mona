@@ -27,5 +27,10 @@ feature 'client views shopping cart' do
     expect(page).to have_content('Buzz cut')
   end
 
-  scenario "stylists should not see a cart"
+  scenario "stylists should not see a cart" do
+    stylist = create(:stylist)
+    sign_in stylist
+
+    expect(page).to_not have_css('#shopping-cart')
+  end
 end

@@ -1,4 +1,6 @@
 <%= form_for question, as: :question, url: url do |form| -%>
+  <%= render "shared/errors", object: form.object %>
+
   <div class="form-group">
     <%= form.hidden_field :submittable_type %>
 

@@ -1,6 +1,8 @@
 <h1>Create New Survey</h1>
 
 <%= form_for [:admin, @survey] do |f| %>
+  <%= render "shared/errors", object: f.object %>
+
   <div class="form-group">
     <%= f.label :title %>
     <%= f.text_field :title, class: "form-control" %>

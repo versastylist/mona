@@ -26,4 +26,8 @@ class GuestUser
   def registration
     true
   end
+
+  def has_seen_stylist?(stylist)
+    false
+  end
 end

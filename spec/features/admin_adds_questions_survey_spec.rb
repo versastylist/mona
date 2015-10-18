@@ -15,7 +15,15 @@ feature 'admin can add questions to survey' do
       expect(page).to have_content('Successfully added question')
     end
 
-    scenario 'unsuccessfully'
+    scenario 'unsuccessfully' do
+      sign_in admin
+
+      visit admin_survey_path(survey)
+      click_on 'Add Confirmable Question'
+      click_on 'Add Question'
+
+      expect(page).to have_content('1 error')
+    end
   end
 
   context 'multiple choice question type' do
@@ -31,7 +39,15 @@ feature 'admin can add questions to survey' do
       expect(page).to have_content('Successfully added question')
     end
 
-    scenario 'unsuccessfully'
+    scenario 'unsuccessfully' do
+      sign_in admin
+
+      visit admin_survey_path(survey)
+      click_on 'Add Multiple Choice Question'
+      click_on 'Add Question'
+
+      expect(page).to have_content("Title can't be blank")
+    end
   end
 
    def add_options_with_text(*texts)

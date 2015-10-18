@@ -16,6 +16,9 @@ class Survey < ActiveRecord::Base
 
   delegate :username, to: :author, prefix: true
 
+  validates :title,
+    presence: true
+
   def self.find_or_create_registration_survey(user)
     if user.client?
       find_by(title: 'Client Registration') || SurveyBuilder.build_client_registration

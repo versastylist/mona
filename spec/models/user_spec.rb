@@ -134,4 +134,40 @@ RSpec.describe User, type: :model do
       expect(stylist.registration_survey).to eq completion
     end
   end
+
+  describe "#has_seen_stylist?" do
+    let(:stylist) { create(:stylist) }
+    let(:client) { create(:client) }
+
+    it "should return true if there was a non-cancelled appointment" do
+      create(:appointment,
+             client: client,
+             stylist: stylist,
+             cancelled: false,
+             start_time: 2.days.ago)
+      expect(client.has_seen_stylist?(stylist)).to eq true
+    end
+
+    it "should return false if the appointment was cancelled" do
+      create(:appointment,
+             client: client,
+             stylist: stylist,
+             cancelled: true,
+             start_time: 2.days.ago)
+      expect(client.has_seen_stylist?(stylist)).to eq false
+    end
+
+    it "should return false if no appointments are found" do
+      expect(client.has_seen_stylist?(stylist)).to eq false
+    end
+
+    it "should return false if appointment hasn't happened yet" do
+      create(:appointment,
+             client: client,
+             stylist: stylist,
+             cancelled: true,
+             start_time: 2.days.from_now)
+      expect(client.has_seen_stylist?(stylist)).to eq false
+    end
+  end
 end

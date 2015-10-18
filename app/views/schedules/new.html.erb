@@ -10,7 +10,7 @@
 
       <% schedule_week_one.each do |week_day| %>
         <div class="panel panel-default">
-          <div class="panel-body">
+          <div class="panel-body" id="week_1_<%= week_day.strftime('%A').downcase %>">
             <%= f.fields_for :week_days, @schedule.week_days.find_or_initialize_by(day_of_week: week_day) do |wday| %>
               <%= render partial: 'weekday_fields', locals: { week_day: week_day, wday: wday } %>
             <% end %>
@@ -24,7 +24,7 @@
 
       <% schedule_week_two.each do |week_day| %>
         <div class="panel panel-default">
-          <div class="panel-body">
+          <div class="panel-body" id="week_2_<%= week_day.strftime('%A').downcase %>">
             <%= f.fields_for :week_days, @schedule.week_days.find_or_initialize_by(day_of_week: week_day) do |wday| %>
               <%= render partial: 'weekday_fields', locals: { week_day: week_day, wday: wday } %>
             <% end %>

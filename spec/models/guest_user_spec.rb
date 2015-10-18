@@ -20,4 +20,10 @@ describe GuestUser do
       expect(user.admin?).to eq false
     end
   end
+
+  describe "#has_seen_stylist?" do
+    it "should always return false" do
+      expect(user.has_seen_stylist?(1)).to eq false
+    end
+  end
 end

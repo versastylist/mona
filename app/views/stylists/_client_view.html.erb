@@ -64,21 +64,26 @@
     <div role="tabpanel" class="tab-pane" id="stylist_reviews">
       <%= bs_column(12) do %>
         <h1>Stylist Reviews</h1>
-        <%= form_for @review do |f| %>
-          <div class="form-group">
-            <%= f.label :rating, "Rate Your Stylist" %>
-            <%= f.hidden_field :rating %>
-            <div id="rating-container"></div>
-          </div>
 
-          <div class="form-group">
-            <%= f.label :body, 'Review' %>
-            <%= f.text_area :body, class: 'form-control' %>
-          </div>
+        <% if current_user.has_seen_stylist?(@stylist) %>
+          <%= form_for @review do |f| %>
+            <div class="form-group">
+              <%= f.label :rating, "Rate Your Stylist" %>
+              <%= f.hidden_field :rating %>
+              <div id="rating-container"></div>
+            </div>
 
-          <%= f.hidden_field :stylist_id, value: @stylist.id %>
+            <div class="form-group">
+              <%= f.label :body, 'Review' %>
+              <%= f.text_area :body, class: 'form-control' %>
+            </div>
 
-          <%= f.submit 'Create Review', class: 'btn btn-success' %>
+            <%= f.hidden_field :stylist_id, value: @stylist.id %>
+
+            <%= f.submit 'Create Review', class: 'btn btn-success' %>
+          <% end %>
+        <% else %>
+          <p>Must have had appointment with stylist to leave review</p>
         <% end %>
 
         <ul class="stylist-reviews">
