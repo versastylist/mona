@@ -12,14 +12,16 @@ Running the test suite:
 rspec spec  
 ```
 
-**Mailers/Mailcatcher**
+**Mailers/Mailcatcher**  
+
 In development in order to 'catch' the emails that would normally be sent out
 you need to activate a daemon called `mailcatcher`.  Open a tab in your terminal
 and type: `mailcatcher` (after you bundle install) and it should be up and
 running.  Open a tab in browser and go to: `http://localhost:1080/` in order to
 see the emails that would be sent.
 
-**Elastic Search**
+**Elastic Search**  
+
 For development you also need an elastic search server running in the
 background.
 
