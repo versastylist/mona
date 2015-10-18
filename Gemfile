@@ -37,10 +37,12 @@ group :test do
   gem 'poltergeist'      # Javascript Feature Tests
   gem 'database_cleaner' 
   gem 'timecop'
+  gem 'email_spec'
 end
 
 group :development do
   gem 'annotate'   # Shows Schema in Model files
+  gem 'mailcatcher'
 end
 
 group :development, :test do
