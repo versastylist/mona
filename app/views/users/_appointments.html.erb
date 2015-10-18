@@ -1,7 +1,7 @@
 <h1>Appointments</h1>
 
 <h2>Upcoming</h2>
-<table class="table table-hover">
+<table class="table table-hover future-appointments">
   <thead>
     <th>Start Time</th>
     <th>End Time</th>
@@ -21,12 +21,11 @@
 </table>
 
 <h2>Past Appointments</h2>
-<table class="table table-hover">
+<table class="table table-hover past-appointments">
   <thead>
     <th>Start Time</th>
     <th>End Time</th>
     <th>Stylist</th>
-    <th>Review</th>
   </thead>
   <tbody>
     <% @past_appointments.each do |appt| %>
@@ -34,7 +33,6 @@
         <td><%= appt.start_time %></td>
         <td><%= appt.end_time %></td>
         <td><%= appt.stylist_link %></td>
-        <td><%= 'review stylist' %></td>
       </tr>
     <% end %>
   </tbody>

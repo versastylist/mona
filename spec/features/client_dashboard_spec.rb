@@ -17,8 +17,36 @@ feature 'client dashboard' do
   end
 
   context 'appointments' do
+    let(:client) { create(:client, :with_registration) }
+    before { sign_in client }
+
     scenario 'lists future appointments' do
-      
+      appointment = create(:appointment, client: client, start_time: 2.days.from_now)
+
+      visit user_path(client)
+      within(:css, '.future-appointments') do
+        expect(page).to have_content(formatted_start_time(appointment))
+      end
+    end
+
+    scenario 'lists past appointments' do
+      future = create(:appointment, client: client, start_time: 2.days.from_now)
+      past = create(:appointment, client: client, start_time: 2.days.ago)
+
+      visit user_path(client)
+      within(:css, '.future-appointments') do
+        expect(page).to have_content(formatted_start_time(future))
+        expect(page).to_not have_content(formatted_start_time(past))
+      end
+
+      within(:css, '.past-appointments') do
+        expect(page).to have_content(formatted_start_time(past))
+        expect(page).to_not have_content(formatted_start_time(future))
+      end
     end
   end
+end
+
+def formatted_start_time(appt)
+  appt.start_time.strftime('%B %d, %Y, at %I:%M %P')
 end
