@@ -37,9 +37,12 @@ class Appointment < ActiveRecord::Base
   scope :in_past, -> { not_cancelled.where('start_time < ?', DateTime.now.in_time_zone) }
 
   def cancel!
-    update(cancelled: true)
-    time_interval.destroy
-    send_cancel_notifications
+    if update(cancelled: true)
+      time_interval.destroy
+      send_cancel_notifications
+    else
+      false
+    end
   end
 
   private
