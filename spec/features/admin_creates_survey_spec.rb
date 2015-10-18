@@ -14,7 +14,13 @@ feature 'admin creates a survey' do
       expect(page).to have_content('Client Registration')
     end
 
-    scenario 'missing required fields shows errors'
+    scenario 'missing required fields shows errors' do
+      sign_in admin
+      visit new_admin_survey_path
+
+      click_on 'Create Survey'
+      expect(page).to have_content("Title can't be blank")
+    end
   end
 
   context 'unauthenticated users' do

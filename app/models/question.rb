@@ -18,6 +18,9 @@ class Question < ActiveRecord::Base
 
   accepts_nested_attributes_for :submittable
 
+  validates :title,
+    presence: true
+
   def build_submittable(type, attributes)
     submittable_class = type.sub('Question', 'Submittable').constantize
     self.submittable = submittable_class.new(attributes.merge(question: self))
