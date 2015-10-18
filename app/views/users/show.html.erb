@@ -1,5 +1,27 @@
-<h2>
-  Profile Page of <%= @user.username %>
-</h2>
+<%= bs_row do  %>
+  <div class="profile-info">
+    <h2>
+      Profile of <%= @user.username %>
+    </h2>
 
-<%= image_tag @user.avatar_url(:thumb) if @user.avatar_url %>
+    <%= image_tag @user.avatar_url(:thumb) if @user.avatar_url %>
+  </div>
+<% end %>
+
+<% if current_user == @user %>
+  <%= bs_row do %>
+    <ul class="nav nav-tabs" role="tablist" id="clientDashboard">
+      <li role="presentation" class="active"><a href="#appointments" aria-controls="appointments" role="tab" data-toggle="tab">Appointments</a></li>
+      <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="appointments">
+        <%= render 'appointments' %>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="settings">
+        <%= render 'settings' %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

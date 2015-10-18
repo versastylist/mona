@@ -21,7 +21,7 @@ feature 'client books an appointment with stylist' do
       expect(page).to have_content('Added service to cart')
 
       click_on 'Book Appointment'
-      find(:css, "a.fc-time-grid-event").click
+      find(:css, "#event_id_1_0").click
 
       click_on 'Book Appointment'
       expect(page).to have_content 'Successfully booked appointment'

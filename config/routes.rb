@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get '/surveys/registration', as: :registration_survey, to: 'registration_surveys#show'
 
   resources :users, only: [:show, :index]
-  resources :registrations, only: [:show, :new, :create]
+  resources :registrations, only: [:show, :new, :create, :update]
   resources :services, only: [:new, :create, :index]
   resources :payment_infos, only: [:new, :create]
   resources :schedules, only: [:new, :create]

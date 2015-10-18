@@ -26,4 +26,7 @@ class Appointment < ActiveRecord::Base
   belongs_to :client,
     class_name: 'User',
     foreign_key: :client_id
+
+  scope :in_future, -> { where('start_time > ?', DateTime.now.in_time_zone) }
+  scope :in_past, -> { where('start_time < ?', DateTime.now.in_time_zone) }
 end

@@ -1,0 +1,16 @@
+<h1>Settings</h1>
+
+<%= bs_row do %>
+  <%= bs_column(6) do %>
+    <h2>Edit Registration</h2>
+    <%= form_for @registration do |f| %>
+      <%= render "shared/errors", object: f.object %>
+      <%= render "registrations/editable_fields", f: f %>
+
+      <%= f.submit 'Edit Registration', class: 'btn btn-warning' %>
+    <% end %>
+  <% end %>
+
+  <%= bs_column(6) do %>
+  <% end %>
+<% end %>

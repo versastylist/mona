@@ -1,17 +1,4 @@
-<div class="form-group">
-  <%= f.label :first_name %>
-  <%= f.text_field :first_name, class: "form-control" %>
-</div>
-
-<div class="form-group">
-  <%= f.label :last_name %>
-  <%= f.text_field :last_name, class: "form-control" %>
-</div>
-
-<div class="form-group">
-  <%= f.label :phone_number %>
-  <%= f.phone_field :phone_number, class: "form-control" %>
-</div>
+<%= render 'editable_fields', f: f %>
 
 <div class="form-group">
   <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
