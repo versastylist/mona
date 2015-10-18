@@ -2,8 +2,9 @@ require 'rails_helper'
 
 feature 'client dashboard' do
   context 'settings' do
+    let(:client) { create(:client, :with_registration) }
+
     scenario 'visits setting page to update phone', js: true do
-      client = create(:client, :with_registration)
       sign_in client
 
       click_on 'Profile'
@@ -13,6 +14,13 @@ feature 'client dashboard' do
       click_on 'Edit Registration'
 
       expect(page).to have_content('Updated registration details')
+    end
+
+    scenario 'doesnt display if its a different user' do
+      visit user_path(client)
+
+      expect(page).to_not have_content('Appointments')
+      expect(page).to_not have_content('Settings')
     end
   end
 
