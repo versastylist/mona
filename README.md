@@ -12,6 +12,35 @@ Running the test suite:
 rspec spec  
 ```
 
+**Mailers/Mailcatcher**
+In development in order to 'catch' the emails that would normally be sent out
+you need to activate a daemon called `mailcatcher`.  Open a tab in your terminal
+and type: `mailcatcher` (after you bundle install) and it should be up and
+running.  Open a tab in browser and go to: `http://localhost:1080/` in order to
+see the emails that would be sent.
+
+**Elastic Search**
+For development you also need an elastic search server running in the
+background.
+
+To install elastic search first download via your favorite package manager.  For
+homebrew:  
+
+```  
+brew install elasticsearch
+```
+Then this is the command to get it running:  
+
+```
+elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml
+```
+
+I have that command saved in an alias in my `.zshrc` file to save time:  
+```
+# .zshrc file
+alias elsearch='elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml'
+```
+
 **Stripe Credentials**
 [Go here to get test CC's and Bank Account Info](https://stripe.com/docs/testing)
 

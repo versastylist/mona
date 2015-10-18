@@ -23,15 +23,26 @@ RSpec.configure do |config|
   config.include AuthenticationHelper
   config.include ServiceProductHelper
   config.include RegistrationHelper
+
   config.include Features, type: :feature
   config.include FactoryGirl::Syntax::Methods
 
+  # Allow for easier callbacks testing
   config.before(:all, callbacks: true) do
     ActiveRecord::Base.skip_callbacks = false
   end
 
   config.after(:all, callbacks: true) do
     ActiveRecord::Base.skip_callbacks = true
+  end
+
+  # Testing Emails
+  config.include(EmailSpec::Helpers)
+  config.include(EmailSpec::Matchers)
+
+  # Clear out all past emails
+  config.before :each do
+    ActionMailer::Base.deliveries.clear
   end
 end
 ActiveRecord::Base.skip_callbacks = true

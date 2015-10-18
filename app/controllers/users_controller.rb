@@ -3,10 +3,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.from_params(params[:id])
-  end
-
-  def index
-    @users = User.elastic_search(params[:query])
+    @registration = @user.registration
+    @future_appointments = @user.client_appointments.in_future.decorate
+    @past_appointments = @user.client_appointments.in_past.decorate
+    @cancelled_appointments = @user.client_appointments.cancelled.decorate
   end
 
   private

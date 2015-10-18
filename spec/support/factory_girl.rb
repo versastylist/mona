@@ -160,5 +160,16 @@ FactoryGirl.define do
     order
     stylist
     client
+
+    trait :with_interval do
+      after :create do |appt|
+        create(
+          :time_interval,
+          start_time: appt.start_time,
+          end_time: appt.start_time,
+          appointment_id: appt.id
+        )
+      end
+    end
   end
 end

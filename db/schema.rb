@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151014105406) do
+ActiveRecord::Schema.define(version: 20151018155832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,13 +37,14 @@ ActiveRecord::Schema.define(version: 20151014105406) do
   end
 
   create_table "appointments", force: :cascade do |t|
-    t.datetime "start_time", null: false
-    t.datetime "end_time",   null: false
+    t.datetime "start_time",                 null: false
+    t.datetime "end_time",                   null: false
     t.integer  "order_id"
     t.integer  "stylist_id"
     t.integer  "client_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "cancelled",  default: false
   end
 
   add_index "appointments", ["client_id"], name: "index_appointments_on_client_id", using: :btree
@@ -201,10 +202,11 @@ ActiveRecord::Schema.define(version: 20151014105406) do
   create_table "time_intervals", force: :cascade do |t|
     t.string   "title"
     t.integer  "week_day_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.datetime "start_time"
     t.datetime "end_time"
+    t.integer  "appointment_id"
   end
 
   add_index "time_intervals", ["week_day_id"], name: "index_time_intervals_on_week_day_id", using: :btree

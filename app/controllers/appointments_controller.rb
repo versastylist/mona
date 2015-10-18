@@ -24,4 +24,15 @@ class AppointmentsController < ApplicationController
     end
     redirect_to root_path
   end
+
+  def destroy
+    @appointment = Appointment.find(params[:id])
+
+    if @appointment.cancel!
+      flash[:success] = "Successfully cancelled appointment"
+    else
+      flash[:danger] = "Was unable to cancel your appointment"
+    end
+    redirect_to :back
+  end
 end

@@ -22,6 +22,16 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def update
+    @registration = current_user.registration
+    if @registration.update_attributes(registration_params)
+      flash[:success] = "Updated registration details"
+    else
+      flash[:danger] = "Something went wrong updating your registration"
+    end
+    redirect_to :back
+  end
+
   private
 
   def registration_params
@@ -32,8 +42,6 @@ class RegistrationsController < ApplicationController
       :avatar,
       :dob,
       :gender,
-      :facebook,
-      :linked_in,
     )
   end
 

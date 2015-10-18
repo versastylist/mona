@@ -22,4 +22,8 @@ class GuestUser
   def verified_by_management?
     false
   end
+
+  def registration
+    true
+  end
 end
