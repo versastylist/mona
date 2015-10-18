@@ -14,7 +14,13 @@
         <td><%= appt.start_time %></td>
         <td><%= appt.end_time %></td>
         <td><%= appt.stylist_link %></td>
-        <td><%= 'option to cancel' %></td>
+        <td>
+          <%= link_to 'Cancel Appointment',
+          appointment_path(appt),
+          method: :delete,
+          data: { confirm: 'Are you sure?' },
+          class: 'btn btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -29,6 +35,24 @@
   </thead>
   <tbody>
     <% @past_appointments.each do |appt| %>
+      <tr>
+        <td><%= appt.start_time %></td>
+        <td><%= appt.end_time %></td>
+        <td><%= appt.stylist_link %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Cancelled Appointments</h2>
+<table class="table table-hover cancelled-appointments">
+  <thead>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Stylist</th>
+  </thead>
+  <tbody>
+    <% @cancelled_appointments.each do |appt| %>
       <tr>
         <td><%= appt.start_time %></td>
         <td><%= appt.end_time %></td>

@@ -19,6 +19,7 @@
 #
 
 class Appointment < ActiveRecord::Base
+  has_one :time_interval
   belongs_to :order
   belongs_to :stylist,
     class_name: 'User',
@@ -27,6 +28,25 @@ class Appointment < ActiveRecord::Base
     class_name: 'User',
     foreign_key: :client_id
 
-  scope :in_future, -> { where('start_time > ?', DateTime.now.in_time_zone) }
-  scope :in_past, -> { where('start_time < ?', DateTime.now.in_time_zone) }
+  delegate :username, to: :client, prefix: true
+  delegate :username, to: :stylist, prefix: true
+
+  scope :not_cancelled, -> { where(cancelled: false) }
+  scope :cancelled, -> { where(cancelled: true) }
+  scope :in_future, -> { not_cancelled.where('start_time > ?', DateTime.now.in_time_zone) }
+  scope :in_past, -> { not_cancelled.where('start_time < ?', DateTime.now.in_time_zone) }
+
+  def cancel!
+    update(cancelled: true)
+    time_interval.destroy
+    send_cancel_notifications
+  end
+
+  private
+
+  def send_cancel_notifications
+    [client.id, stylist.id].each do |user_id|
+      AppointmentMailer.cancel_appointment(self, user_id).deliver_later
+    end
+  end
 end

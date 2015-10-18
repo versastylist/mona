@@ -2,13 +2,14 @@
 #
 # Table name: time_intervals
 #
-#  id          :integer          not null, primary key
-#  title       :string
-#  week_day_id :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  start_time  :datetime
-#  end_time    :datetime
+#  id             :integer          not null, primary key
+#  title          :string
+#  week_day_id    :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  start_time     :datetime
+#  end_time       :datetime
+#  appointment_id :integer
 #
 # Indexes
 #
@@ -17,6 +18,7 @@
 
 class TimeInterval < ActiveRecord::Base
   belongs_to :week_day
+  belongs_to :appointment
 
   before_save :convert_times_to_correct_date
 

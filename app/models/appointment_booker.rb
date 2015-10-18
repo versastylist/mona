@@ -17,12 +17,14 @@ class AppointmentBooker
       client: client,
       order: order
     )
+    appointment.save!
+
     week_day.time_intervals.create!(
       start_time: start_time,
       end_time: end_time,
-      title: "Appointment Booking with client: #{client.id}"
+      title: "Appointment Booking with client: #{client.id}",
+      appointment_id: appointment.id,
     )
     order.complete!
-    appointment.save!
   end
 end

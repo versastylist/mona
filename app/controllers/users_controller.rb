@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     @registration = @user.registration
     @future_appointments = @user.client_appointments.in_future.decorate
     @past_appointments = @user.client_appointments.in_past.decorate
+    @cancelled_appointments = @user.client_appointments.cancelled.decorate
   end
 
   private

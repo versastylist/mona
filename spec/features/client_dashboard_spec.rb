@@ -52,6 +52,41 @@ feature 'client dashboard' do
         expect(page).to_not have_content(formatted_start_time(future))
       end
     end
+
+    scenario 'lists cancelled appointments' do
+      cancelled = create(:appointment, client: client, cancelled: true)
+
+      visit user_path(client)
+      within(:css, '.cancelled-appointments') do
+        expect(page).to have_content(formatted_start_time(cancelled))
+      end
+    end
+
+    scenario 'appointment can be cancelled', js: true do
+      ActionMailer::Base.deliveries = []
+      appointment = create(:appointment, client: client, start_time: 4.days.from_now)
+      stylist = appointment.stylist
+      create(:time_interval, appointment_id: appointment.id)
+
+
+      visit user_path(client)
+      within(:css, '.future-appointments') do
+        click_on 'Cancel Appointment'
+      end
+
+      expect(ActionMailer::Base.deliveries.size).to eql(2)
+
+      # the email we just sent should have the proper subject and recipient:
+      first_email = ActionMailer::Base.deliveries.first
+      expect(first_email).to have_subject('Appointment Cancellation')
+      expect(first_email).to deliver_to(client.email)
+
+      last_email = ActionMailer::Base.deliveries.last
+      expect(last_email).to have_subject('Appointment Cancellation')
+      expect(last_email).to deliver_to(stylist.email)
+
+      expect(page).to have_content('Successfully cancelled appointment')
+    end
   end
 end
 
