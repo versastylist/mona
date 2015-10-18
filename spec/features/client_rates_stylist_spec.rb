@@ -20,6 +20,13 @@ feature 'client rates stylist after appointment' do
       expect(page).to have_content('4.0 / 5')
     end
 
-    scenario "can't rate if they havn't had appointment"
+    scenario "can't rate if they havn't had appointment", js: true do
+      sign_in client
+
+      visit stylist_path(stylist)
+      click_on 'Reviews'
+
+      expect(page).to have_content('Must have had appointment with stylist to leave review')
+    end
   end
 end

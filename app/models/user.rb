@@ -112,4 +112,10 @@ class User < ActiveRecord::Base
   def authenticated?
     true
   end
+
+  def has_seen_stylist?(stylist)
+    client_appointments.in_past.
+      where(stylist_id: stylist.id).
+      where(cancelled: false).present?
+  end
 end

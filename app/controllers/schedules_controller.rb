@@ -13,10 +13,11 @@ class SchedulesController < ApplicationController
     @schedule.state = "Current"
 
     if @schedule.save
-      redirect_to root_path, success: 'Success!'
+      flash[:success] = 'Successfully created schedule'
     else
-      redirect_to root_path, warning: 'Failure'
+      flash[:warning] = 'Failure'
     end
+    redirect_to root_path
   end
 
   private
