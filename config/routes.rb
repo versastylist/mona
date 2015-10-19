@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :order_items, only: [:create]
   resources :appointments, only: [:new, :create, :destroy]
   resources :stylist_reviews, only: :create
+  resources :service_products, only: :update
 
   resources :service_menu_filters, only: :index, as: :menu_filters do
     resources :appointment_filters, only: [:index], as: :appointments
