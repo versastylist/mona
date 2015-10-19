@@ -16,7 +16,14 @@
     <% @service_products.each do |service| %>
       <tr>
         <td><%= service.name %></td>
-        <td>ON</td>
+        <td>
+          <%= check_box_tag '',
+            '1', service.displayed,
+            class: 'service-product-checkbox',
+            id: service.id %>
+           <i class="fa fa-spinner fa-spin" style="display:none" id="spin_<%= dom_id(service) %>"></i>
+        </td>
+
         <td><%= service.minute_duration %></td>
         <td>
           <i class="fa fa-cog fa-2x"></i>
