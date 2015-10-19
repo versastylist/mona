@@ -40,15 +40,6 @@ $(function() {
     $('#myInput').focus()
   })
 
-  // Schedule checkboxes
-  $('.weekday-checkbox').bootstrapSwitch({
-    onText: 'Available',
-    offText: 'Busy',
-    size: 'small',
-    onColor: 'success',
-    offColor: 'danger'
-  });
-
   // Timepickers for schedules
   $('.start-timepicker').timepicker('setTime', '9:00 AM');
   $('.end-timepicker').timepicker('setTime', '5:00 PM');
