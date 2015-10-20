@@ -29,4 +29,8 @@ class Survey < ActiveRecord::Base
       raise "No registration needed for this type of user.."
     end
   end
+
+  def registration_survey?
+    title == "Client Registration" || title == "Stylist Registration"
+  end
 end
