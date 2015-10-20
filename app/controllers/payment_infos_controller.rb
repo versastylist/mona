@@ -11,7 +11,7 @@ class PaymentInfosController < ApplicationController
     if @payment_info.save_with_payment
       flash[:success] =  "Payment info saved!"
     end
-    redirect_to root_path
+    redirect_to registration_survey_path
   end
 
   def payment_params

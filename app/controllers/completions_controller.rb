@@ -4,7 +4,14 @@ class CompletionsController < ApplicationController
     completion = @survey.completions.new(completion_params)
     completion.user = current_user
     completion.save!
-    redirect_to root_path, success: "Successfully finished survey"
+
+    if @survey.registration_survey?
+      redirect_to menu_filters_path,
+        success: "Successfully finished survey"
+    else
+      redirect_to root_path,
+        success: "Successfully finished survey"
+    end
   end
 
   private
