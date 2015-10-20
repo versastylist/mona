@@ -5,4 +5,9 @@
   Add Schedule
 <% end %>
 
-<div id='calendar'></div>
+<div id='stylistCalendar'></div>
+
+<%= content_tag "div",
+  id: "eventSources",
+  data: {event_sources: @event_sources } do %>
+<% end %>

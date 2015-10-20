@@ -32,7 +32,22 @@ feature 'stylist creates a weekly schedule' do
       click_on 'Create Schedule'
 
       expect(page).to have_content('Successfully created schedule')
+    end
 
+    scenario 'displayed on their dashboard page', js: true do
+      create_default_schedule(stylist)
+      visit stylist_path(stylist)
+
+      click_on 'Schedule'
+      expect(page).to have_css('#event_id_1')
     end
   end
+end
+
+def create_default_schedule(stylist)
+  visit stylist_path(stylist)
+
+  click_on 'Schedule'
+  click_on 'Add Schedule'
+  click_on 'Create Schedule'
 end

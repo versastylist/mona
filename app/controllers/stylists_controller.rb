@@ -6,5 +6,6 @@ class StylistsController < ApplicationController
     )
     @review = StylistReview.new
     @reviews = @stylist.stylist_reviews
+    @event_sources = StylistScheduleDisplayer.new(@stylist).find_times.to_json
   end
 end
