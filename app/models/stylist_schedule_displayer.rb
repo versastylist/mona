@@ -7,10 +7,45 @@ class StylistScheduleDisplayer
 
   def find_times
     event_sources << find_appointment_times
+    event_sources << find_free_time
   end
 
   def find_free_time
+    appointment_source = { events: [], color: '#449d44', textColor: 'white' }
 
+    schedule.week_days.each do |wday|
+      sorted_intervals = wday.time_intervals.sort_by { |i| i.start_time }
+      start_time = wday.start_time
+
+      if wday.time_intervals.empty?
+        appointment_source[:events] << {
+          start: start_time,
+          end: wday.end_time,
+          id: "#{wday.id}",
+          title: 'Available For Booking'
+        }
+      else
+        sorted_intervals.each do |interval|
+          appointment_source[:events] << {
+            start: start_time,
+            end: interval.start_time,
+            id: "#{wday.id}_#{interval.id}",
+            title: 'Available For Booking'
+          }
+          start_time = interval.end_time
+
+          if sorted_intervals.last == interval
+            appointment_source[:events] << {
+              start: interval.end_time,
+              end: wday.end_time,
+              id: "#{wday.id}_#{interval.id}",
+              title: 'Available For Booking'
+            }
+          end
+        end
+      end
+    end
+    appointment_source
   end
 
   def find_appointment_times
@@ -32,6 +67,16 @@ class StylistScheduleDisplayer
   private
 
   def schedule
-    @schedule ||= stylist.current_schedule
+    @schedule ||= stylist.current_schedule || NullSchedule.new
+  end
+
+  class NullSchedule
+    def start_date
+      1.day.ago
+    end
+
+    def end_date
+      10.days.from_now
+    end
   end
 end
