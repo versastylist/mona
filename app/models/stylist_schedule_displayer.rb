@@ -10,11 +10,12 @@ class StylistScheduleDisplayer
     event_sources << find_free_time
   end
 
+  # Definitely should be refactored.  Not optimal algorithm at all.
   def find_free_time
     appointment_source = { events: [], color: '#449d44', textColor: 'white' }
 
     schedule.week_days.each do |wday|
-      sorted_intervals = wday.time_intervals.sort_by { |i| i.start_time }
+      sorted_intervals = wday.time_intervals.order(:start_time)
       start_time = wday.start_time
 
       if wday.time_intervals.empty?
