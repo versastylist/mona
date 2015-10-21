@@ -27,30 +27,15 @@ class AvailabilityChecker
 
     if start_time >= week_day.end_time
       return array
-    # Don't show times that are in a time interval
+    # Don't show times that are in a time interval: Recurse
     elsif week_day.in_interval?(start_time, end_time)
-      find_acceptable_start_times(
-        array,
-        week_day,
-        end_time,
-        appointment_length
-      )
-    # Don't show times in the past
+      find_acceptable_start_times(array, week_day, end_time, appointment_length)
+    # Don't show times in the past: Recurse
     elsif start_time < DateTime.now.in_time_zone
-      find_acceptable_start_times(
-        array,
-        week_day,
-        end_time,
-        appointment_length
-      )
+      find_acceptable_start_times(array, week_day, end_time, appointment_length)
     else
       array << start_time
-      find_acceptable_start_times(
-        array,
-        week_day,
-        end_time,
-        appointment_length
-      )
+      find_acceptable_start_times(array, week_day, end_time, appointment_length)
     end
   end
 
@@ -62,9 +47,5 @@ class AvailabilityChecker
 
   def schedule
     @schedule ||= stylist.current_schedule
-  end
-
-  def order_minutes
-    @min ||= order_time * 60
   end
 end

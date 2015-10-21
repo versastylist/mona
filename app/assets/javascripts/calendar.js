@@ -1,4 +1,5 @@
 $(function() {
+  // Apointment Selection
   if ($('#availableAppointments').length > 0) {
     // Full Calendar
     var myCalendar = $('#appointmentCalendar').fullCalendar({
@@ -35,5 +36,24 @@ $(function() {
     });
   }
 
-  // myCalendar.fullCalendar( 'renderEvent', myEvent );
+  // Stylsit Availability
+  if ($('#eventSources').length > 0) {
+    // Full Calendar
+    var eventSources = $('#eventSources').data().eventSources;
+
+    var myCalendar = $('#stylistCalendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'agendaWeek,agendaDay'
+      },
+      defaultDate: new Date(),
+      defaultView: 'agendaWeek',
+      editable: false,
+      eventSources: eventSources,
+      eventAfterRender:function( event, element, view ) {
+        $(element).attr("id","event_id_"+event._id);
+      }
+    });
+  }
 });
