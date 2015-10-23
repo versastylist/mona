@@ -49,12 +49,12 @@ alias elsearch='elasticsearch --config=/usr/local/opt/elasticsearch/config/elast
 
 ## Workflow  
 ### Pull Request & Branching  
-When checking out a branch use initials and then description of feature followed by
-issue id.
+When checking out a branch use initials, issue ID, and then description of
+feature.  
 
 Example:
 ```ruby  
-git checkout -b sd-setting-up-gemfile-2  
+git checkout -b sd-2-setting-up-gemfile  
 ```  
 
 This is assuming there is an issue #2 that should set up the Gemfile.  
