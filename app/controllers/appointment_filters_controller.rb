@@ -3,13 +3,14 @@ class AppointmentFiltersController < ApplicationController
     @service_menu = ServiceMenu.find(params[:menu_filter_id])
     @product_search =
     if params[:query]
-      upper_bound    = find_upper_bound
-      geocoordinates = find_search_address
-      service_ids = User.available_service_ids(geocoordinates, 5)
+      upper_bound     = find_upper_bound
+      geocoordinates  = find_search_address
+      sanitized_query = find_search_query
+      service_ids     = User.available_service_ids(geocoordinates, 5)
 
       @service_products = ServiceProductDecorator.decorate_collection(
         ServiceProduct.search(
-          params[:query],
+          sanitized_query,
           page: params[:page],
           per_page: 10,
           where: {
@@ -23,6 +24,10 @@ class AppointmentFiltersController < ApplicationController
   end
 
   private
+
+  def find_search_query
+    params[:query].blank? ? '*' : params[:query]
+  end
 
   def find_upper_bound
     params[:price_range].blank? ? 4000 : params[:price_range].to_i
