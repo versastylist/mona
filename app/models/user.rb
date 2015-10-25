@@ -131,4 +131,30 @@ class User < ActiveRecord::Base
       where(stylist_id: stylist.id).
       where(cancelled: false).present?
   end
+
+  def projected_revenue
+    stylist_appointments.
+      in_future.joins(:order).sum('orders.subtotal')
+  end
+
+  def stylist_reminders
+    reminders = []
+    reminders << "You still need to create your current schedule" unless current_schedule.present?
+    reminders << "You still need to create your future schedule" unless future_schedule.present?
+    reminders
+  end
+
+  def weekly_rev_forecast
+    labels = [Date.today, 1.day.from_now, 2.days.from_now, 3.days.from_now, 4.days.from_now, 5.days.from_now, 6.days.from_now]
+    english_labels = labels.map { |l| l.strftime('%A') }
+
+    data = labels.each_with_object([]) do |day_of_week, arr|
+      day_total = stylist_appointments.where(
+                    start_time: day_of_week.beginning_of_day..day_of_week.end_of_day
+                  ).joins(:order).sum('orders.subtotal')
+      arr << day_total.to_i
+    end
+
+    { data: data, labels: english_labels }
+  end
 end

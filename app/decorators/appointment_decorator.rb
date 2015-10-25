@@ -13,4 +13,8 @@ class AppointmentDecorator < Draper::Decorator
   def stylist_link
     h.link_to object.stylist.username, stylist_path(object.stylist)
   end
+
+  def client_link
+    h.link_to object.client.username, user_path(object.client)
+  end
 end

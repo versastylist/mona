@@ -8,5 +8,10 @@ class StylistsController < ApplicationController
     @reviews = @stylist.stylist_reviews
     @event_sources = StylistScheduleDisplayer.new(@stylist).
       find_times.to_json if @stylist.current_schedule.present?
+
+    @future_appointments = @stylist.stylist_appointments.in_future.decorate
+    @past_appointments = @stylist.stylist_appointments.in_past.decorate
+    @cancelled_appointments = @stylist.stylist_appointments.cancelled.decorate
+    @projected_revenue = @stylist.projected_revenue
   end
 end

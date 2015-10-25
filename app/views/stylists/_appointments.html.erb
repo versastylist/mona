@@ -1,1 +1,97 @@
 <h1>Appointments</h1>
+
+<%= bs_row do %>
+  <%= bs_column(6) do %>
+    <div class="quickview">
+      <h4> At a glance </h4>
+      <span class="label label-info">
+        Upcoming appointments: <%= @future_appointments.count %>
+      </span>
+      <span class="label label-success">
+        Projected Revenue: <%= number_to_currency(@projected_revenue) %>
+      </span>
+    </div>
+  <% end %>
+
+  <%= bs_column(6) do %>
+    <h4> Reminders: </h4>
+    <div class="reminders well">
+      <ul>
+        <% @stylist.stylist_reminders.each do |reminder| %>
+          <li><%= reminder %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>
+
+<h2>Upcoming</h2>
+<table class="table table-hover future-appointments">
+  <thead>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Client Username</th>
+    <th>Cancel?</th>
+  </thead>
+  <tbody>
+    <% @future_appointments.each do |appt| %>
+      <tr>
+        <td><%= appt.start_time %></td>
+        <td><%= appt.end_time %></td>
+        <td><%= appt.client_link %></td>
+        <td>
+          <%= link_to 'Cancel Appointment',
+            appointment_path(appt),
+            method: :delete,
+            data: { confirm: 'Are you sure?' },
+            class: 'btn btn-danger'
+          %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Past Appointments</h2>
+<table class="table table-hover past-appointments">
+  <thead>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Client</th>
+  </thead>
+  <tbody>
+    <% @past_appointments.each do |appt| %>
+      <tr>
+        <td><%= appt.start_time %></td>
+        <td><%= appt.end_time %></td>
+        <td><%= appt.client_link %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Cancelled Appointments</h2>
+<table class="table table-hover cancelled-appointments">
+  <thead>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Client</th>
+  </thead>
+  <tbody>
+    <% @cancelled_appointments.each do |appt| %>
+      <tr>
+        <td><%= appt.start_time %></td>
+        <td><%= appt.end_time %></td>
+        <td><%= appt.client_link %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h1>Projected Revenue</h1>
+<%= content_tag "div",
+  id: "revenueData",
+  data: @stylist.weekly_rev_forecast do %>
+<% end %>
+
+<canvas id="revenueForecast" width="400" height="400"></canvas>

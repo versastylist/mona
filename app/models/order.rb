@@ -51,6 +51,8 @@ class Order < ActiveRecord::Base
   end
 
   def update_subtotal
+    # TODO: determine if I'm going to need subtotal or not and choose what to do
     self[:subtotal] = subtotal
+    self[:total] = subtotal
   end
 end

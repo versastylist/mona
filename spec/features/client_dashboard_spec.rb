@@ -68,7 +68,6 @@ feature 'client dashboard' do
       stylist = appointment.stylist
       create(:time_interval, appointment_id: appointment.id)
 
-
       visit user_path(client)
       within(:css, '.future-appointments') do
         click_on 'Cancel Appointment'
