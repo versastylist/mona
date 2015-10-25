@@ -27,6 +27,7 @@ gem 'rmagick'           # Image Processing
 gem 'faker'             # Seeding Fake Data
 gem 'cocoon'            # JQuery Nested Forms
 gem 'acts_as_singleton' # Allows Singleton Pattern for AR Objects
+gem 'geocoder'          # Location API
 
 # Production
 group :production do

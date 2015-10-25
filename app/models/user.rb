@@ -78,6 +78,15 @@ class User < ActiveRecord::Base
     find_by(id: params) || find_by(username: params)
   end
 
+  # Doesn't allow me to search by specific distance for each user.
+  def self.near(co, distance)
+    Address.near(co, distance).includes(:user).map { |a| a.user }
+  end
+
+  def self.available_service_ids(co, distance)
+    near(co, distance).flat_map { |u| u.services.pluck(:id) }.uniq
+  end
+
   def registration_survey
     return true if admin? # should be replaced by NullObject pattern later
     completions.joins(:survey).find_by(surveys: { title: "#{role.capitalize} Registration" })
@@ -111,6 +120,10 @@ class User < ActiveRecord::Base
 
   def authenticated?
     true
+  end
+
+  def has_address_on_file?
+    addresses.any?
   end
 
   def has_seen_stylist?(stylist)

@@ -63,6 +63,15 @@ p = reg_stylist.build_payment_info(
 )
 p.save!
 
+Address.create(
+  primary: true,
+  address: '544 walnut street',
+  zip_code: '02460',
+  state: 'Massachusetts',
+  city: 'Newton',
+  user_id: reg_stylist.id
+)
+
 # Complete stylist registraiton survey without answers
 survey = Survey.find_by(title: 'Stylist Registration')
 reg_stylist.completions.create(survey_id: survey.id)

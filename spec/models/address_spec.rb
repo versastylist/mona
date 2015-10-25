@@ -12,6 +12,12 @@
 #  city       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  latitude   :float
+#  longitude  :float
+#
+# Indexes
+#
+#  index_addresses_on_latitude_and_longitude  (latitude,longitude)
 #
 
 require 'rails_helper'
@@ -27,5 +33,28 @@ RSpec.describe Address, type: :model do
     it { should validate_presence_of(:city) }
     it { should validate_presence_of(:state) }
     it { should validate_presence_of(:primary) }
+  end
+
+  describe "#full_street_address" do
+    it "returns a nicely formatted address for geocoder" do
+      address = create(
+        :address,
+        address: "1 Congress St",
+        appt_num: "#4",
+        city: "Boston",
+        state: "MA",
+        zip_code: "02340",
+      )
+
+      expect(address.full_street_address).
+        to eq "1 Congress St, #4, Boston, MA, 02340"
+    end
+  end
+
+  describe "#location" do
+    it "returns longitude and latitude" do
+      address = create(:address)
+      expect(address.location).to eq [address.latitude, address.longitude]
+    end
   end
 end
