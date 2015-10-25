@@ -89,3 +89,9 @@
 </table>
 
 <h1>Projected Revenue</h1>
+<%= content_tag "div",
+  id: "revenueData",
+  data: @stylist.weekly_rev_forecast do %>
+<% end %>
+
+<canvas id="revenueForecast" width="400" height="400"></canvas>

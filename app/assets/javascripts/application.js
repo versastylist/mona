@@ -20,6 +20,7 @@
 //= require underscore/underscore-min
 //= require moment/moment
 //= require fullcalendar/dist/fullcalendar.min
+//= require Chart.js/Chart.min.js
 //= require_tree .
 
 $(function() {
