@@ -12,11 +12,28 @@
 #  city       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  latitude   :float
+#  longitude  :float
+#
+# Indexes
+#
+#  index_addresses_on_latitude_and_longitude  (latitude,longitude)
 #
 
 class Address < ActiveRecord::Base
   belongs_to :user
 
+  geocoded_by :full_street_address
+  after_validation :geocode
+
   validates_presence_of :address,
     :zip_code, :city, :state, :primary
+
+  def full_street_address
+    [address, appt_num, city, state, zip_code].join(', ')
+  end
+
+  def location
+    [latitude, longitude]
+  end
 end

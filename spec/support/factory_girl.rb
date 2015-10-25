@@ -43,6 +43,17 @@ FactoryGirl.define do
     user
   end
 
+  factory :address do
+    primary true
+    address "1 Congress St"
+    zip_code "02345"
+    state "Massachusetts"
+    city "Boston"
+    longitude 30
+    latitude 30
+    user
+  end
+
   factory :payment_info do
     user
     stripe_customer_token "sldkfj23kjlsdf"

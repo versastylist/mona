@@ -24,7 +24,11 @@
 
 $(function() {
   // Cost Slider in Filter page
-  $('.appt-cost-slider').slider();
+  $('#appt-cost-slider').slider({
+    formater: function(value) {
+      return 'Current Value: ' + value
+    }
+  });
 
   // Survey checkboxes
   $('.survey-checkbox').bootstrapSwitch({

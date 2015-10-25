@@ -30,4 +30,8 @@ class GuestUser
   def has_seen_stylist?(stylist)
     false
   end
+
+  def has_address_on_file?
+    false
+  end
 end

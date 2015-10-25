@@ -170,4 +170,17 @@ RSpec.describe User, type: :model do
       expect(client.has_seen_stylist?(stylist)).to eq false
     end
   end
+
+  describe "#has_address_on_file?" do
+    it "returns true if user has an address" do
+      client = create(:client)
+      create(:address, user: client)
+      expect(client.has_address_on_file?).to eq true
+    end
+
+    it "returns false if user doesn't have an address" do
+      client = create(:client)
+      expect(client.has_address_on_file?).to eq false
+    end
+  end
 end
