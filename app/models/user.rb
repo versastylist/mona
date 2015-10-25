@@ -136,4 +136,11 @@ class User < ActiveRecord::Base
     stylist_appointments.
       in_future.joins(:order).sum('orders.subtotal')
   end
+
+  def stylist_reminders
+    reminders = []
+    reminders << "You still need to create your current schedule" unless current_schedule.present?
+    reminders << "You still need to create your future schedule" unless future_schedule.present?
+    reminders
+  end
 end

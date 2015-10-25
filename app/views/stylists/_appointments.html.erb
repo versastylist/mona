@@ -1,14 +1,29 @@
 <h1>Appointments</h1>
 
-<div class="quickview">
-  <h4> At a glance </h4>
-  <span class="label label-info">
-    Upcoming appointments: <%= @future_appointments.count %>
-  </span>
-  <span class="label label-success">
-    Projected Revenue: <%= number_to_currency(@projected_revenue) %>
-  </span>
-</div>
+<%= bs_row do %>
+  <%= bs_column(6) do %>
+    <div class="quickview">
+      <h4> At a glance </h4>
+      <span class="label label-info">
+        Upcoming appointments: <%= @future_appointments.count %>
+      </span>
+      <span class="label label-success">
+        Projected Revenue: <%= number_to_currency(@projected_revenue) %>
+      </span>
+    </div>
+  <% end %>
+
+  <%= bs_column(6) do %>
+    <h4> Reminders: </h4>
+    <div class="reminders well">
+      <ul>
+        <% @stylist.stylist_reminders.each do |reminder| %>
+          <li><%= reminder %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>
 
 <h2>Upcoming</h2>
 <table class="table table-hover future-appointments">

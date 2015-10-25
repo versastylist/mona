@@ -9,6 +9,14 @@ class StylistDecorator < Draper::Decorator
     object.stylist_reviews.count
   end
 
+  # def registration_reminder
+    # unless object.completed_registration?
+      # h.content_tag(:li, {}) do
+        # "You still havn't finished your registration"
+      # end
+    # end
+  # end
+
   # Can use these for the Sharing links.  Just need to get the sharing URI
   # and replace for the registration links
   # def facebook_link

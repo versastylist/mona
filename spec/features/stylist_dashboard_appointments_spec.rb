@@ -91,14 +91,13 @@ feature 'stylist dashboard' do
       expect(page).to have_content("Projected Revenue: $#{total}.00")
     end
 
-    # scenario 'reminds if profile is not complete' do
-      # stylist = create(:stylist)
+    scenario 'reminds stylist to complete schedules' do
+      visit stylist_path(stylist)
+      click_on 'Appointments'
 
-      # visit stylist_path(stylist)
-      # click_on 'Appointments'
-
-      # expect(page).to have_content("You still havn't finished your registration")
-    # end
+      expect(page).to have_content("You still need to create your current schedule")
+      expect(page).to have_content("You still need to create your future schedule")
+    end
   end
 end
 
