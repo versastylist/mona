@@ -12,5 +12,6 @@ class StylistsController < ApplicationController
     @future_appointments = @stylist.stylist_appointments.in_future.decorate
     @past_appointments = @stylist.stylist_appointments.in_past.decorate
     @cancelled_appointments = @stylist.stylist_appointments.cancelled.decorate
+    @projected_revenue = @stylist.projected_revenue
   end
 end

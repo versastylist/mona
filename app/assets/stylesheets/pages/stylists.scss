@@ -3,29 +3,37 @@ body.stylists.show {
     display: block;
     margin: 0 auto;
   }
+
   .social-media {
     text-align: center;
     margin-top: 15px;
   }
+
   .book-appointment {
     width: 95%;
     margin: 30px auto;
   }
+
   .stylist-reviews {
     list-style: none;
     &:last-child {
       margin-bottom: 30px;
     }
   }
+
   .stylist-review {
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
   #stylistCalendar {
     margin-top: 20px;
     margin-bottom: 40px;
   }
 
+  .quickview .label {
+    margin-right: 10px;
+  }
 
   /* Taken from internet */
   /* http://bootsnipp.com/snippets/featured/user-comment-example */

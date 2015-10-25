@@ -131,4 +131,9 @@ class User < ActiveRecord::Base
       where(stylist_id: stylist.id).
       where(cancelled: false).present?
   end
+
+  def projected_revenue
+    stylist_appointments.
+      in_future.joins(:order).sum('orders.subtotal')
+  end
 end
