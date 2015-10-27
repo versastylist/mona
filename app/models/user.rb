@@ -28,8 +28,7 @@
 
 class User < ActiveRecord::Base
   include StylistSearch
-  serialize :settings, HashSerializer
-  store_accessor :settings, :premium_membership
+  include UserSettings
 
   has_one :registration
   has_one :payment_info
