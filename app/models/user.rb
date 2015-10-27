@@ -18,6 +18,7 @@
 #  username               :string           not null
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
+#  settings               :jsonb            default({}), not null
 #
 # Indexes
 #
@@ -27,6 +28,9 @@
 
 class User < ActiveRecord::Base
   include StylistSearch
+  serialize :settings, HashSerializer
+  store_accessor :settings, :premium_membership
+
   has_one :registration
   has_one :payment_info
   has_one :primary_address, -> { where(primary: true) }, class_name: 'Address'
@@ -87,30 +91,11 @@ class User < ActiveRecord::Base
     near(co, distance).flat_map { |u| u.services.pluck(:id) }.uniq
   end
 
-  def registration_survey
-    return true if admin? # should be replaced by NullObject pattern later
-    completions.joins(:survey).find_by(surveys: { title: "#{role.capitalize} Registration" })
-  end
-
-  def to_param
-    stylist? ? username.parameterize : id.to_s
-  end
-
-  def client?
-    role == "client"
-  end
-
-  def stylist?
-    role == "stylist"
-  end
-
   def admin?
     role == "admin"
   end
 
-  def verified_by_management?
-    # This needs to be changed once we have the concept
-    # of verifying a stylist to be able to work
+  def authenticated?
     true
   end
 
@@ -118,8 +103,8 @@ class User < ActiveRecord::Base
     [registration, payment_info, registration_survey].all?
   end
 
-  def authenticated?
-    true
+  def client?
+    role == "client"
   end
 
   def has_address_on_file?
@@ -130,6 +115,29 @@ class User < ActiveRecord::Base
     client_appointments.in_past.
       where(stylist_id: stylist.id).
       where(cancelled: false).present?
+  end
+
+  def premium_member?
+    premium_membership || false
+  end
+
+  def stylist?
+    role == "stylist"
+  end
+
+  def verified_by_management?
+    # This needs to be changed once we have the concept
+    # of verifying a stylist to be able to work
+    true
+  end
+
+  def registration_survey
+    return true if admin? # should be replaced by NullObject pattern later
+    completions.joins(:survey).find_by(surveys: { title: "#{role.capitalize} Registration" })
+  end
+
+  def to_param
+    stylist? ? username.parameterize : id.to_s
   end
 
   def projected_revenue
