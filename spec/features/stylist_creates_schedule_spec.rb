@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'stylist creates a weekly schedule' do
-  let(:stylist) { create(:stylist, :with_registration) }
+  let(:stylist) { create(:stylist, :with_registration, verified_by_management: true) }
 
   context 'successfully' do
     before { sign_in stylist }

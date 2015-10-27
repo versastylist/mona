@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   get '/stylist_terms', as: :stylist_terms_of_service, to: "static#stylist_terms"
   get '/surveys/registration', as: :registration_survey, to: 'registration_surveys#show'
 
-  resources :users, only: [:show, :index]
+  resources :users, only: [:show, :index] do
+    resources :clients, only: :index # Search for stylists clients
+  end
+
   resources :registrations, only: [:show, :new, :create, :update]
   resources :services, only: [:new, :create, :index]
   resources :payment_infos, only: [:new, :create]

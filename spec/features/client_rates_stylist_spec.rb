@@ -6,7 +6,7 @@ feature 'client rates stylist after appointment' do
     let(:stylist) { create(:stylist, :with_registration) }
 
     scenario 'rates successfully', js: true do
-      create(:appointment, client: client, stylist: stylist)
+      create(:appointment, client: client, stylist: stylist, start_time: 3.days.ago)
       sign_in client
 
       visit stylist_path(stylist)

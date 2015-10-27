@@ -18,6 +18,7 @@
 #  username               :string           not null
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
+#  settings               :jsonb            default({}), not null
 #
 # Indexes
 #
@@ -45,6 +46,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:client_reviews) }
     it { should have_many(:stylist_appointments) }
     it { should have_many(:client_appointments) }
+    it { should have_many(:clients).through(:stylist_appointments) }
   end
 
   context "validations" do
@@ -181,6 +183,30 @@ RSpec.describe User, type: :model do
     it "returns false if user doesn't have an address" do
       client = create(:client)
       expect(client.has_address_on_file?).to eq false
+    end
+  end
+
+  describe "#premium_member?" do
+    it "returns true if user has setting set to true" do
+      client = build_stubbed(:client, premium_membership: true)
+      expect(client.premium_member?).to eq true
+    end
+
+    it "defautls to false if setting isn't set yet" do
+      client = build_stubbed(:client)
+      expect(client.premium_member?).to eq false
+    end
+  end
+
+  describe "#verified_by_membership?" do
+    it "returns true if user has setting set to true" do
+      client = build_stubbed(:client, verified_by_management: true)
+      expect(client.verified_by_management?).to eq true
+    end
+
+    it "defautls to false if setting isn't set yet" do
+      client = build_stubbed(:client)
+      expect(client.verified_by_management?).to eq false
     end
   end
 end
