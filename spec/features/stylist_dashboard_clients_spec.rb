@@ -28,4 +28,18 @@ feature 'stylist dashboard client tab' do
 
     expect(page).to have_content(client.dob)
   end
+
+  scenario 'stylists can search for clients by name', js: true do
+    registration = create(:registration, first_name: 'Batman')
+    client = create(:client, registration: registration)
+    create(:appointment, stylist: stylist, client: client)
+
+    visit stylist_path(stylist)
+    click_on 'Clients'
+
+    fill_in 'clientSearch', with: 'Batman'
+    find('#clientSearch').native.send_keys(:return)
+
+    expect(page).to have_content('Batman')
+  end
 end

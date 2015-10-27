@@ -27,7 +27,6 @@
 #
 
 class User < ActiveRecord::Base
-  include StylistSearch
   include UserSettings
 
   has_one :registration
@@ -69,6 +68,7 @@ class User < ActiveRecord::Base
   validates :agree_to_terms, presence: true
   validates :role, inclusion: %w{user client stylist admin}
 
+  searchkick
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -138,6 +138,14 @@ class User < ActiveRecord::Base
   def projected_revenue
     stylist_appointments.
       in_future.joins(:order).sum('orders.subtotal')
+  end
+
+  def search_data
+    attributes.merge(
+      first_name: first_name,
+      last_name: last_name,
+      dob: dob,
+    )
   end
 
   def stylist_reminders
