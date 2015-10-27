@@ -17,6 +17,7 @@ class AppointmentFiltersController < ApplicationController
             service_menu: [@service_menu.name],
             price: {lt: upper_bound},
             service_id: service_ids,
+            displayed: true,
           }
         )
       )

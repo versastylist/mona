@@ -20,6 +20,30 @@ feature 'user searching for appointments' do
 
       expect(page).to have_content('A buzz cut for kids')
     end
+
+    it "doesn't find products that are disabled by stylists" do
+      stylist = create(:stylist, :with_registration)
+      create_addresses_within_range(client, stylist)
+      create_service_product(
+        stylist,
+        name: 'Buzz cut',
+        details: 'A buzz cut for kids'
+      )
+      create_service_product(
+        stylist,
+        name: 'Adult buzz cut',
+        details: 'Military style buzz',
+        displayed: false
+      )
+      menu = create(:service_menu, name: 'Barber')
+      visit menu_filter_appointments_path(menu)
+
+      fill_in 'product-search', with: 'buzz cut'
+      click_on 'Search'
+
+      expect(page).to have_content('A buzz cut for kids')
+      expect(page).to_not have_content('Military style buzz')
+    end
   end
 
   context 'unregistered client' do
