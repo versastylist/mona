@@ -5,6 +5,9 @@
     <th>First Name</th>
     <th>Last Name</th>
     <th>Phone Number</th>
+    <% if @stylist.premium_member? %>
+      <th>Birth Date</th>
+    <% end %>
   </thead>
 
   <tbody>
@@ -13,6 +16,9 @@
         <td><%= client.first_name %></td>
         <td><%= client.last_name %></td>
         <td><%= client.phone_number %></td>
+        <% if @stylist.premium_member? %>
+          <td><%= client.dob %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
