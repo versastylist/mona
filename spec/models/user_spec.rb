@@ -46,6 +46,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:client_reviews) }
     it { should have_many(:stylist_appointments) }
     it { should have_many(:client_appointments) }
+    it { should have_many(:clients).through(:stylist_appointments) }
   end
 
   context "validations" do

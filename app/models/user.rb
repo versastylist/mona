@@ -59,6 +59,7 @@ class User < ActiveRecord::Base
   has_many :client_reviews,
     foreign_key: 'client_id',
     class_name: 'StylistReview'
+  has_many :clients, through: :stylist_appointments
 
   validates :username,
     presence: true,
@@ -71,7 +72,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  delegate :avatar_url, :first_name, :last_name, :phone_number, to: :registration
+  delegate :avatar_url, :first_name, :last_name, :phone_number, to: :registration, allow_nil: true
 
   scope :clients,  -> { where(role: "client") }
   scope :stylists, -> { where(role: "stylist") }
@@ -116,18 +117,8 @@ class User < ActiveRecord::Base
       where(cancelled: false).present?
   end
 
-  def premium_member?
-    premium_membership || false
-  end
-
   def stylist?
     role == "stylist"
-  end
-
-  def verified_by_management?
-    # This needs to be changed once we have the concept
-    # of verifying a stylist to be able to work
-    true
   end
 
   def registration_survey
