@@ -4,11 +4,10 @@
   <div class="row">
     <aside class="col-md-3">
       <%= image_tag @stylist.avatar_url(:thumb), class: 'img-rounded profile-photo' %>
-
-      <div class="social-media">
-        <div class="btn-group" role="group" aria-label="...">
-        </div>
-      </div>
+      <%= link_to 'Preview Client View',
+        client_view_path(@stylist.id),
+        class: 'btn btn-info btn-block client-preview'
+      %>
     </aside>
 
     <section class="col-md-9">

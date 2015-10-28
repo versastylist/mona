@@ -6,6 +6,11 @@
     <td><%= service_product.details %></td>
     <td><%= f.number_field :quantity, value: 1, class: 'form-control', min: 1 %></td>
         <%= f.hidden_field :service_product_id, value: service_product.id %>
-    <td><%= f.submit 'Add To Cart', class: 'btn btn-success' %></td>
+
+    <% if current_user == @stylist %>
+      <td><%= f.submit 'Add To Cart', class: 'btn btn-success', disabled: true %></td>
+    <% else %>
+      <td><%= f.submit 'Add To Cart', class: 'btn btn-success' %></td>
+    <% end %>
   <% end %>
 </tr>

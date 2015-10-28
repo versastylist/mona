@@ -19,7 +19,7 @@
       <%= bs_column(12) do %>
         <h2>Stylist Rating</h2>
         <div>
-        <p><span class="label label-success"><%= @stylist.total_rating %> / 5</span></p>
+        <p><span class="label label-success"><%= @stylist.total_rating %></span></p>
         <p><%= link_to "#{pluralize(@stylist.num_reviews, "review")}", '#stylist_reviews', data: {toggle: "tab"}, id: 'showReviews' %></p>
       <% end %>
     <% end %>

@@ -37,4 +37,5 @@ Rails.application.routes.draw do
 
   # This should remain towards bottom for pattern matching purposes
   get '/:id', as: :stylist, to: 'stylists#show'
+  get '/:id/client_view', as: :client_view, to: 'stylists#preview'
 end
