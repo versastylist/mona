@@ -2,7 +2,11 @@ class StylistDecorator < Draper::Decorator
   delegate_all
 
   def total_rating
-    object.stylist_reviews.average(:rating)
+    if object.stylist_reviews.count > 0
+      "#{object.stylist_reviews.average(:rating).round(2)} / 5"
+    else
+      'Not yet rated'
+    end
   end
 
   def num_reviews
