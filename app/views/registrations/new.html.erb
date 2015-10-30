@@ -13,4 +13,6 @@
   <%= f.submit 'Register', class: 'btn btn-success' %>
 <% end %>
 
-<%= link_to 'Skip Registration', menu_filters_path, class: 'btn btn-warning pull-right' %>
+<% if current_user.client? %>
+  <%= link_to 'Skip Registration', menu_filters_path, class: 'btn btn-warning pull-right' %>
+<% end %>
