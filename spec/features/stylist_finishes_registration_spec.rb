@@ -23,4 +23,21 @@ feature 'stylist finishes registration' do
     expected_url = ".com/payment_infos/new"
     expect(current_url).to match(Regexp.new(expected_url))
   end
+
+  scenario "stylists don't see the 'find service' button in nav bar" do
+    stylist = create(:stylist, :with_registration)
+    sign_in stylist
+
+    within(:css, '.nav') do
+      expect(page).to_not have_content 'Find Service'
+    end
+  end
+
+  scenario "stylists cannot skip registration" do
+    stylist = create(:stylist)
+    sign_in stylist
+
+    visit new_registration_path
+    expect(page).to_not have_content('Skip Registration')
+  end
 end
