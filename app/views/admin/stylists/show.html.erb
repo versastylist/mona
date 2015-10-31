@@ -1,3 +1,9 @@
+<ol class="breadcrumb">
+  <%= breadcrumb('Dashboard', admin_dashboard_path) %>
+  <%= breadcrumb('Stylists', admin_stylists_path) %>
+  <%= breadcrumb_active(@stylist.username) %>
+</ol>
+
 <h1>Stylist: <%= @stylist.username %></h1>
 
 <h1>Appointments</h1>

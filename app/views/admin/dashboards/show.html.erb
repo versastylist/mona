@@ -1,4 +1,59 @@
 <h1>Admin Dashboard</h1>
 
-<%= link_to 'Clients', admin_clients_path, class: 'btn btn-info' %>
-<%= link_to 'Stylists', admin_stylists_path, class: 'btn btn-info' %>
+<%= bs_row do %>
+  <%= bs_column(3) do %>
+    <div class="text-center">
+      <h3>Clients</h3>
+      <%= link_to admin_clients_path, class: 'btn btn-info' do %>
+        <i class="fa fa-users fa-3x"></i>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= bs_column(3) do %>
+    <div class="text-center">
+      <h3>Stylists</h3>
+      <%= link_to  admin_stylists_path, class: 'btn btn-info' do %>
+        <i class="fa fa-user-secret fa-3x"></i>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= bs_column(3) do %>
+    <div class="text-center">
+      <h3>Appointments</h3>
+      <%= link_to  admin_appointments_path, class: 'btn btn-info' do %>
+        <i class="fa fa-calendar fa-3x"></i>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= bs_column(3) do %>
+    <div class="text-center">
+      <h3>Settings</h3>
+      <%= link_to admin_settings_path, class: 'btn btn-info' do %>
+        <i class="fa fa-cog fa-3x"></i>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= bs_row do %>
+  <%= bs_column(3) do %>
+    <div class="text-center">
+      <h3>View Surveys</h3>
+      <%= link_to admin_surveys_path, class: 'btn btn-info' do %>
+        <i class="fa fa-envelope fa-3x"></i>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= bs_column(3) do %>
+    <div class="text-center">
+      <h3>New Surveys</h3>
+      <%= link_to new_admin_survey_path, class: 'btn btn-info' do %>
+        <i class="fa fa-plus fa-3x"></i>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

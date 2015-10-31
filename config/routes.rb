@@ -33,6 +33,8 @@ Rails.application.routes.draw do
     end
     resources :clients, only: [:index, :show]
     resources :stylists, only: [:index, :show]
+    resources :appointments, only: [:index]
+    resources :settings, only: :index
   end
 
   resources :surveys, only: [:show] do
