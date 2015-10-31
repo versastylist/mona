@@ -46,10 +46,11 @@ feature 'stylist dashboard' do
     end
 
     scenario 'appointment can be cancelled', js: true do
-      ActionMailer::Base.deliveries = []
       appointment = create(:appointment, stylist: stylist, start_time: 4.days.from_now)
       client = appointment.client
       create(:time_interval, appointment_id: appointment.id)
+
+      ActionMailer::Base.deliveries = []
 
       visit stylist_path(stylist)
       click_on 'Appointments'
