@@ -23,6 +23,7 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
+#  banned                 :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -102,12 +103,21 @@ class User < ActiveRecord::Base
     near(co, distance).flat_map { |u| u.services.pluck(:id) }.uniq
   end
 
+  # Soft delete banned users
+  def self.find_for_authentication(conditions)
+    super(conditions.merge(banned: false))
+  end
+
   def admin?
     role == "admin"
   end
 
   def authenticated?
     true
+  end
+
+  def banned?
+    banned
   end
 
   def completed_registration?

@@ -1,6 +1,7 @@
-<%= link_to root_path,
+<%= link_to ban_user_path(user),
   class: 'btn btn-danger ban-button',
-  data: { confirm: 'Are you sure you want to ban this user!?' } do %>
+  data: { confirm: 'Are you sure you want to ban this user!?' },
+  method: :put do %>
   <i class="fa fa-trash"></i>
   Ban User
 <% end %>
