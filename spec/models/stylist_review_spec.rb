@@ -23,4 +23,9 @@ RSpec.describe StylistReview, type: :model do
     it { should belong_to(:stylist) }
     it { should belong_to(:client) }
   end
+
+  describe "validations" do
+    it { should have_valid(:body).when('great stylist!') }
+    it { should_not have_valid(:body).when('', nil) }
+  end
 end

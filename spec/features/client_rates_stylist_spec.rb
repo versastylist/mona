@@ -20,6 +20,17 @@ feature 'client rates stylist after appointment' do
       expect(page).to have_content('4.0 / 5')
     end
 
+    scenario "requires a body for the review to work" do
+      create(:appointment, client: client, stylist: stylist, start_time: 3.days.ago)
+      sign_in client
+
+      visit stylist_path(stylist)
+      click_on 'Reviews'
+      click_on 'Create Review'
+
+      expect(page).to have_content('Review must have content!')
+    end
+
     scenario "can't rate if they havn't had appointment", js: true do
       sign_in client
 
