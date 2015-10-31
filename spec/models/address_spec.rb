@@ -33,6 +33,8 @@ RSpec.describe Address, type: :model do
     it { should validate_presence_of(:city) }
     it { should validate_presence_of(:state) }
     it { should validate_presence_of(:primary) }
+    it { should_not have_valid(:zip_code).when('skj343', '234') }
+    it { should have_valid(:zip_code).when('02460') }
   end
 
   describe "#full_street_address" do
