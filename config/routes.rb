@@ -27,9 +27,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resource :dashboard, only: :show
     resources :surveys, only: [:new, :create, :index, :show] do
       resources :questions, only: [:new, :create]
     end
+    resources :clients, only: [:index, :show]
   end
 
   resources :surveys, only: [:show] do
