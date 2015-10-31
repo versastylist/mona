@@ -47,9 +47,11 @@ reg_stylist = User.create(
   password_confirmation: "password",
   role: "stylist",
   agree_to_terms: true,
-  verified_by_management: true,
-  premium_membership: true
 )
+settings = reg_stylist.user_settings
+settings.verified = true
+settings.premium_membership = true
+settings.save!
 
 r = reg_stylist.build_registration(
   first_name: "Frank",

@@ -27,10 +27,12 @@
 #
 
 class User < ActiveRecord::Base
-  include UserSettings
+  include SettingsHelpers
 
   has_one :registration
   has_one :payment_info
+  has_one :settings,
+    class_name: 'UserSetting'
   has_one :primary_address, -> { where(primary: true) }, class_name: 'Address'
   has_one :current_schedule,
     -> { where(state: "Current") },

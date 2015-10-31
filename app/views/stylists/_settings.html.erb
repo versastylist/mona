@@ -1,1 +1,28 @@
 <h1>Settings</h1>
+
+<%= content_tag "div",
+  id: "userId",
+  data: {id: current_user.id } do %>
+<% end %>
+
+<div class="form-group">
+  <%= label_tag 'Enable Booking' %>
+  <%= check_box_tag '', '1', current_user.active?, id: 'enableBooking'%>
+</div>
+
+<div class="form-group">
+  <%= label_tag 'Allow Multiple Services To Be Booked' %>
+  <%= check_box_tag '', '1', current_user.allow_multiple_services?, id: 'multipleServices'%>
+</div>
+
+<p>When clients book an appointment with you: </p>
+<div class="form-group">
+  <%= label_tag 'Receive Text Messages' %>
+  <%= check_box_tag '', '1', current_user.send_booking_text?, id: 'receiveTexts'%>
+</div>
+
+<div class="form-group">
+  <%= label_tag 'Receive Emails' %>
+  <%= check_box_tag '', '1', current_user.send_booking_email?, id: 'receiveEmails'%>
+</div>
+
