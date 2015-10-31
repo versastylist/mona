@@ -19,6 +19,10 @@
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
 #  settings               :jsonb            default({}), not null
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string
 #
 # Indexes
 #
@@ -72,7 +76,7 @@ class User < ActiveRecord::Base
 
   searchkick
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   delegate :avatar_url,
     :first_name,

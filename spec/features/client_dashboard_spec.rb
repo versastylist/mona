@@ -63,10 +63,11 @@ feature 'client dashboard' do
     end
 
     scenario 'appointment can be cancelled', js: true do
-      ActionMailer::Base.deliveries = []
       appointment = create(:appointment, client: client, start_time: 4.days.from_now)
       stylist = appointment.stylist
       create(:time_interval, appointment_id: appointment.id)
+
+      ActionMailer::Base.deliveries = []
 
       visit user_path(client)
       within(:css, '.future-appointments') do

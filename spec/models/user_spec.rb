@@ -19,6 +19,10 @@
 #  agree_to_terms         :boolean          default(FALSE)
 #  role                   :string
 #  settings               :jsonb            default({}), not null
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string
 #
 # Indexes
 #
@@ -57,6 +61,8 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of(:agree_to_terms) }
     it { should have_valid(:role).when('client', 'stylist', 'admin') }
     it { should_not have_valid(:role).when('', nil, 'super user') }
+    it { should have_valid(:email).when('user@email.com') }
+    it { should_not have_valid(:email).when('useremail.com') }
   end
 
   describe "#completed_registration?" do
