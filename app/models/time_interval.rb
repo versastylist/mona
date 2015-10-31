@@ -25,7 +25,7 @@ class TimeInterval < ActiveRecord::Base
   private
 
   def convert_times_to_correct_date
-    self[:start_time] = start_time.change({day: week_day.day_of_week.day})
-    self[:end_time] = end_time.change({day: week_day.day_of_week.day})
+    self[:start_time] = start_time.change({day: week_day.day_of_week.day, month: week_day.day_of_week.month})
+    self[:end_time] = end_time.change({day: week_day.day_of_week.day, month: week_day.day_of_week.month})
   end
 end
