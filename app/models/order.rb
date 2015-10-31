@@ -25,6 +25,10 @@ class Order < ActiveRecord::Base
   before_create :set_order_status
   before_save :update_subtotal
 
+  def product_names
+    service_products.pluck(:name).join(', ')
+  end
+
   def subtotal
     order_items.collect { |oi| oi.valid? ? oi.total_price : 0 }.sum
   end

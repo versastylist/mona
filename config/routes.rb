@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       resources :questions, only: [:new, :create]
     end
     resources :clients, only: [:index, :show]
+    resources :stylists, only: [:index, :show]
   end
 
   resources :surveys, only: [:show] do

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'admin can see list of clients' do
-
   scenario 'successfully' do
     admin = create(:admin)
     sign_in admin
