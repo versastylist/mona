@@ -4,7 +4,14 @@
   <%= breadcrumb_active(@client.username) %>
 </ol>
 
-<h1>Client: <%= @client.username %></h1>
+<%= bs_row do %>
+  <%= bs_column(6) do %>
+    <h1>Client: <%= @client.username %></h1>
+  <% end %>
+  <%= bs_column(6) do %>
+    <%= render partial: 'admin/shared/ban_button' %>
+  <% end %>
+<% end %>
 
 <h2>Appointments</h2>
 <hr />
