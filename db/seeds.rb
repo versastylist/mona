@@ -84,7 +84,7 @@ categories.each do |cat|
   ServiceMenu.find_or_create_by(name: cat)
 end
 
-30.times do|n|
+5.times do|n|
   stylist = User.create(
     username: "stylist#{n}",
     email: "stylist#{n}@email.com",
