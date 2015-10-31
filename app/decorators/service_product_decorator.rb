@@ -21,10 +21,4 @@ class ServiceProductDecorator < ApplicationDecorator
   def display_price
     number_to_currency object.price
   end
-
-  # def add_to_cart
-    # h.link_to root_path, class: 'btn btn-success' do
-      # h.content_tag(:i, ' Add', class: 'fa fa-plus')
-    # end
-  # end
 end

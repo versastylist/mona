@@ -5,14 +5,20 @@ class Admin::AppointmentsController < ApplicationController
   end
 
   def future
-    @future_appointments = Appointment.in_future.decorate
+    @future_appointments = AppointmentDecorator.decorate_collection(
+      Appointment.in_future.order(:start_time).page(params[:page]).per(50)
+    )
   end
 
   def past
-    @past_appointments = Appointment.in_past.decorate
+    @past_appointments = AppointmentDecorator.decorate_collection(
+      Appointment.in_past.order(:start_time).page(params[:page]).per(50)
+    )
   end
 
   def cancelled
-    @cancelled_appointments = Appointment.cancelled.decorate
+    @cancelled_appointments = AppointmentDecorator.decorate_collection(
+      Appointment.cancelled.order(:start_time).page(params[:page]).per(50)
+    )
   end
 end

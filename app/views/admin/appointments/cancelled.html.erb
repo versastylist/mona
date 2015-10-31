@@ -5,4 +5,7 @@
 </ol>
 
 <h1>Cancelled Appointments</h1>
-<%= render partial: 'admin/shared/appointment_table', locals: { appointments: @cancelled_appointments } %>
+<%= render partial: 'admin/shared/appointment_table',
+  locals: { appointments: @cancelled_appointments, future: false } %>
+
+<%= paginate @cancelled_appointments %>
