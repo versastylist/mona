@@ -86,4 +86,5 @@ Rails.application.configure do
     domain: "heroku.com",
     authentication: :plain
   }
+  config.action_mailer.default_url_options = { host: "https://versastylist.herokuapp.com" }
 end
