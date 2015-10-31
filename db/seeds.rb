@@ -48,7 +48,7 @@ reg_stylist = User.create(
   role: "stylist",
   agree_to_terms: true,
 )
-settings = reg_stylist.user_settings
+settings = reg_stylist.settings
 settings.verified = true
 settings.premium_membership = true
 settings.save!
@@ -56,7 +56,7 @@ settings.save!
 r = reg_stylist.build_registration(
   first_name: "Frank",
   last_name: "Sinatra",
-  phone_number: "6178936734",
+  phone_number: "617 893 6734",
   dob: "09/09/09",
   gender: "Male",
 )

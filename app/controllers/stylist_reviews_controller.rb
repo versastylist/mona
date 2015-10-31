@@ -4,6 +4,8 @@ class StylistReviewsController < ApplicationController
 
     if @review.save
       flash[:success] = 'Successfully created review'
+    else
+      flash[:warning] = "Review must have content!"
     end
     redirect_to stylist_path(@review.stylist)
   end
