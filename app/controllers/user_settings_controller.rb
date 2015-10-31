@@ -1,9 +1,8 @@
 class UserSettingsController < ApplicationController
   def update
     @user = User.from_params(params[:user_id])
-    @settings = @user.user_settings
 
-    if @settings.update(user_settings_params)
+    if @user.settings.update(user_settings_params)
       respond_to do |format|
         format.json { render json: @user }
       end
