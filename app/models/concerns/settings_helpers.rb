@@ -2,13 +2,15 @@ module SettingsHelpers
   extend ActiveSupport::Concern
 
   included do
+    after_create :make_settings
+
     delegate :premium_membership,
       :verified,
       :enable_booking,
       :multiple_services,
       :booking_texts,
       :booking_emails,
-      to: :user_settings
+      to: :settings
   end
 
   def premium_member?
@@ -36,14 +38,21 @@ module SettingsHelpers
   end
 
   def enable_booking!
-    self.user_settings.update(enable_booking: true)
+    self.settings.update(enable_booking: true)
   end
 
   def verify!
-    self.user_settings.update(verified: true)
+    self.settings.update(verified: true)
   end
 
   def make_premium!
-    self.user_settings.update(premium_membership: true)
+    self.settings.update(premium_membership: true)
+  end
+
+  private
+
+  def make_settings
+    setting = self.build_settings
+    setting.save!
   end
 end

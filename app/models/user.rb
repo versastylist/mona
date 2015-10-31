@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
   has_one :registration
   has_one :payment_info
-  has_one :user_settings,
+  has_one :settings,
     class_name: 'UserSetting'
   has_one :primary_address, -> { where(primary: true) }, class_name: 'Address'
   has_one :current_schedule,
@@ -73,8 +73,6 @@ class User < ActiveRecord::Base
   searchkick
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  after_create :make_settings
 
   delegate :avatar_url,
     :first_name,
@@ -171,12 +169,5 @@ class User < ActiveRecord::Base
     end
 
     { data: data, labels: english_labels }
-  end
-
-  private
-
-  def make_settings
-    setting = self.build_user_settings
-    setting.save!
   end
 end

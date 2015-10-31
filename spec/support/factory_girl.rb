@@ -35,7 +35,7 @@ FactoryGirl.define do
 
     trait :premium_member do
       after :create do |user|
-        user.user_settings.update(premium_membership: true, verified: true)
+        user.settings.update(premium_membership: true, verified: true)
       end
     end
   end
