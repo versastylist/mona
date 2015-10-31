@@ -6,17 +6,17 @@
 
 <h1>Client: <%= @client.username %></h1>
 
-<h1>Appointments</h1>
+<h2>Appointments</h2>
 <hr />
 
-<h2>Upcoming</h2>
+<h3>Upcoming</h3>
 <%= render partial: 'admin/shared/appointment_table',
   locals: { appointments: @future_appointments, future: true } %>
 
-<h2>Past Appointments</h2>
+<h3>Past Appointments</h3>
 <%= render partial: 'admin/shared/appointment_table',
   locals: { appointments: @past_appointments, future: false } %>
 
-<h2>Cancelled Appointments</h2>
+<h3>Cancelled Appointments</h3>
 <%= render partial: 'admin/shared/appointment_table',
   locals: { appointments: @cancelled_appointments, future: false} %>

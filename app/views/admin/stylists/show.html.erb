@@ -6,17 +6,55 @@
 
 <h1>Stylist: <%= @stylist.username %></h1>
 
-<h1>Appointments</h1>
+<h2>Settings</h2>
+<div class="well">
+  <%= bs_row do%>
+    <%= content_tag "div",
+      id: "userId",
+      data: {id: @stylist.id } do %>
+    <% end %>
+
+    <%= bs_column(3) do %>
+      <div class="form-group text-center">
+        <%= label_tag 'Enable Booking' %><br/>
+        <%= check_box_tag '', '1', @stylist.active?, id: 'enableBooking'%>
+      </div>
+    <% end %>
+
+    <%= bs_column(3) do %>
+      <div class="form-group text-center">
+        <%= label_tag 'Allow Multiple Services To Be Booked' %><br/>
+        <%= check_box_tag '', '1', @stylist.allow_multiple_services?, id: 'multipleServices'%>
+      </div>
+    <% end %>
+
+    <%= bs_column(3) do %>
+      <div class="form-group text-center">
+        <%= label_tag 'Receive Text Messages' %><br/>
+        <%= check_box_tag '', '1', @stylist.send_booking_text?, id: 'receiveTexts'%>
+      </div>
+    <% end %>
+
+    <%= bs_column(3) do %>
+      <div class="form-group text-center">
+        <%= label_tag 'Receive Emails' %><br/>
+        <%= check_box_tag '', '1', @stylist.send_booking_email?, id: 'receiveEmails'%>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<h2>Appointments</h2>
 <hr />
 
-<h2>Upcoming</h2>
+<h3>Upcoming</h3>
 <%= render partial: 'admin/shared/appointment_table',
   locals: { appointments: @future_appointments, future: true } %>
 
-<h2>Past Appointments</h2>
+<h3>Past Appointments</h3>
 <%= render partial: 'admin/shared/appointment_table',
   locals: { appointments: @past_appointments, future: false } %>
 
-<h2>Cancelled Appointments</h2>
+<h3>Cancelled Appointments</h3>
 <%= render partial: 'admin/shared/appointment_table',
   locals: { appointments: @cancelled_appointments, future: false } %>
