@@ -186,29 +186,91 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#premium_member?" do
-    it "returns true if user has setting set to true" do
-      client = create(:client)
-      client.make_premium!
-      expect(client.premium_member?).to eq true
+  # For SettingsHelpers concern that gets mixed in to User
+  context "User Settings" do
+    describe "#enable_booking!" do
+      it "enables the booking for a stylist" do
+        stylist = create(:stylist)
+        stylist.settings.update(enable_booking: false)
+        expect(stylist.enable_booking).to eq false
+        stylist.enable_booking!
+        expect(stylist.enable_booking).to eq true
+      end
     end
 
-    it "defautls to false if setting isn't set yet" do
-      client = create(:client)
-      expect(client.premium_member?).to eq false
-    end
-  end
-
-  describe "#verified_by_membership?" do
-    it "returns true if user has setting set to true" do
-      client = create(:client)
-      client.verify!
-      expect(client.verified_by_management?).to eq true
+    describe "#make_premium!" do
+      it "turns an account for stylist to premium" do
+        stylist = create(:stylist)
+        expect(stylist.premium_membership).to eq false
+        stylist.make_premium!
+        expect(stylist.premium_membership).to eq true
+      end
     end
 
-    it "defaults to false if setting isn't set yet" do
-      client = create(:client)
-      expect(client.verified_by_management?).to eq false
+    describe "#verify!" do
+      it "verifies the stylist" do
+        stylist = create(:stylist)
+        expect(stylist.verified).to eq false
+        stylist.verify!
+        expect(stylist.verified).to eq true
+      end
+    end
+
+    describe "#enable_email!" do
+      it "turns on email notifications for user" do
+        stylist = create(:stylist)
+        expect(stylist.booking_emails).to eq false
+        stylist.enable_email!
+        expect(stylist.booking_emails).to eq true
+      end
+    end
+
+    describe "#enable_texting!" do
+      it "turns on email notifications for user" do
+        stylist = create(:stylist)
+        expect(stylist.booking_texts).to eq false
+        stylist.enable_texting!
+        expect(stylist.booking_texts).to eq true
+      end
+    end
+
+    describe "#premium_member?" do
+      it "returns true if user has setting set to true" do
+        client = create(:client)
+        client.make_premium!
+        expect(client.premium_member?).to eq true
+      end
+
+      it "defautls to false if setting isn't set yet" do
+        client = create(:client)
+        expect(client.premium_member?).to eq false
+      end
+    end
+
+    describe "#verified_by_membership?" do
+      it "returns true if user has setting set to true" do
+        client = create(:client)
+        client.verify!
+        expect(client.verified_by_management?).to eq true
+      end
+
+      it "defaults to false if setting isn't set yet" do
+        client = create(:client)
+        expect(client.verified_by_management?).to eq false
+      end
+    end
+
+    describe "#send_booking_email?" do
+      let(:stylist) { create(:stylist) }
+
+      it "returns false by default" do
+        expect(stylist.send_booking_email?).to eq false
+      end
+
+      it "returns true if enabled" do
+        stylist.enable_email!
+        expect(stylist.send_booking_email?).to eq true
+      end
     end
   end
 end

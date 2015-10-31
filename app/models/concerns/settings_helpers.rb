@@ -37,6 +37,14 @@ module SettingsHelpers
     booking_emails
   end
 
+  def enable_email!
+    self.settings.update(booking_emails: true)
+  end
+
+  def enable_texting!
+    self.settings.update(booking_texts: true)
+  end
+
   def enable_booking!
     self.settings.update(enable_booking: true)
   end
