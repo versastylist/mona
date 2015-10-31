@@ -34,6 +34,9 @@ class ServiceProduct < ActiveRecord::Base
 
   before_validation :set_minute_duration, unless: :skip_callbacks
 
+  scope :displayed, -> { where(displayed: true) }
+  scope :less_than, -> (price) { where('price < ?', price) }
+
   searchkick
 
   def search_data

@@ -51,7 +51,7 @@ $(function() {
       defaultView: 'agendaWeek',
       editable: false,
       eventSources: eventSources,
-      eventAfterRender:function( event, element, view ) {
+      eventAfterRender: function(event, element, view) {
         $(element).attr("id","event_id_"+event._id);
       }
     });

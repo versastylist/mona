@@ -1,34 +1,38 @@
 class AppointmentFiltersController < ApplicationController
   def index
     @service_menu = ServiceMenu.find(params[:menu_filter_id])
-    @product_search =
+
     if params[:query]
       upper_bound     = find_upper_bound
       geocoordinates  = find_search_address
-      sanitized_query = find_search_query
       service_ids     = User.available_service_ids(geocoordinates, 5)
 
-      @service_products = ServiceProductDecorator.decorate_collection(
-        ServiceProduct.search(
-          sanitized_query,
-          page: params[:page],
-          per_page: 10,
-          where: {
-            service_menu: [@service_menu.name],
-            price: {lt: upper_bound},
-            service_id: service_ids,
-            displayed: true,
-          }
+      if !params[:query].blank?
+        @service_products = ServiceProductDecorator.decorate_collection(
+          ServiceProduct.search(
+            params[:query],
+            page: params[:page],
+            per_page: 10,
+            where: {
+              service_menu: [@service_menu.name],
+              price: {lt: upper_bound},
+              service_id: service_ids,
+              displayed: true,
+            }
+          )
         )
-      )
+      else
+        @service_products = ServiceProductDecorator.decorate_collection(
+          ServiceProduct.displayed.less_than(upper_bound).
+          joins(:service).where(
+            services: { service_menu_id: @service_menu.id }
+          ).where(service_id: service_ids).page(params[:page]).per(10)
+        )
+      end
     end
   end
 
   private
-
-  def find_search_query
-    params[:query].blank? ? '*' : params[:query]
-  end
 
   def find_upper_bound
     params[:price_range].blank? ? 4000 : params[:price_range].to_i
