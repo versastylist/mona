@@ -28,6 +28,8 @@ class Address < ActiveRecord::Base
 
   validates_presence_of :address,
     :zip_code, :city, :state, :primary
+  validates :zip_code,
+    format: { with: /\A\d{5}(?:[-\s]\d{4})?\z/ }
 
   def full_street_address
     [address, appt_num, city, state, zip_code].join(', ')

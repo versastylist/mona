@@ -28,8 +28,10 @@ RSpec.describe Registration, type: :model do
     it { should validate_presence_of(:phone_number) }
     it { should validate_presence_of(:dob) }
     it { should validate_presence_of(:gender) }
-    it { should_not have_valid(:first_name).when('$pencer') }
+    it { should_not have_valid(:first_name).when('$pencer', 's') }
     it { should have_valid(:first_name).when('spencer-charles') }
     it { should have_valid(:gender).when('Male', 'Female') }
+    it { should_not have_valid(:last_name).when('@ixon') }
+    it { should_not have_valid(:phone_number).when('slkjs', '234', '234234234234') }
   end
 end
