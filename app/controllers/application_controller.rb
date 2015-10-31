@@ -42,6 +42,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_sign_in_path_for(user)
+    if user.stylist? && user.completed_registration?
+      stylist_path(user)
+    elsif user.client? && user.completed_registration?
+      menu_filters_path
+    else
+      root_path
+    end
+  end
+
   protected
 
   def should_set_cart?
