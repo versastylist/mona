@@ -37,4 +37,25 @@ RSpec.describe ServiceProduct, type: :model do
     it { should have_valid(:minute_duration).when(30, 50, 120) }
     it { should_not have_valid(:minute_duration).when(10, 20, '', nil, 0) }
   end
+
+  context "scopes" do
+    describe ".displayed" do
+      it "returns displayed products" do
+        product = create(:service_product, displayed: true)
+        expect(described_class.displayed).to include product
+      end
+
+      it "returns empty array" do
+        expect(described_class.displayed).to be_empty
+      end
+    end
+
+    describe ".less_than" do
+      it "returns products with price less than arg" do
+        product = create(:service_product, price: 50)
+        expect(described_class.less_than(55)).to include product
+        expect(described_class.less_than(40)).to_not include product
+      end
+    end
+  end
 end
