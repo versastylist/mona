@@ -1,0 +1,36 @@
+<h1>All Clients</h1>
+
+<h3>Sort By</h3>
+<div class="btn-group" role="group" aria-label="...">
+  <%= sort_link('First Name', admin_clients_path(sort: 'first_name'), 'first_name') %>
+  <%= sort_link('Last Name', admin_clients_path(sort: 'last_name'), 'last_name') %>
+  <%= sort_link('Username', admin_clients_path(sort: 'username'), 'username') %>
+  <%= sort_link('Date Registered', admin_clients_path(sort: 'created_at'), 'created_at') %>
+</div>
+<hr />
+
+<table class="table table-hover">
+  <thead>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+    <th>Username</th>
+    <th>Date Registered</th>
+    <th>Appointments</th>
+  </thead>
+  <tbody>
+    <% @clients.each do |client| %>
+      <tr>
+        <td><%= client.first_name || "not registered" %></td>
+        <td><%= client.last_name  || "not registered" %></td>
+        <td><%= client.email %></td>
+        <td><%= client.username %></td>
+        <td><%= client.created_at %></td>
+        <td><%= link_to 'Appointments', admin_client_path(client), class: 'btn btn-info' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= paginate @clients %>

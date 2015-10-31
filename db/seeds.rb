@@ -31,6 +31,15 @@ User.create(
 )
 
 User.create(
+  username: "applesauce",
+  email: "client1@email.com",
+  password: "password",
+  password_confirmation: "password",
+  role: "client",
+  agree_to_terms: true
+)
+
+User.create(
   username: "stylist",
   email: "stylist@email.com",
   password: "password",
@@ -99,8 +108,8 @@ end
   r = stylist.build_registration(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
-    phone_number: Faker::PhoneNumber.cell_phone,
-    dob: 3.days.ago.to_s,
+    phone_number: '718 832 9823',
+    dob: '1992-06-29',
     gender: ["Male", "Female"].sample
   )
   r.save!
