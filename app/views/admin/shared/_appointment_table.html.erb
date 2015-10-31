@@ -7,6 +7,9 @@
     <th>Service Products</th>
     <th>Total Time</th>
     <th>Total Price</th>
+    <% if future %>
+      <th>Cancel</th>
+    <% end %>
   </thead>
   <tbody>
     <% appointments.each do |appt| %>
@@ -18,6 +21,16 @@
         <td><%= appt.product_names %></td>
         <td><%= appt.total_time %></td>
         <td><%= number_to_currency(appt.order_total) %></td>
+        <% if future %>
+          <td>
+            <%= link_to 'Cancel Appointment',
+              appointment_path(appt),
+              method: :delete,
+              data: { confirm: 'Are you sure?' },
+              class: 'btn btn-danger'
+            %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
