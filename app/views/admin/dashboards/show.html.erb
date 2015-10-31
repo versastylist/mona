@@ -56,4 +56,13 @@
       <% end %>
     </div>
   <% end %>
+
+  <%= bs_column(3) do %>
+    <div class="text-center">
+      <h3>Stripe Info</h3>
+      <%= link_to 'https://www.stripe.com', class: 'btn btn-info' do %>
+        <i class="fa fa-cc-stripe fa-3x"></i>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
