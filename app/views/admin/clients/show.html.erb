@@ -10,10 +10,13 @@
 <hr />
 
 <h2>Upcoming</h2>
-<%= render partial: 'admin/shared/appointment_table', locals: { appointments: @future_appointments } %>
+<%= render partial: 'admin/shared/appointment_table',
+  locals: { appointments: @future_appointments, future: true } %>
 
 <h2>Past Appointments</h2>
-<%= render partial: 'admin/shared/appointment_table', locals: { appointments: @past_appointments } %>
+<%= render partial: 'admin/shared/appointment_table',
+  locals: { appointments: @past_appointments, future: false } %>
 
 <h2>Cancelled Appointments</h2>
-<%= render partial: 'admin/shared/appointment_table', locals: { appointments: @cancelled_appointments } %>
+<%= render partial: 'admin/shared/appointment_table',
+  locals: { appointments: @cancelled_appointments, future: false} %>
