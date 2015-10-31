@@ -4,9 +4,9 @@ class Admin::StylistsController < ApplicationController
   def index
     if join_required?
       @stylists = User.stylists.joins(:registration).
-        order("registrations.#{sort_by}").page(params[:page]).per(30)
+        order("registrations.#{sort_by}").page(params[:page]).per(50)
     else
-      @stylists = User.stylists.order(sort_by).page(params[:page]).per(30)
+      @stylists = User.stylists.order(sort_by).page(params[:page]).per(50)
     end
   end
 

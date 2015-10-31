@@ -7,10 +7,10 @@
 
 <h3>Sort By</h3>
 <div class="btn-group" role="group" aria-label="...">
-  <%= sort_link('First Name', admin_stylists_path(sort: 'first_name'), 'first_name') %>
-  <%= sort_link('Last Name', admin_stylists_path(sort: 'last_name'), 'last_name') %>
-  <%= sort_link('Email', admin_stylists_path(sort: 'email'), 'email') %>
-  <%= sort_link('Username', admin_stylists_path(sort: 'username'), 'username') %>
+  <%= sort_link('First Name',      admin_stylists_path(sort: 'first_name'), 'first_name') %>
+  <%= sort_link('Last Name',       admin_stylists_path(sort: 'last_name'), 'last_name') %>
+  <%= sort_link('Email',           admin_stylists_path(sort: 'email'), 'email') %>
+  <%= sort_link('Username',        admin_stylists_path(sort: 'username'), 'username') %>
   <%= sort_link('Date Registered', admin_stylists_path(sort: 'created_at'), 'created_at') %>
 </div>
 <hr />
@@ -41,6 +41,5 @@
     <% end %>
   </tbody>
 </table>
-
 
 <%= paginate @stylists %>

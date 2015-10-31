@@ -4,9 +4,9 @@ class Admin::ClientsController < ApplicationController
   def index
     if join_required?
       @clients = User.clients.joins(:registration).
-        order("registrations.#{sort_by}").page(params[:page]).per(30)
+        order("registrations.#{sort_by}").page(params[:page]).per(50)
     else
-      @clients = User.clients.order(sort_by).page(params[:page]).per(30)
+      @clients = User.clients.order(sort_by).page(params[:page]).per(50)
     end
   end
 

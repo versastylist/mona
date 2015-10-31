@@ -15,8 +15,8 @@
     <% appointments.each do |appt| %>
       <tr>
         <td><%= appt.id %></td>
-        <td><%= appt.client.id %></td>
-        <td><%= appt.stylist.id %></td>
+        <td><%= link_to appt.client.id, admin_client_path(appt.client.id) %></td>
+        <td><%= link_to appt.stylist.id, admin_stylist_path(appt.stylist.id) %></td>
         <td><%= appt.order.id %></td>
         <td><%= appt.product_names %></td>
         <td><%= appt.total_time %></td>
