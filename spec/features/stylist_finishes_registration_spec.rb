@@ -28,7 +28,7 @@ feature 'stylist finishes registration' do
     stylist = create(:stylist, :with_registration)
     sign_in stylist
 
-    within(:css, '.nav') do
+    within(:css, '.navbar-right') do
       expect(page).to_not have_content 'Find Service'
     end
   end
