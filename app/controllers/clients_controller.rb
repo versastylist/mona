@@ -4,12 +4,16 @@ class ClientsController < ApplicationController
 
     client_ids = @stylist.clients.pluck(:id).uniq
 
-    @clients = User.search(
-      find_search_query,
-      where: {
-        id: client_ids
-      }
-    ).to_a
+    if !params[:query].blank?
+      @clients = User.search(
+        params[:query],
+        where: {
+          id: client_ids
+        }
+      ).to_a
+    else
+      @clients = User.where(id: client_ids)
+    end
 
     respond_to do |format|
       format.js { render json: @clients, each_serializer: UserSerializer }
