@@ -36,5 +36,19 @@ class Registration < ActiveRecord::Base
       message: "bad format"
     }
 
+  validate :confirm_age!
+
   mount_uploader :avatar, AvatarUploader
+
+  private
+
+  def confirm_age!
+    if dob
+      age = dob.split('-').first.to_i
+      year = Date.today.year
+      if (year - age) < 18
+        errors.add[:age] = "must be 18 years or older!"
+      end
+    end
+  end
 end
