@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027002554) do
+ActiveRecord::Schema.define(version: 20151031124627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -214,6 +214,18 @@ ActiveRecord::Schema.define(version: 20151027002554) do
   end
 
   add_index "time_intervals", ["week_day_id"], name: "index_time_intervals_on_week_day_id", using: :btree
+
+  create_table "user_settings", force: :cascade do |t|
+    t.boolean  "enable_booking",     default: true
+    t.boolean  "multiple_services",  default: false
+    t.boolean  "premium_membership", default: false
+    t.boolean  "booking_texts",      default: false
+    t.boolean  "booking_emails",     default: false
+    t.boolean  "verified",           default: false
+    t.integer  "user_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

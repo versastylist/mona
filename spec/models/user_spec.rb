@@ -188,24 +188,26 @@ RSpec.describe User, type: :model do
 
   describe "#premium_member?" do
     it "returns true if user has setting set to true" do
-      client = build_stubbed(:client, premium_membership: true)
+      client = create(:client)
+      client.make_premium!
       expect(client.premium_member?).to eq true
     end
 
     it "defautls to false if setting isn't set yet" do
-      client = build_stubbed(:client)
+      client = create(:client)
       expect(client.premium_member?).to eq false
     end
   end
 
   describe "#verified_by_membership?" do
     it "returns true if user has setting set to true" do
-      client = build_stubbed(:client, verified_by_management: true)
+      client = create(:client)
+      client.verify!
       expect(client.verified_by_management?).to eq true
     end
 
-    it "defautls to false if setting isn't set yet" do
-      client = build_stubbed(:client)
+    it "defaults to false if setting isn't set yet" do
+      client = create(:client)
       expect(client.verified_by_management?).to eq false
     end
   end

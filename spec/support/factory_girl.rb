@@ -32,6 +32,12 @@ FactoryGirl.define do
         create(:completion, survey: survey, user: user)
       end
     end
+
+    trait :premium_member do
+      after :create do |user|
+        user.user_settings.update(premium_membership: true, verified: true)
+      end
+    end
   end
 
   factory :registration do

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :index] do
     resources :clients, only: :index # Search for stylists clients
+    resource :user_settings, only: :update
   end
 
   resources :registrations, only: [:show, :new, :create, :update]

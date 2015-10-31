@@ -20,8 +20,7 @@ feature 'stylist dashboard client tab' do
   scenario 'lists clients birthday if premium member', js: true do
     client = create(:client, :with_registration)
     create(:appointment, stylist: stylist, client: client)
-    stylist.premium_membership = true
-    stylist.save
+    stylist.make_premium!
 
     visit stylist_path(stylist)
     click_on 'Clients'
