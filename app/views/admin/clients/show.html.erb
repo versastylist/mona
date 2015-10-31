@@ -6,10 +6,15 @@
 
 <%= bs_row do %>
   <%= bs_column(6) do %>
-    <h1>Client: <%= @client.username %></h1>
+    <h1>
+      Client: <%= @client.username %>
+      <% if @client.banned? %>
+        <span class="label label-danger">Banned</span>
+      <% end %>
+    </h1>
   <% end %>
   <%= bs_column(6) do %>
-    <%= render partial: 'admin/shared/ban_button' %>
+    <%= render partial: 'admin/shared/ban_button', locals: { user: @client } %>
   <% end %>
 <% end %>
 
