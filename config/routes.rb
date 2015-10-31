@@ -33,6 +33,12 @@ Rails.application.routes.draw do
     end
     resources :clients, only: [:index, :show]
     resources :stylists, only: [:index, :show]
+    resources :appointments, only: [:index]
+    get 'appointments/future', to: 'appointments#future'
+    get 'appointments/past', to: 'appointments#past'
+    get 'appointments/cancelled', to: 'appointments#cancelled'
+
+    resources :settings, only: :index
   end
 
   resources :surveys, only: [:show] do

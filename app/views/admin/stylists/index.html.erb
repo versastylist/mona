@@ -1,11 +1,16 @@
+<ol class="breadcrumb">
+  <%= breadcrumb('Dashboard', admin_dashboard_path) %>
+  <%= breadcrumb_active('Stylists') %>
+</ol>
+
 <h1>All Stylists</h1>
 
 <h3>Sort By</h3>
 <div class="btn-group" role="group" aria-label="...">
-  <%= sort_link('First Name', admin_stylists_path(sort: 'first_name'), 'first_name') %>
-  <%= sort_link('Last Name', admin_stylists_path(sort: 'last_name'), 'last_name') %>
-  <%= sort_link('Email', admin_stylists_path(sort: 'email'), 'email') %>
-  <%= sort_link('Username', admin_stylists_path(sort: 'username'), 'username') %>
+  <%= sort_link('First Name',      admin_stylists_path(sort: 'first_name'), 'first_name') %>
+  <%= sort_link('Last Name',       admin_stylists_path(sort: 'last_name'), 'last_name') %>
+  <%= sort_link('Email',           admin_stylists_path(sort: 'email'), 'email') %>
+  <%= sort_link('Username',        admin_stylists_path(sort: 'username'), 'username') %>
   <%= sort_link('Date Registered', admin_stylists_path(sort: 'created_at'), 'created_at') %>
 </div>
 <hr />
@@ -17,7 +22,7 @@
     <th>Email</th>
     <th>Username</th>
     <th>Date Registered</th>
-    <th>Appointments</th>
+    <th>Details</th>
   </thead>
   <tbody>
     <% @stylists.each do |stylist| %>
@@ -27,11 +32,14 @@
         <td><%= stylist.email %></td>
         <td><%= stylist.username %></td>
         <td><%= stylist.created_at %></td>
-        <td><%= link_to 'Appointments', admin_stylist_path(stylist), class: 'btn btn-info' %></td>
+        <td>
+          <%= link_to admin_stylist_path(stylist), class: 'btn btn-warning' do %>
+            <i class="fa fa-cogs "></i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 
 <%= paginate @stylists %>

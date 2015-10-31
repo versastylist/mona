@@ -17,7 +17,7 @@ class Admin::SurveysController < ApplicationController
   end
 
   def index
-    @surveys = Survey.all.limit(25)
+    @surveys = Survey.page(params[:page]).per(10)
   end
 
   def show

@@ -1,4 +1,4 @@
-class AppointmentDecorator < Draper::Decorator
+class AppointmentDecorator < ApplicationDecorator
   include Rails.application.routes.url_helpers
   delegate_all
 

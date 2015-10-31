@@ -1,13 +1,29 @@
-<h1>Client: <%= @client.username %></h1>
+<ol class="breadcrumb">
+  <%= breadcrumb('Dashboard', admin_dashboard_path) %>
+  <%= breadcrumb('Clients', admin_clients_path) %>
+  <%= breadcrumb_active(@client.username) %>
+</ol>
 
-<h1>Appointments</h1>
+<%= bs_row do %>
+  <%= bs_column(6) do %>
+    <h1>Client: <%= @client.username %></h1>
+  <% end %>
+  <%= bs_column(6) do %>
+    <%= render partial: 'admin/shared/ban_button' %>
+  <% end %>
+<% end %>
+
+<h2>Appointments</h2>
 <hr />
 
-<h2>Upcoming</h2>
-<%= render partial: 'admin/shared/appointment_table', locals: { appointments: @future_appointments } %>
+<h3>Upcoming</h3>
+<%= render partial: 'admin/shared/appointment_table',
+  locals: { appointments: @future_appointments, future: true } %>
 
-<h2>Past Appointments</h2>
-<%= render partial: 'admin/shared/appointment_table', locals: { appointments: @past_appointments } %>
+<h3>Past Appointments</h3>
+<%= render partial: 'admin/shared/appointment_table',
+  locals: { appointments: @past_appointments, future: false } %>
 
-<h2>Cancelled Appointments</h2>
-<%= render partial: 'admin/shared/appointment_table', locals: { appointments: @cancelled_appointments } %>
+<h3>Cancelled Appointments</h3>
+<%= render partial: 'admin/shared/appointment_table',
+  locals: { appointments: @cancelled_appointments, future: false} %>

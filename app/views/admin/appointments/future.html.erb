@@ -1,0 +1,11 @@
+<ol class="breadcrumb">
+  <%= breadcrumb('Dashboard', admin_dashboard_path) %>
+  <%= breadcrumb('Appointments', admin_appointments_path) %>
+  <%= breadcrumb_active('Future Appointments') %>
+</ol>
+
+<h1>Upcoming Appointments</h1>
+<%= render partial: 'admin/shared/appointment_table',
+  locals: { appointments: @future_appointments, future: true } %>
+
+<%= paginate @future_appointments %>
