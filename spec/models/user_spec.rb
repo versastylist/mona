@@ -61,6 +61,8 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of(:agree_to_terms) }
     it { should have_valid(:role).when('client', 'stylist', 'admin') }
     it { should_not have_valid(:role).when('', nil, 'super user') }
+    it { should have_valid(:email).when('user@email.com') }
+    it { should_not have_valid(:email).when('useremail.com') }
   end
 
   describe "#completed_registration?" do
