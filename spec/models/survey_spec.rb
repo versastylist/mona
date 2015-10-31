@@ -17,20 +17,37 @@ RSpec.describe Survey, type: :model do
     it { should have_many(:questions) }
   end
 
-  describe "#registration_survey?" do
+  describe "#client_registration?" do
     it "returns true if client registration" do
       survey = build_stubbed(:survey, title: 'Client Registration')
-      expect(survey.registration_survey?).to eq true
+      expect(survey.client_registration?).to eq true
     end
 
-    it "returns true if stylist registration" do
+    it "returns false if stylist registration" do
       survey = build_stubbed(:survey, title: 'Stylist Registration')
-      expect(survey.registration_survey?).to eq true
+      expect(survey.client_registration?).to eq false
     end
 
     it "returns false for anything else" do
       survey = build_stubbed(:survey, title: 'Example Survey')
-      expect(survey.registration_survey?).to eq false
+      expect(survey.client_registration?).to eq false
+    end
+  end
+
+  describe "#stylist_registration?" do
+    it "returns false if client registration" do
+      survey = build_stubbed(:survey, title: 'Client Registration')
+      expect(survey.stylist_registration?).to eq false
+    end
+
+    it "returns true if stylist registration" do
+      survey = build_stubbed(:survey, title: 'Stylist Registration')
+      expect(survey.stylist_registration?).to eq true
+    end
+
+    it "returns false for anything else" do
+      survey = build_stubbed(:survey, title: 'Example Survey')
+      expect(survey.stylist_registration?).to eq false
     end
   end
 end

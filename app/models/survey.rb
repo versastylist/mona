@@ -30,7 +30,11 @@ class Survey < ActiveRecord::Base
     end
   end
 
-  def registration_survey?
-    title == "Client Registration" || title == "Stylist Registration"
+  def client_registration?
+    title == "Client Registration"
+  end
+
+  def stylist_registration?
+    title == "Stylist Registration"
   end
 end

@@ -5,8 +5,11 @@ class CompletionsController < ApplicationController
     completion.user = current_user
     completion.save!
 
-    if @survey.registration_survey?
+    if @survey.client_registration?
       redirect_to menu_filters_path,
+        success: "Successfully finished survey"
+    elsif @survey.stylist_registration?
+      redirect_to stylist_path(current_user),
         success: "Successfully finished survey"
     else
       redirect_to root_path,
