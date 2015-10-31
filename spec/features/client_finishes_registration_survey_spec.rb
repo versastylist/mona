@@ -8,5 +8,6 @@ feature 'client finishes registration survey' do
     visit registration_survey_path
     submit_answers
     expect(page).to have_content('Successfully finished survey')
+    expect(page).to have_content('Service Menu')
   end
 end
