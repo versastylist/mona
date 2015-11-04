@@ -35,6 +35,8 @@ class Registration < ActiveRecord::Base
       with: PHONE_REGEX,
       message: "bad format"
     }
+  validates :dob,
+    format: { with: /\d{4}-\d{2}-\d{2}/ }
 
   validate :confirm_age!
 
@@ -47,7 +49,7 @@ class Registration < ActiveRecord::Base
       age = dob.split('-').first.to_i
       year = Date.today.year
       if (year - age) < 18
-        errors.add[:age] = "must be 18 years or older!"
+        errors.add(:age, "must be 18 years or older!")
       end
     end
   end
