@@ -10,8 +10,10 @@ class PaymentInfosController < ApplicationController
 
     if @payment_info.save_with_payment
       flash[:success] =  "Payment info saved!"
+      redirect_to registration_survey_path
+    else
+      render :new
     end
-    redirect_to registration_survey_path
   end
 
   def payment_params

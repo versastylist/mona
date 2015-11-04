@@ -34,4 +34,8 @@ class GuestUser
   def has_address_on_file?
     false
   end
+
+  def primary_address
+    nil
+  end
 end

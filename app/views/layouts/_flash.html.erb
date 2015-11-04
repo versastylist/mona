@@ -11,7 +11,7 @@
   <% unless current_user.completed_registration? || current_user.admin? %>
     <% unless registration_page? %>
       <div class="alert alert-warning">
-        You still havn't finished your registration.
+        You still haven't finished your registration.
         <%= link_to 'Click here to finish', current_user.next_registration_step %>
       </div>
     <% end %>
