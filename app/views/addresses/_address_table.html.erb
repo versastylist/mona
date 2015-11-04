@@ -1,0 +1,23 @@
+<table class="table table-hover">
+  <thead>
+    <th>Type</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip</th>
+    <th></th>
+    <th>Edit</th>
+  </thead>
+  <tbody>
+  <% addresses.each do |address| %>
+    <tr>
+      <td><%= address.type %></td>
+      <td><%= address.location %></td>
+      <td><%= address.city %></td>
+      <td><%= address.state %></td>
+      <td><%= address.zip_code %></td>
+      <td><%= address.action_button %></td>
+      <td><%= link_to 'Edit', edit_user_address_path(current_user, address), class: 'btn btn-warning'  %></td>
+    </tr>
+  <% end %>
+</tbody>

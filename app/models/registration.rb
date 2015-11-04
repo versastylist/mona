@@ -36,7 +36,7 @@ class Registration < ActiveRecord::Base
       message: "bad format"
     }
   validates :dob,
-    format: { with: /\d{4}-\d{2}-\d{2}/ }
+    format: { with: /(\d{4}-\d{2}-\d{2}|\d{4}\/\d{2}\/\d{2})/ }
 
   validate :confirm_age!
 
@@ -45,8 +45,9 @@ class Registration < ActiveRecord::Base
   private
 
   def confirm_age!
-    if dob
-      age = dob.split('-').first.to_i
+    if self.dob.present?
+      self.dob = self.dob.gsub('-', '/')
+      age = self.dob.split('/').first.to_i
       year = Date.today.year
       if (year - age) < 18
         errors.add(:age, "must be 18 years or older!")

@@ -27,7 +27,7 @@ feature 'stylist enters their banking information' do
 
       click_on 'Skip Payment Info'
       expect(page).to have_content('Service Menu')
-      expect(page).to have_content("You still havn't finished your registration. Click here to finish")
+      expect(page).to have_content("You still haven't finished your registration. Click here to finish")
     end
   end
 end

@@ -25,7 +25,7 @@ feature 'client registration' do
       fill_in 'First name', with: 'Johnny'
       fill_in 'Last name', with: 'Jones'
       fill_in 'Cell Phone', with: '6178945641'
-      page.find('#registration_dob').set("06/19/1992")
+      page.find('#registration_dob').set("1992/06/19")
       select 'Male', from: 'Gender'
 
       # Address nested form
@@ -50,7 +50,7 @@ feature 'client registration' do
       click_on 'Skip Registration'
 
       expect(page).to have_content('Service Menu')
-      expect(page).to have_content("You still havn't finished your registration. Click here to finish")
+      expect(page).to have_content("You still haven't finished your registration. Click here to finish")
     end
 
     scenario 'visits warning link to finish next phase of registration' do
