@@ -27,9 +27,12 @@ class Address < ActiveRecord::Base
   after_validation :geocode
 
   validates_presence_of :address,
-    :zip_code, :city, :state, :primary
+    :zip_code, :city, :state
   validates :zip_code,
     format: { with: /\A\d{5}(?:[-\s]\d{4})?\z/ }
+
+  # Only allow 1 primary address per user
+  validates :primary, uniqueness: { scope: :user_id }, if: :primary
 
   def full_street_address
     [address, appt_num, city, state, zip_code].join(', ')

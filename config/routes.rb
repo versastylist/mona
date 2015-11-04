@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     member do
       put :ban
     end
+    resources :addresses, only: [:update]
   end
 
   resources :registrations, only: [:show, :new, :create, :update]
