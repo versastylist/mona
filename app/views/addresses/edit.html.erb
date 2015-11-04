@@ -1,0 +1,4 @@
+<%= form_for [@user, @address] do |f|  %>
+  <%= render partial: 'addresses/address_fields', locals: { address: f } %>
+  <%= f.submit 'Update Address', class: 'btn btn-success' %>
+<% end %>
