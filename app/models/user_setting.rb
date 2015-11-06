@@ -16,4 +16,10 @@
 
 class UserSetting < ActiveRecord::Base
   belongs_to :user
+
+  after_commit :reindex_products
+
+  def reindex_products
+    user.service_products.reindex
+  end
 end

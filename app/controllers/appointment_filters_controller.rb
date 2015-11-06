@@ -18,6 +18,7 @@ class AppointmentFiltersController < ApplicationController
               price: {lt: upper_bound},
               service_id: service_ids,
               displayed: true,
+              stylist_enabled: true,
             }
           )
         )

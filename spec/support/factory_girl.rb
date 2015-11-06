@@ -38,6 +38,12 @@ FactoryGirl.define do
         user.settings.update(premium_membership: true, verified: true)
       end
     end
+
+    trait :disabled do
+      after :create do |user|
+        user.settings.update(enable_booking: false)
+      end
+    end
   end
 
   factory :registration do
