@@ -86,6 +86,8 @@ class User < ActiveRecord::Base
     :dob,
     to: :registration, allow_nil: true
 
+  delegate :enable_booking, to: :settings
+
   scope :clients,  -> { where(role: "client") }
   scope :stylists, -> { where(role: "stylist") }
   scope :admins, -> { where(role: "admin") }
@@ -160,7 +162,6 @@ class User < ActiveRecord::Base
     attributes.merge(
       first_name: first_name,
       last_name: last_name,
-      dob: dob,
     )
   end
 

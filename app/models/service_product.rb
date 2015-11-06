@@ -41,7 +41,8 @@ class ServiceProduct < ActiveRecord::Base
 
   def search_data
     attributes.merge(
-      service_menu: service_menu.name
+      service_menu: service_menu.name,
+      stylist_enabled: stylist.enable_booking,
     )
   end
 
