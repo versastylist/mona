@@ -51,6 +51,7 @@ class StylistScheduleDisplayer
   end
 
   def find_future_schedule
+    return if !stylist.future_schedule.present?
     appointment_source = { events: [], color: '#ec971f', textColor: 'white' }
 
     future_schedule.week_days.active.each do |wday|
@@ -111,7 +112,7 @@ class StylistScheduleDisplayer
   end
 
   def future_schedule
-    @future_schedule ||= stylist.future_schedule || NullSchedule.new
+    @future_schedule ||= stylist.future_schedule
   end
 
   class NullSchedule

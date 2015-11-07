@@ -46,6 +46,13 @@ $(function() {
     }
   });
 
+  $('.start-timepicker').timepicker().on('changeTime.timepicker', function(e) {
+    if (e.time.hours < 6) {
+      alert('Cannot work before 6am')
+      $(this).timepicker('setTime', '6:00 am')
+    }
+  });
+
   $('.end-timepicker').each(function(weekDay) {
     if (!this.value) {
       $(this).timepicker('setTime', '5:00 PM')
@@ -56,6 +63,12 @@ $(function() {
     }
   });
 
+  $('.end-timepicker').timepicker().on('changeTime.timepicker', function(e) {
+    if (e.time.hours > 10 && e.time.meridian === "PM") {
+      alert('Cannot work after 10pm')
+      $(this).timepicker('setTime', '10:00 pm')
+    }
+  });
 
   // Edit schedule
   $('.edit_schedule').on('cocoon:after-insert', function(e, insert) {
