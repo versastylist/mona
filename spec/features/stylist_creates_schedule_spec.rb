@@ -39,7 +39,7 @@ feature 'stylist creates a weekly schedule' do
       visit stylist_path(stylist)
 
       click_on 'Schedule'
-      # find(:css, '.fc-icon-right-single-arrow').click # Needed to add this at end of month
+      find(:css, '.fc-icon-right-single-arrow').click # Needed to add this at end of month
       expect(page).to have_css('#event_id_1')
     end
   end
