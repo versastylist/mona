@@ -8,6 +8,10 @@ class AppointmentFiltersController < ApplicationController
       service_ids     = User.available_service_ids(geocoordinates, 5)
 
       if !params[:query].blank?
+        if current_user
+          ProductSearch.create(term: params[:query], client: current_user)
+        end
+
         @service_products = ServiceProductDecorator.decorate_collection(
           ServiceProduct.search(
             params[:query],

@@ -1,0 +1,7 @@
+<h1>Top 10 Product Searches</h1>
+
+<ol>
+  <% @searches.each do |search| %>
+   <li> <%= search.term %> </li>
+  <% end %>
+</ol>

@@ -67,6 +67,7 @@ class User < ActiveRecord::Base
     class_name: 'StylistReview'
   has_many :clients, through: :stylist_appointments
   has_many :stylist_photos, foreign_key: 'stylist_id'
+  has_many :product_searches, foreign_key: 'client_id'
 
   validates :username,
     presence: true,
