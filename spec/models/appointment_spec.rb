@@ -98,5 +98,29 @@ RSpec.describe Appointment, type: :model do
       appointment.cancel!
       expect(ActionMailer::Base.deliveries.count).to eq 2
     end
+
+    it "sends texts to stylist if they have setting turned on" do
+      client = create(:client)
+      stylist = create(:stylist, :receive_texts)
+      appointment = create(:appointment, :with_interval, stylist: stylist, client: client)
+
+      expect_any_instance_of(TwilioAdapter).
+        to_not receive(:appointment_cancellation).with(appointment, client)
+      expect_any_instance_of(TwilioAdapter).
+        to receive(:appointment_cancellation).with(appointment, stylist)
+      appointment.cancel!
+    end
+
+    it "sends texts to client if they have setting turned on" do
+      client = create(:client, :receive_texts)
+      stylist = create(:stylist)
+      appointment = create(:appointment, :with_interval, stylist: stylist, client: client)
+
+      expect_any_instance_of(TwilioAdapter).
+        to receive(:appointment_cancellation).with(appointment, client)
+      expect_any_instance_of(TwilioAdapter).
+        to_not receive(:appointment_cancellation).with(appointment, stylist)
+      appointment.cancel!
+    end
   end
 end

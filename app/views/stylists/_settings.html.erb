@@ -24,7 +24,7 @@
     <%= bs_column(3) do %>
       <div class="form-group text-center">
         <%= label_tag 'Receive Text Messages?' %><br/>
-        <%= check_box_tag '', '1', current_user.send_booking_text?, id: 'receiveTexts'%>
+        <%= check_box_tag '', '1', current_user.receives_texts?, id: 'receiveTexts'%>
       </div>
     <% end %>
 

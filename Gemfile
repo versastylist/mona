@@ -29,6 +29,7 @@ gem 'faker'             # Seeding Fake Data
 gem 'cocoon'            # JQuery Nested Forms
 gem 'acts_as_singleton' # Allows Singleton Pattern for AR Objects
 gem 'geocoder'          # Location API
+gem 'twilio-ruby'       # Text Messaging
 
 # Production
 group :production do

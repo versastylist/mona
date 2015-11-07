@@ -29,12 +29,12 @@ module SettingsHelpers
     multiple_services
   end
 
-  def send_booking_text?
-    booking_texts
-  end
-
   def receives_email?
     booking_emails
+  end
+
+  def receives_texts?
+    booking_texts
   end
 
   def enable_email!
