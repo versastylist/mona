@@ -6,7 +6,8 @@ function toggleInputs(inputs, bool) {
   }
 }
 
-function handleSwitchChange(e) {
+function handleWeekDaySwitchChange(e) {
+  e.preventDefault();
   var $panelBody = this.closest('div.panel-body');
   var panelID = $panelBody.id;
   var inputs = $('#' + panelID).find('input');
@@ -20,13 +21,14 @@ function handleSwitchChange(e) {
 
 $(function() {
   // Schedule checkboxes
+  alert('workign!');
   $('.weekday-checkbox').bootstrapSwitch({
     onText: 'Available',
     offText: 'Busy',
     size: 'small',
     onColor: 'success',
     offColor: 'danger',
-    onSwitchChange: handleSwitchChange
+    onSwitchChange: handleWeekDaySwitchChange
   });
 });
 
