@@ -170,6 +170,9 @@ class User < ActiveRecord::Base
     reminders = []
     reminders << "You still need to create your current schedule" unless current_schedule.present?
     reminders << "You still need to create your future schedule" unless future_schedule.present?
+    stylist_appointments.today.each do |appt|
+      reminders << "You have an appointment today at: #{appt.start_time.strftime('%l:%M %P')}"
+    end
     reminders
   end
 

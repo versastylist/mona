@@ -38,6 +38,7 @@ class Appointment < ActiveRecord::Base
   scope :cancelled, -> { where(cancelled: true) }
   scope :in_future, -> { not_cancelled.where('start_time > ?', DateTime.now.in_time_zone) }
   scope :in_past, -> { not_cancelled.where('start_time < ?', DateTime.now.in_time_zone) }
+  scope :today, -> { where('start_time > :beg AND start_time < :end', beg: Date.today.beginning_of_day, end: Date.today.end_of_day) }
 
   def cancel!
     if update(cancelled: true)
