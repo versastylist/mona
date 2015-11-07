@@ -65,4 +65,13 @@
       <% end %>
     </div>
   <% end %>
+
+  <%= bs_column(3) do %>
+    <div class="text-center">
+      <h3>Product Searches</h3>
+      <%= link_to admin_product_searches_path, class: 'btn btn-info' do %>
+        <i class="fa fa-search fa-3x"></i>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
