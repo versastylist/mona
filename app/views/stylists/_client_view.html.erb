@@ -48,6 +48,15 @@
 
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="service_products">
+
+      <div class="well service-product-quickfind">
+        <div class="btn-group text-center" role="group" aria-label="..." style="margin-top: 10px;">
+          <% ServiceMenu::MENU_NAMES.each do |menu_name| %>
+            <%= link_to menu_name, ("#" + menu_name.downcase.split.join('_')), class: 'btn btn-default' %>
+          <% end %>
+        </div>
+      </div>
+
       <%= render partial: 'stylists/client_service_product_table',
         locals: { product_type: 'Barber', product_collection: @barber } %>
 
