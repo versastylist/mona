@@ -16,6 +16,7 @@ class StylistsController < ApplicationController
 
     @addresses = current_user.addresses.order(primary: :desc).decorate
     @clients = @stylist.clients.uniq
+    @gallery_photos = @stylist.stylist_photos
   end
 
   def preview
@@ -25,5 +26,6 @@ class StylistsController < ApplicationController
     )
     @review = StylistReview.new
     @reviews = @stylist.stylist_reviews
+    @gallery_photos = @stylist.stylist_photos
   end
 end

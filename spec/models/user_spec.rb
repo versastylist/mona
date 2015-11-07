@@ -52,6 +52,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:stylist_appointments) }
     it { should have_many(:client_appointments) }
     it { should have_many(:clients).through(:stylist_appointments) }
+    it { should have_many(:stylist_photos) }
   end
 
   context "validations" do
@@ -278,6 +279,19 @@ RSpec.describe User, type: :model do
         stylist.enable_email!
         expect(stylist.receives_email?).to eq true
       end
+    end
+  end
+
+  describe "#can_upload_more_photos?" do
+    let(:stylist) { create(:stylist) }
+
+    it "returns true if stylist has less than 8 photos associated with them" do
+      expect(stylist.can_upload_more_photos?).to eq true
+    end
+
+    it "returns false if they stylist has 8 photos associated with them" do
+      create_list(:stylist_photo, 8, stylist: stylist)
+      expect(stylist.can_upload_more_photos?).to eq false
     end
   end
 end

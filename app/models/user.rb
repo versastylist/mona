@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
     foreign_key: 'client_id',
     class_name: 'StylistReview'
   has_many :clients, through: :stylist_appointments
+  has_many :stylist_photos, foreign_key: 'stylist_id'
 
   validates :username,
     presence: true,
@@ -184,5 +185,9 @@ class User < ActiveRecord::Base
     end
 
     { data: data, labels: english_labels }
+  end
+
+  def can_upload_more_photos?
+    stylist_photos.count < 8
   end
 end
