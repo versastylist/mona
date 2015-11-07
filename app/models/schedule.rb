@@ -12,8 +12,12 @@
 #
 
 class Schedule < ActiveRecord::Base
+  POSSIBLE_STATES = ['current', 'future']
+
   belongs_to :stylist, class_name: 'User'
   has_many :week_days
+
+  validates :state, inclusion: { in: POSSIBLE_STATES }
 
   accepts_nested_attributes_for :week_days
 end

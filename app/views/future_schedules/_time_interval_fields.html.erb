@@ -1,0 +1,47 @@
+<%= bs_row do %>
+  <%= bs_column(12) do %>
+    <div class="nested-fields">
+      <%= bs_row do %>
+
+        <%= bs_column(2) do %>
+          <div class="field form-group">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
+        <% end %>
+
+        <%= bs_column(4) do %>
+          <div class="form-group">
+            <%= f.label :start_time %>
+            <div class="input-group">
+              <%= f.text_field :start_time, class: 'form-control interval-start-timepicker' %>
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-time"></span>
+              </span>
+            </div>
+          </div>
+        <% end %>
+
+        <%= bs_column(4) do %>
+          <div class="form-group">
+            <%= f.label :end_time %>
+            <div class="input-group ">
+              <%= f.text_field :end_time, class: 'form-control interval-end-timepicker' %>
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-time"></span>
+              </span>
+            </div>
+          </div>
+        <% end %>
+
+        <%= bs_column(2) do %>
+          <%= f.label 'Remove' %>
+          <%= link_to_remove_association f, class: 'btn btn-danger' do %>
+            <i class="fa fa-times"></i>
+          <% end %>
+        <% end %>
+
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

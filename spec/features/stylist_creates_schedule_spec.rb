@@ -10,7 +10,7 @@ feature 'stylist creates a weekly schedule' do
       visit stylist_path(stylist)
 
       click_on 'Schedule'
-      click_on 'Add Schedule'
+      click_on 'Add Current Schedule'
       click_on 'Create Schedule'
 
       expect(page).to have_content('Successfully created schedule')
@@ -20,7 +20,7 @@ feature 'stylist creates a weekly schedule' do
       visit stylist_path(stylist)
 
       click_on 'Schedule'
-      click_on 'Add Schedule'
+      click_on 'Add Current Schedule'
 
       current_day = DateTime.now.in_time_zone.strftime('%A').downcase
 
@@ -49,6 +49,6 @@ def create_default_schedule(stylist)
   visit stylist_path(stylist)
 
   click_on 'Schedule'
-  click_on 'Add Schedule'
+  click_on 'Add Current Schedule'
   click_on 'Create Schedule'
 end

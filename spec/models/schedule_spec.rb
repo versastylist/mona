@@ -21,5 +21,7 @@ describe Schedule, type: :model do
   end
 
   context "validations" do
+    it { should have_valid(:state).when('current', 'future') }
+    it { should_not have_valid(:state).when('', 'w23lkj', nil) }
   end
 end

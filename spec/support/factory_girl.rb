@@ -162,10 +162,18 @@ FactoryGirl.define do
   end
 
   factory :schedule do
-    state "Current"
+    state 'current'
     start_date 1.day.from_now
     end_date 14.days.from_now
     stylist
+
+    factory :current_schedule do
+      state 'current'
+    end
+
+    factory :future_schedule do
+      state 'future'
+    end
   end
 
   factory :week_day do

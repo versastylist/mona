@@ -1,4 +1,5 @@
 class StylistDecorator < Draper::Decorator
+  include Rails.application.routes.url_helpers
   delegate_all
 
   def total_rating
@@ -11,6 +12,22 @@ class StylistDecorator < Draper::Decorator
 
   def num_reviews
     object.stylist_reviews.count
+  end
+
+  def current_schedule_button
+    if object.current_schedule.present?
+      h.link_to 'Edit Current Schedule', edit_current_schedule_path, class: 'btn btn-warning'
+    else
+      h.link_to 'Add Current Schedule', new_current_schedule_path, class: 'btn btn-success'
+    end
+  end
+
+  def future_schedule_button
+    if object.future_schedule.present?
+      h.link_to 'Edit Future Schedule', edit_future_schedule_path, class: 'btn btn-warning'
+    else
+      h.link_to 'Add Future Schedule', new_future_schedule_path, class: 'btn btn-success'
+    end
   end
 
   # def registration_reminder

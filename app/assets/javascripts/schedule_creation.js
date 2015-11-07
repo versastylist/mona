@@ -1,4 +1,4 @@
-function toggleInputs(inputs, bool) {
+function toggleWeekDayInputs(inputs, bool) {
   for (i = 0; i < inputs.length; i++) {
     if (inputs[i].type === 'text') {
       $(inputs[i]).prop('disabled', bool)
@@ -13,15 +13,14 @@ function handleWeekDaySwitchChange(e) {
   var inputs = $('#' + panelID).find('input');
 
   if (this.checked === false) {
-    toggleInputs(inputs, true);
+    toggleWeekDayInputs(inputs, true);
   } else {
-    toggleInputs(inputs, false);
+    toggleWeekDayInputs(inputs, false);
   }
 }
 
 $(function() {
   // Schedule checkboxes
-  alert('workign!');
   $('.weekday-checkbox').bootstrapSwitch({
     onText: 'Available',
     offText: 'Busy',

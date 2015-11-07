@@ -1,9 +1,7 @@
 <h1>Schedule</h1>
 
-<%= link_to new_schedule_path, class: 'btn btn-success' do %>
-  <i class="fa fa-plus"></i>
-  Add Schedule
-<% end %>
+<%= @stylist.current_schedule_button %>
+<%= @stylist.future_schedule_button %>
 
 <div id='stylistCalendar'></div>
 

@@ -20,7 +20,10 @@ Rails.application.routes.draw do
   resources :registrations, only: [:show, :new, :create, :update]
   resources :services, only: [:new, :create, :index]
   resources :payment_infos, only: [:new, :create]
-  resources :schedules, only: [:new, :create]
+
+  resource :current_schedule, only: [:new, :create, :edit, :update]
+  resource :future_schedule, only: [:new, :create, :edit, :update]
+
   resources :order_items, only: [:create]
   resources :appointments, only: [:new, :create, :destroy]
   resources :stylist_reviews, only: :create

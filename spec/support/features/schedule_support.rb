@@ -20,7 +20,7 @@ module Features
   def schedule_weekday_options
     { start_time: "9:00am",
       end_time: "5:00pm",
-      state: "Current" }
+      state: "current" }
   end
 
   # Copied from application helper
