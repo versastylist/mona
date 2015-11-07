@@ -37,6 +37,23 @@
   <% end %>
 </div>
 
+<h2>Photos</h2>
+<%= form_for @stylist.registration do |f| %>
+  <span class="btn btn-default btn-file">
+    Change Avatar Image<%= f.file_field :avatar %>
+  </span>
+  <%= f.submit 'Update Avatar', class: 'btn btn-success', id: 'avatar-upload' %>
+<% end %>
+
+<p>Add photos to your profile (maximum of 8)</p>
+<%= form_for StylistPhoto.new do |f| %>
+  <span class="btn btn-default btn-file">
+    Gallery Photos<%= f.file_field :image %>
+  </span>
+  <%= f.submit 'Add Photo', class: 'btn btn-success' %>
+<% end %>
+
 <h2>Addresses</h2>
 <%= render partial: 'addresses/address_table', locals: { addresses: @addresses } %>
 <%= link_to 'Add Address', new_user_address_path(current_user), class: 'btn btn-info' %>
+

@@ -1,6 +1,12 @@
 <%= bs_row do %>
   <%= bs_column(6) do %>
     <%= image_tag @stylist.avatar_url(:thumb), class: 'img-rounded' %>
+
+    <br />
+    <% @gallery_photos.each do |photo| %>
+      <%= image_tag photo.image_url(:micro), class: 'img-thumbnail' %>
+    <% end %>
+
     <%= bs_row do %>
       <%= link_to 'Book Appointment',
         new_appointment_path(stylist_id: @stylist.id),

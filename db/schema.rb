@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151031225455) do
+ActiveRecord::Schema.define(version: 20151107141110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,13 @@ ActiveRecord::Schema.define(version: 20151031225455) do
     t.string   "stripe_bank_token"
   end
 
+  create_table "product_searches", force: :cascade do |t|
+    t.string   "term"
+    t.integer  "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string   "title",            null: false
     t.integer  "survey_id",        null: false
@@ -182,6 +189,13 @@ ActiveRecord::Schema.define(version: 20151031225455) do
     t.integer  "service_menu_id", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "stylist_photos", force: :cascade do |t|
+    t.integer  "stylist_id"
+    t.string   "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "stylist_reviews", force: :cascade do |t|

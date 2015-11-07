@@ -201,4 +201,9 @@ FactoryGirl.define do
       end
     end
   end
+
+  factory :stylist_photo do
+    image 'some image'
+    stylist
+  end
 end
