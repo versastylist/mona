@@ -20,6 +20,8 @@ class UserSetting < ActiveRecord::Base
   after_commit :reindex_products
 
   def reindex_products
-    user.service_products.reindex
+    if user.service_products.present?
+      user.service_products.reindex
+    end
   end
 end
