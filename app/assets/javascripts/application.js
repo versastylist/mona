@@ -46,6 +46,11 @@ $(function() {
   })
 
   // Timepickers for schedules
+  $('#new_schedule').on('cocoon:after-insert', function(e, insert) {
+    $('.interval-start-timepicker').timepicker('setTime', '11:30 AM');
+    $('.interval-end-timepicker').timepicker('setTime', '12:30 PM');
+  });
+
   $('.start-timepicker').each(function(weekDay) {
     if (!this.value) {
       $(this).timepicker('setTime', '9:00 AM')
@@ -66,9 +71,31 @@ $(function() {
     }
   });
 
-  $('#new_schedule').on('cocoon:after-insert', function(e, insert) {
-    $('.interval-start-timepicker').timepicker('setTime', '11:30 AM');
-    $('.interval-end-timepicker').timepicker('setTime', '12:30 PM');
+
+  // Edit schedule
+  $('.edit_schedule').on('cocoon:after-insert', function(e, insert) {
+    $(insert).find('.interval-start-timepicker').timepicker('setTime', '11:30 AM');
+    $(insert).find('.interval-end-timepicker').timepicker('setTime', '12:30 PM');
+  });
+
+  $('.interval-start-timepicker').each(function(weekDay) {
+    if (!this.value) {
+      $(this).timepicker('setTime', '11:30 AM')
+    } else {
+      var time = moment.utc(this.value);
+      var formattedTime = time.format('h:mm a')
+      $(this).timepicker('setTime', formattedTime);
+    }
+  });
+
+  $('.interval-end-timepicker').each(function(weekDay) {
+    if (!this.value) {
+      $(this).timepicker('setTime', '12:30 PM')
+    } else {
+      var time = moment.utc(this.value);
+      var formattedTime = time.format('h:mm a')
+      $(this).timepicker('setTime', formattedTime);
+    }
   });
 });
 

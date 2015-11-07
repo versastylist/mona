@@ -33,6 +33,12 @@
   <% end %>
 <% end %>
 
+<% week_day.time_intervals.each do |interval| %>
+  <%= wday.fields_for :time_intervals, interval do |t_interval| %>
+    <%= render partial: 'time_interval_fields', locals: { f: t_interval } %>
+  <% end %>
+<% end %>
+
 <div class="links">
   <%= link_to_add_association 'Add Time Interval', wday, :time_intervals, class: 'btn btn-info' %>
 </div>
