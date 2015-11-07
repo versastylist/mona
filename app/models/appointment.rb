@@ -56,6 +56,9 @@ class Appointment < ActiveRecord::Base
       if user.receives_email?
         AppointmentMailer.cancel_appointment(self, user.id).deliver_later
       end
+      if user.receives_texts?
+        TwilioAdapter.appointment_cancellation(self, user)
+      end
     end
   end
 end
