@@ -1,0 +1,16 @@
+<%= bs_row do %>
+  <%= bs_column(12) do %>
+    <h2 id="<%= product_type.downcase.split.join('_') %>"><%= product_type %></h2>
+    <table class="table table-hover">
+      <thead>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Duration</th>
+        <th>Settings</th>
+      </thead>
+      <tbody>
+        <%= render partial: 'stylists/stylist_service_product', collection: product_collection %>
+      </tbody>
+    </table>
+  <% end %>
+<% end %>

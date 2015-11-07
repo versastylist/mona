@@ -36,6 +36,17 @@ class ServiceProduct < ActiveRecord::Base
 
   scope :displayed, -> { where(displayed: true) }
   scope :less_than, -> (price) { where('price < ?', price) }
+  scope :barber, -> { joins(:service).joins(:service_menu).where(service_menu: { name: 'Barber' }) }
+
+  # Creates these scopes:
+  # .hair_cut .weave .blowout_and_sets .natural .barber .makeup .nails .specialties
+  ServiceMenu::MENU_NAMES.each do |menu_name|
+    scope menu_name.downcase.split.join('_').to_sym, -> {
+      joins(:service).where(services: {
+        service_menu_id: ServiceMenu.select(:id).where(name: menu_name)
+      })
+    }
+  end
 
   searchkick
 

@@ -1,11 +1,11 @@
-<tr id=<%= dom_id(service_product) %>>
+<tr id=<%= dom_id(client_service_product) %>>
   <%= form_for OrderItem.new do |f| %>
-    <td><%= service_product.name %></td>
-    <td><%= service_product.display_price %></td>
-    <td><%= service_product.duration %></td>
-    <td><%= service_product.details %></td>
+    <td><%= client_service_product.name %></td>
+    <td><%= client_service_product.display_price %></td>
+    <td><%= client_service_product.duration %></td>
+    <td><%= client_service_product.details %></td>
     <td><%= f.number_field :quantity, value: 1, class: 'form-control', min: 1 %></td>
-        <%= f.hidden_field :service_product_id, value: service_product.id %>
+        <%= f.hidden_field :service_product_id, value: client_service_product.id %>
         <%= f.hidden_field :stylist_id, value: @stylist.id %>
 
     <% if current_user == @stylist %>

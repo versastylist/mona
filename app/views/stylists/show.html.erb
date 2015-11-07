@@ -1,7 +1,7 @@
 <h1><%= @stylist.username %>'s profile</h1>
 
 <% if current_user == @stylist %>
-  <div class="row">
+  <div class="row" style="margin-bottom: 20px;">
     <aside class="col-md-3">
       <%= image_tag @stylist.avatar_url(:thumb), class: 'img-rounded profile-photo' %>
 
@@ -14,8 +14,10 @@
         class: 'btn btn-info btn-block client-preview'
       %>
     </aside>
+  </div>
 
-    <section class="col-md-9">
+  <%= bs_row do %>
+    <%= bs_column(12) do %>
         <ul class="nav nav-tabs" role="tablist" id="stylistTab">
           <li role="presentation" class="active"><a href="#services" aria-controls="services" role="tab" data-toggle="tab">Services</a></li>
           <li role="presentation"><a href="#appointments" aria-controls="appointments" role="tab" data-toggle="tab">Appointments</a></li>
@@ -41,8 +43,8 @@
             <%= render 'stylists/settings' %>
           </div>
         </div>
-    </section>
-  </div>
+      <% end %>
+    <% end %>
 <% else %>
   <%= render 'stylists/client_view' %>
 <% end %>

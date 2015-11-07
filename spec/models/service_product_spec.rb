@@ -57,5 +57,13 @@ RSpec.describe ServiceProduct, type: :model do
         expect(described_class.less_than(40)).to_not include product
       end
     end
+
+    describe "scopes for service menu" do
+      ServiceMenu::MENU_NAMES.each do |name|
+        it "responds to scope" do
+          expect(described_class).to respond_to name.downcase.split.join('_').to_sym
+        end
+      end
+    end
   end
 end

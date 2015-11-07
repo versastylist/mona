@@ -48,23 +48,38 @@
 
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="service_products">
-      <%= bs_column(12) do %>
-        <h2>Service Products</h2>
-        <table class="table table-hover">
-          <thead>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Duration (minutes)</th>
-            <th>Details</th>
-            <th>Quantity</th>
-            <th></th>
-          </thead>
-          <tbody>
-            <%= render partial: 'stylists/service_product', collection: @service_products %>
-          </tbody>
-        </table>
-        <%= paginate @service_products %>
-      <% end %>
+
+      <div class="well service-product-quickfind">
+        <div class="btn-group text-center" role="group" aria-label="..." style="margin-top: 10px;">
+          <% ServiceMenu::MENU_NAMES.each do |menu_name| %>
+            <%= link_to menu_name, ("#" + menu_name.downcase.split.join('_')), class: 'btn btn-default' %>
+          <% end %>
+        </div>
+      </div>
+
+      <%= render partial: 'stylists/client_service_product_table',
+        locals: { product_type: 'Barber', product_collection: @barber } %>
+
+      <%= render partial: 'stylists/client_service_product_table',
+        locals: { product_type: 'Hair Cut', product_collection: @hair_cut } %>
+
+      <%= render partial: 'stylists/client_service_product_table',
+        locals: { product_type: 'Blowout And Sets', product_collection: @blowout_and_sets } %>
+
+      <%= render partial: 'stylists/client_service_product_table',
+        locals: { product_type: 'Nails', product_collection: @nails } %>
+
+      <%= render partial: 'stylists/client_service_product_table',
+        locals: { product_type: 'Natural', product_collection: @natural } %>
+
+      <%= render partial: 'stylists/client_service_product_table',
+        locals: { product_type: 'Makeup', product_collection: @makeup } %>
+
+      <%= render partial: 'stylists/client_service_product_table',
+        locals: { product_type: 'Specialties', product_collection: @specialties } %>
+
+      <%= render partial: 'stylists/client_service_product_table',
+        locals: { product_type: 'Weave', product_collection: @weave } %>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="stylist_reviews">
