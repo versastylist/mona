@@ -1,5 +1,4 @@
-<h1 class="text-center">New Current Schedule</h1>
-
+<h1 class="text-center">New Current Schedule</h1> 
 <%= form_for @schedule, url: current_schedule_path do |f| %>
   <%= f.hidden_field :start_date, value: schedule_week_one.first %>
   <%= f.hidden_field :end_date, value: schedule_week_two.last %>

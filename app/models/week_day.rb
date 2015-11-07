@@ -21,6 +21,8 @@ class WeekDay < ActiveRecord::Base
   accepts_nested_attributes_for :time_intervals,
     reject_if: :all_blank, allow_destroy: true
 
+  scope :active, -> { where(active: true) }
+
   def in_interval?(appointment_start, appointment_end)
     time_intervals.any? do |interval|
       (appointment_start < interval.end_time) && (appointment_end > interval.start_time)

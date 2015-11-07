@@ -46,8 +46,25 @@ $(function() {
   })
 
   // Timepickers for schedules
-  $('.start-timepicker').timepicker('setTime', '9:00 AM');
-  $('.end-timepicker').timepicker('setTime', '5:00 PM');
+  $('.start-timepicker').each(function(weekDay) {
+    if (!this.value) {
+      $(this).timepicker('setTime', '9:00 AM')
+    } else {
+      var time = moment.utc(this.value);
+      var formattedTime = time.format('h:mm a')
+      $(this).timepicker('setTime', formattedTime);
+    }
+  });
+
+  $('.end-timepicker').each(function(weekDay) {
+    if (!this.value) {
+      $(this).timepicker('setTime', '5:00 PM')
+    } else {
+      var time = moment.utc(this.value);
+      var formattedTime = time.format('h:mm a')
+      $(this).timepicker('setTime', formattedTime);
+    }
+  });
 
   $('#new_schedule').on('cocoon:after-insert', function(e, insert) {
     $('.interval-start-timepicker').timepicker('setTime', '11:30 AM');

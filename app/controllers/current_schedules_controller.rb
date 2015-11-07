@@ -1,9 +1,23 @@
 class CurrentSchedulesController < ApplicationController
   before_action :stylist_has_been_verified!
-  before_action :verify_current_schedule!
+  before_action :verify_current_schedule!, only: [:new, :create]
 
   def new
     @schedule = Schedule.new
+  end
+
+  def edit
+    @schedule = current_user.current_schedule
+  end
+
+  def update
+    @schedule = current_user.current_schedule
+
+    if @schedule.update(schedule_params)
+      flash[:success] = "Successfully updated current schedule"
+    end
+
+    redirect_to stylist_path(current_user)
   end
 
   def create
@@ -30,6 +44,7 @@ class CurrentSchedulesController < ApplicationController
     params.require(:schedule).permit(
       :name, :start_date, :end_date,
       week_days_attributes: [
+        :id,
         :day_of_week,
         :start_time,
         :end_time,

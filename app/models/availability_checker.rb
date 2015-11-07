@@ -7,7 +7,7 @@ class AvailabilityChecker
   end
 
   def find_times
-    schedule.week_days.each do |week_day|
+    schedule.week_days.active.each do |week_day|
       start_times = find_acceptable_start_times([], week_day, week_day.start_time, appointment_length)
 
       start_times.each_with_index do |s_time, index|

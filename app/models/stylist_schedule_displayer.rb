@@ -14,7 +14,7 @@ class StylistScheduleDisplayer
   def find_free_time
     appointment_source = { events: [], color: '#449d44', textColor: 'white' }
 
-    schedule.week_days.each do |wday|
+    schedule.week_days.active.each do |wday|
       sorted_intervals = wday.time_intervals.order(:start_time)
       start_time = wday.start_time
 
