@@ -17,7 +17,7 @@ class SchedulesController < ApplicationController
     else
       flash[:warning] = 'Failure'
     end
-    redirect_to root_path
+    redirect_to stylist_path(current_user)
   end
 
   private

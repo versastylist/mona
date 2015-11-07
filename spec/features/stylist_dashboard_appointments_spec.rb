@@ -100,6 +100,14 @@ feature 'stylist dashboard' do
       expect(page).to have_content("You still need to create your current schedule")
       expect(page).to have_content("You still need to create your future schedule")
     end
+
+    scenario 'reminds stylist of appointments for current day' do
+      create(:appointment, start_time: 1.hour.from_now, stylist: stylist)
+      visit stylist_path(stylist)
+      click_on 'Appointments'
+
+      expect(page).to have_content("You have an appointment today at: #{1.hour.from_now.strftime('%l:%M %P')}")
+    end
   end
 end
 
