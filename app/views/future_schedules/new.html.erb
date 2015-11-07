@@ -1,6 +1,6 @@
 <h1 class="text-center">New Future Schedule</h1>
 
-<%= form_for @schedule, url: current_schedule_path do |f| %>
+<%= form_for @schedule, url: future_schedule_path do |f| %>
   <%= f.hidden_field :start_date, value: schedule_week_one.first %>
   <%= f.hidden_field :end_date, value: schedule_week_two.last %>
 
@@ -8,7 +8,7 @@
     <%= bs_column(6) do %>
       <h3 class="text-center">Week One</h3>
 
-      <% schedule_week_one.each do |week_day| %>
+      <% @schedule_week_one.each do |week_day| %>
         <div class="panel panel-default">
           <div class="panel-body" id="week_1_<%= week_day.strftime('%A').downcase %>">
             <%= f.fields_for :week_days, @schedule.week_days.find_or_initialize_by(day_of_week: week_day) do |wday| %>
@@ -22,7 +22,7 @@
     <%= bs_column(6) do %>
       <h3 class="text-center">Week Two</h3>
 
-      <% schedule_week_two.each do |week_day| %>
+      <% @schedule_week_two.each do |week_day| %>
         <div class="panel panel-default">
           <div class="panel-body" id="week_2_<%= week_day.strftime('%A').downcase %>">
             <%= f.fields_for :week_days, @schedule.week_days.find_or_initialize_by(day_of_week: week_day) do |wday| %>
@@ -34,5 +34,5 @@
     <% end %>
   <% end %>
 
-  <%= f.submit 'Create Schedule', class: 'btn btn-success' %>
+  <%= f.submit 'Create Future Schedule', class: 'btn btn-success' %>
 <% end %>
