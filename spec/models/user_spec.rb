@@ -267,16 +267,16 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe "#send_booking_email?" do
+    describe "#receives_email?" do
       let(:stylist) { create(:stylist) }
 
       it "returns false by default" do
-        expect(stylist.send_booking_email?).to eq false
+        expect(stylist.receives_email?).to eq false
       end
 
       it "returns true if enabled" do
         stylist.enable_email!
-        expect(stylist.send_booking_email?).to eq true
+        expect(stylist.receives_email?).to eq true
       end
     end
   end

@@ -44,6 +44,12 @@ FactoryGirl.define do
         user.settings.update(enable_booking: false)
       end
     end
+
+    trait :receive_email do
+      after :create do |user|
+        user.settings.update(booking_emails: true)
+      end
+    end
   end
 
   factory :registration do

@@ -51,8 +51,10 @@ class Appointment < ActiveRecord::Base
   private
 
   def send_cancel_notifications
-    [client.id, stylist.id].each do |user_id|
-      AppointmentMailer.cancel_appointment(self, user_id).deliver_later
+    [client, stylist].each do |user|
+      if user.receives_email?
+        AppointmentMailer.cancel_appointment(self, user.id).deliver_later
+      end
     end
   end
 end

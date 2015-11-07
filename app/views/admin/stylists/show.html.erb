@@ -50,7 +50,7 @@
     <%= bs_column(3) do %>
       <div class="form-group text-center">
         <%= label_tag 'Receive Emails' %><br/>
-        <%= check_box_tag '', '1', @stylist.send_booking_email?, id: 'receiveEmails'%>
+        <%= check_box_tag '', '1', @stylist.receives_email?, id: 'receiveEmails'%>
       </div>
     <% end %>
   <% end %>

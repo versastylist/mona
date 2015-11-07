@@ -33,7 +33,7 @@ module SettingsHelpers
     booking_texts
   end
 
-  def send_booking_email?
+  def receives_email?
     booking_emails
   end
 

@@ -25,7 +25,7 @@ feature 'client dashboard' do
   end
 
   context 'appointments' do
-    let(:client) { create(:client, :with_registration) }
+    let(:client) { create(:client, :with_registration, :receive_email) }
     before { sign_in client }
 
     scenario 'lists future appointments' do
@@ -65,6 +65,7 @@ feature 'client dashboard' do
     scenario 'appointment can be cancelled', js: true do
       appointment = create(:appointment, client: client, start_time: 4.days.from_now)
       stylist = appointment.stylist
+      stylist.settings.update(booking_emails: true)
       create(:time_interval, appointment_id: appointment.id)
 
       ActionMailer::Base.deliveries = []

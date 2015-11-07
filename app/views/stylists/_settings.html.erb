@@ -31,7 +31,7 @@
     <%= bs_column(3) do %>
       <div class="form-group text-center">
         <%= label_tag 'Receive Emails?' %><br/>
-        <%= check_box_tag '', '1', current_user.send_booking_email?, id: 'receiveEmails'%>
+        <%= check_box_tag '', '1', current_user.receives_email?, id: 'receiveEmails'%>
       </div>
     <% end %>
   <% end %>

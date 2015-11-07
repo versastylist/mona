@@ -79,7 +79,9 @@ RSpec.describe Appointment, type: :model do
     end
 
     it "sends mailers to stylist and client" do
-      appointment = create(:appointment, :with_interval)
+      client = create(:client, :receive_email)
+      stylist = create(:stylist, :receive_email)
+      appointment = create(:appointment, :with_interval, stylist: stylist, client: client)
       ActionMailer::Base.deliveries = []
       appointment.cancel!
       expect(ActionMailer::Base.deliveries.count).to eq 2
