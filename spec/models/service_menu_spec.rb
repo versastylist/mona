@@ -16,4 +16,9 @@ RSpec.describe ServiceMenu, type: :model do
     it { should have_many(:services) }
     it { should have_many(:service_products).through(:services) }
   end
+
+  context "validations" do
+    it { should have_valid(:name).when('Barber', 'Nails') }
+    it { should_not have_valid(:name).when('', nil) }
+  end
 end

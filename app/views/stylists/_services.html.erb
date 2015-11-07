@@ -5,31 +5,26 @@
   Add Service
 <% end %>
 
-<table class="table table-hover">
-  <thead>
-    <th>Name</th>
-    <th>Status</th>
-    <th>Duration</th>
-    <th>Settings</th>
-  </thead>
-  <tbody>
-    <% @service_products.each do |service| %>
-      <tr>
-        <td><%= service.name %></td>
-        <td>
-          <%= check_box_tag '',
-            '1', service.displayed,
-            class: 'service-product-checkbox',
-            id: service.id %>
-           <i class="fa fa-spinner fa-spin" style="display:none" id="spin_<%= dom_id(service) %>"></i>
-        </td>
+<%= render partial: 'stylists/stylist_service_product_table',
+  locals: { product_type: 'Barber', product_collection: @barber } %>
 
-        <td><%= service.minute_duration %></td>
-        <td>
-          <i class="fa fa-cog fa-2x"></i>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @service_products %>
+<%= render partial: 'stylists/stylist_service_product_table',
+  locals: { product_type: 'Hair Cut', product_collection: @hair_cut } %>
+
+<%= render partial: 'stylists/stylist_service_product_table',
+  locals: { product_type: 'Blowout And Sets', product_collection: @blowout_and_sets } %>
+
+<%= render partial: 'stylists/stylist_service_product_table',
+  locals: { product_type: 'Nails', product_collection: @nails } %>
+
+<%= render partial: 'stylists/stylist_service_product_table',
+  locals: { product_type: 'Natural', product_collection: @natural } %>
+
+<%= render partial: 'stylists/stylist_service_product_table',
+  locals: { product_type: 'Makeup', product_collection: @makeup } %>
+
+<%= render partial: 'stylists/stylist_service_product_table',
+  locals: { product_type: 'Specialties', product_collection: @specialties } %>
+
+<%= render partial: 'stylists/stylist_service_product_table',
+  locals: { product_type: 'Weave', product_collection: @weave } %>

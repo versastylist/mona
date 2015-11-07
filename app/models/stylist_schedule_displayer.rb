@@ -13,6 +13,7 @@ class StylistScheduleDisplayer
 
   # Definitely should be refactored.  Not optimal algorithm at all.
   def find_current_schedule
+    return if !stylist.current_schedule.present?
     appointment_source = { events: [], color: '#449d44', textColor: 'white' }
 
     current_schedule.week_days.active.each do |wday|
