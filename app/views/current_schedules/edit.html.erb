@@ -1,0 +1,34 @@
+<h1 class="text-center">Edit Current Schedule</h1>
+<%= form_for @schedule, url: current_schedule_path, method: :patch do |f| %>
+  <%= bs_row do %>
+    <%= bs_column(6) do %>
+      <h3 class="text-center">Week One</h3>
+
+      <% @schedule.week_days.first(7).each do |week_day| %>
+        <div class="panel panel-default">
+          <div class="panel-body" id="week_1_<%= week_day.start_time.strftime('%A').downcase %>">
+            <%= f.fields_for :week_days, week_day do |wday| %>
+              <%= render partial: 'edit_weekday_fields', locals: { week_day: week_day, wday: wday } %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= bs_column(6) do %>
+      <h3 class="text-center">Week Two</h3>
+
+      <% @schedule.week_days.last(7).each do |week_day| %>
+        <div class="panel panel-default">
+          <div class="panel-body" id="week_2_<%= week_day.start_time.strftime('%A').downcase %>">
+            <%= f.fields_for :week_days, week_day do |wday| %>
+              <%= render partial: 'edit_weekday_fields', locals: { week_day: week_day, wday: wday } %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= f.submit 'Edit Schedule', class: 'btn btn-success' %>
+<% end %>

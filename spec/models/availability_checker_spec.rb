@@ -6,7 +6,7 @@ describe AvailabilityChecker do
   let(:schedule) do
     create(:schedule,
            stylist: stylist,
-           state: "Current")
+           state: "current")
   end
 
   describe "#find_times" do

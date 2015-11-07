@@ -40,11 +40,11 @@ class User < ActiveRecord::Base
     class_name: 'UserSetting'
   has_one :primary_address, -> { where(primary: true) }, class_name: 'Address'
   has_one :current_schedule,
-    -> { where(state: "Current") },
+    -> { where(state: "current") },
     class_name: "Schedule",
     foreign_key: "stylist_id"
   has_one :future_schedule,
-    -> { where(state: "Future") },
+    -> { where(state: "future") },
     class_name: "Schedule",
     foreign_key: "stylist_id"
   has_many :addresses
@@ -123,6 +123,10 @@ class User < ActiveRecord::Base
     banned
   end
 
+  def can_upload_more_photos?
+    stylist_photos.count < 8
+  end
+
   def completed_registration?
     [registration, payment_info, registration_survey].all?
   end
@@ -188,9 +192,5 @@ class User < ActiveRecord::Base
     end
 
     { data: data, labels: english_labels }
-  end
-
-  def can_upload_more_photos?
-    stylist_photos.count < 8
   end
 end

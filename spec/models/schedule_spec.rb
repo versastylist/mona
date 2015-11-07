@@ -21,5 +21,14 @@ describe Schedule, type: :model do
   end
 
   context "validations" do
+    it { should have_valid(:state).when('current', 'future') }
+    it { should_not have_valid(:state).when('', 'w23lkj', nil) }
+  end
+
+  describe "#days_until_over" do
+    it "returns number of days until schedule is expired" do
+      schedule = create(:schedule, end_date: 5.days.from_now)
+      expect(schedule.days_until_over).to eq 5
+    end
   end
 end

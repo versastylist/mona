@@ -44,14 +44,5 @@ $(function() {
   $('#myModal').on('shown.bs.modal', function () {
     $('#myInput').focus()
   })
-
-  // Timepickers for schedules
-  $('.start-timepicker').timepicker('setTime', '9:00 AM');
-  $('.end-timepicker').timepicker('setTime', '5:00 PM');
-
-  $('#new_schedule').on('cocoon:after-insert', function(e, insert) {
-    $('.interval-start-timepicker').timepicker('setTime', '11:30 AM');
-    $('.interval-end-timepicker').timepicker('setTime', '12:30 PM');
-  });
 });
 
