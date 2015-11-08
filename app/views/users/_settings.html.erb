@@ -12,9 +12,16 @@
   <% end %>
 
   <%= bs_column(6) do %>
+    <%= form_for @registration do |f| %>
+      <span class="btn btn-default btn-file">
+        Select Avatar Image<%= f.file_field :avatar %>
+      </span>
+      <%= f.submit 'Update Avatar', class: 'btn btn-success', id: 'avatar-upload' %>
+    <% end %>
   <% end %>
 <% end %>
 
 <h2>Addresses</h2>
 <%= render partial: 'addresses/address_table', locals: { addresses: @addresses } %>
 <%= link_to 'Add Address', new_user_address_path(current_user), class: 'btn btn-info' %>
+
