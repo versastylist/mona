@@ -19,10 +19,14 @@
       </tr>
     </tbody>
   </table>
+
+  <%= render 'photo_uploading' %>
+
 <% else %>
   <p>There are no services in your cart</p>
   <%= link_to 'Find A Service', menu_filters_path, class: 'btn btn-success' %>
 <% end %>
+<hr />
 
 <div id="appointmentCalendar"></div>
 

@@ -19,11 +19,22 @@ class Order < ActiveRecord::Base
   belongs_to :order_status
   has_many :order_items
   has_many :service_products, through: :order_items
+  has_many :order_photos
   has_one :appointment
-  # belongs_to :client # figure out how to incorporate this
+
+  # TODO: Figure out how to associate order with clients for marketing
+  # belongs_to :client
 
   before_create :set_order_status
   before_save :update_subtotal
+
+  def current_look_photos
+    order_photos.current_look
+  end
+
+  def ideal_look_photo
+    order_photos.ideal_look
+  end
 
   def product_names
     service_products.pluck(:name).join(', ')
@@ -34,7 +45,7 @@ class Order < ActiveRecord::Base
   end
 
   def total_items
-    order_items.pluck(:quantity).sum
+    order_items.sum(:quantity)
   end
 
   def total_time

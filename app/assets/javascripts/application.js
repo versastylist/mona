@@ -21,6 +21,7 @@
 //= require moment/moment
 //= require fullcalendar/dist/fullcalendar.min
 //= require Chart.js/Chart.min.js
+//= require lightbox
 //= require_tree .
 
 $(function() {

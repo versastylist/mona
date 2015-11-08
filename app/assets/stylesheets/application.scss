@@ -19,6 +19,7 @@
 @import "bootstrap-switch";
 @import "slider";
 @import "fullcalendar/dist/fullcalendar.min";
+@import "lightbox";
 
 /* Fonts */
 @import "font-awesome-sprockets";
@@ -31,6 +32,7 @@
 /* Components */
 @import "components/buttons";
 @import "components/calendar";
+@import "components/gallery";
 
 /* Pages */
 @import "pages/home";
