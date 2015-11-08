@@ -15,6 +15,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 4.4.0'
+gem 'lightbox2-rails' # Photo gallery lightbox
 
 # User Authentication
 gem 'devise'
