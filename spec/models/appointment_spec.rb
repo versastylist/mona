@@ -64,8 +64,10 @@ RSpec.describe Appointment, type: :model do
 
     describe ".today" do
       it "returns appointments that are today" do
-        appointment = create(:appointment, start_time: 1.hour.from_now)
-        expect(Appointment.today).to include(appointment)
+        Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+          appointment = create(:appointment, start_time: 1.hour.from_now)
+          expect(Appointment.today).to include(appointment)
+        end
       end
 
       it "doesn't return appointments that are not going to happen today" do
