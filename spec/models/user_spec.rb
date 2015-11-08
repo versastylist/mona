@@ -67,6 +67,17 @@ RSpec.describe User, type: :model do
     it { should_not have_valid(:email).when('useremail.com') }
   end
 
+  context "delegations" do
+    it { should delegate_method(:avatar_url).to(:registration) }
+    it { should delegate_method(:first_name).to(:registration) }
+    it { should delegate_method(:last_name).to(:registration) }
+    it { should delegate_method(:phone_number).to(:registration) }
+    it { should delegate_method(:dob).to(:registration) }
+    it { should delegate_method(:bio).to(:registration) }
+    it { should delegate_method(:enable_booking).to(:settings) }
+    it { should delegate_method(:full_street_address).to(:primary_address) }
+  end
+
   describe "#completed_registration?" do
     it "should return true if registration process is empty" do
       client = create(:client, :with_registration)

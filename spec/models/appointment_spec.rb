@@ -28,6 +28,13 @@ RSpec.describe Appointment, type: :model do
     it { should belong_to(:client) }
   end
 
+  describe "delegations" do
+    it { should delegate_method(:username).to(:client).with_prefix }
+    it { should delegate_method(:username).to(:stylist).with_prefix }
+    it { should delegate_method(:product_names).to(:order) }
+    it { should delegate_method(:total_time).to(:order) }
+  end
+
   context 'scopes' do
     describe '.in_future' do
       it 'returns upcoming appointments' do
