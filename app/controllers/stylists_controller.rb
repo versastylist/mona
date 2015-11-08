@@ -2,25 +2,28 @@ class StylistsController < ApplicationController
   before_action :prep_products_and_stylist
 
   def show
-    @review = StylistReview.new
-    @reviews = @stylist.stylist_reviews
+    @review        = StylistReview.new
+    @reviews       = @stylist.stylist_reviews
     @event_sources = StylistScheduleDisplayer.new(@stylist).find_times.to_json
 
-    @future_appointments = @stylist.stylist_appointments.in_future.decorate
-    @past_appointments = @stylist.stylist_appointments.in_past.decorate
+    @future_appointments    = @stylist.stylist_appointments.in_future.decorate
+    @past_appointments      = @stylist.stylist_appointments.in_past.decorate
     @cancelled_appointments = @stylist.stylist_appointments.cancelled.decorate
-    @projected_revenue = @stylist.projected_revenue
+    @projected_revenue      = @stylist.projected_revenue
 
-    @addresses = @stylist.addresses.order(primary: :desc).decorate
-    @clients = @stylist.clients.uniq
+    @addresses      = @stylist.addresses.order(primary: :desc).decorate
+    @clients        = @stylist.clients.uniq
     @gallery_photos = @stylist.stylist_photos
   end
 
+  # Client View Preview so stylists can see what their profile looks like
   def preview
-    @review = StylistReview.new
-    @reviews = @stylist.stylist_reviews
+    @review         = StylistReview.new
+    @reviews        = @stylist.stylist_reviews
     @gallery_photos = @stylist.stylist_photos
   end
+
+  private
 
   def prep_products_and_stylist
     @stylist = StylistDecorator.new(User.from_params(params[:id]))

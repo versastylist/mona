@@ -40,7 +40,11 @@ Rails.application.routes.draw do
       resources :questions, only: [:new, :create]
     end
     resources :clients, only: [:index, :show]
-    resources :stylists, only: [:index, :show]
+    resources :stylists, only: [:index, :show] do
+      member do
+        post :verify
+      end
+    end
     resources :appointments, only: [:index]
     resources :product_searches, only: :index
     get 'appointments/future', to: 'appointments#future'

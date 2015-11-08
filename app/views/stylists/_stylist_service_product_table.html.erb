@@ -3,10 +3,10 @@
     <h2 id="<%= product_type.downcase.split.join('_') %>"><%= product_type %></h2>
     <table class="table table-hover">
       <thead>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Duration</th>
-        <th>Settings</th>
+        <th width="25%">Name</th>
+        <th width="25%">Status</th>
+        <th width="25%">Duration</th>
+        <th width="25%">Settings</th>
       </thead>
       <tbody>
         <%= render partial: 'stylists/stylist_service_product', collection: product_collection %>
