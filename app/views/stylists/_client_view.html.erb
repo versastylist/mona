@@ -1,11 +1,9 @@
 <%= bs_row do %>
   <%= bs_column(6) do %>
-    <%= image_tag @stylist.avatar_url(:thumb), class: 'img-rounded' %>
-
-    <br />
-    <% @gallery_photos.each do |photo| %>
-      <%= image_tag photo.image_url(:micro), class: 'img-thumbnail' %>
+    <%= link_to @stylist.avatar_url, data: { lightbox: 'stylist-photos' } do %>
+      <%= image_tag @stylist.avatar_url(:thumb), class: 'img-rounded profile-photo' %>
     <% end %>
+    <%= gallery('stylist-photos', :micro, *@gallery_photos) %>
 
     <%= bs_row do %>
       <%= link_to 'Book Appointment',
@@ -18,8 +16,8 @@
     <%= bs_row do %>
       <%= bs_column(12) do %>
         <h2>Bio</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed laoreet justo sit amet ligula maximus, rutrum bibendum lacus faucibus. Mauris laoreet efficitur sapien, vitae molestie ex tempor sed. Ut eleifend nulla ut commodo convallis. Donec nec tincidunt eros. Ut aliquam dignissim luctus. Integer id tellus vitae erat varius sodales sit amet semper augue. Morbi faucibus odio at urna rutrum, tristique posuere purus varius. Ut in lorem velit. In pulvinar lacus in nisi iaculis egestas. Fusce eu molestie orci. Sed blandit convallis maximus. Sed tristique ante in odio pharetra, porta tincidunt dui vestibulum. Phasellus id ante porta, aliquet erat eu, efficitur nibh.
+        <p style="height: 125px;">
+          <%= @stylist.bio %>
         </p>
       <% end %>
       <%= bs_column(12) do %>

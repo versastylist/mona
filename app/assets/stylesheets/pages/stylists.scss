@@ -2,6 +2,7 @@ body.stylists.show, body.stylists.preview {
   .profile-photo {
     display: block;
     margin: 0 auto;
+    margin-bottom: 10px;
   }
 
   .book-appointment {
@@ -14,6 +15,10 @@ body.stylists.show, body.stylists.preview {
     &:last-child {
       margin-bottom: 30px;
     }
+  }
+
+  .stylist-settings {
+    margin-top: 20px;
   }
 
   .stylist-review {

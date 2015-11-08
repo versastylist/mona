@@ -13,6 +13,7 @@
 #  updated_at   :datetime         not null
 #  avatar       :string
 #  avatar_cache :string
+#  bio          :text
 #
 
 require 'rails_helper'

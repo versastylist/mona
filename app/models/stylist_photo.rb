@@ -15,4 +15,8 @@ class StylistPhoto < ActiveRecord::Base
     foreign_key: 'stylist_id'
 
   mount_uploader :image, StylistPhotoUploader
+
+  def description
+    "Stylist photo"
+  end
 end

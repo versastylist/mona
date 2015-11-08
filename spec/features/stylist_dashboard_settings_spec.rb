@@ -60,4 +60,20 @@ feature 'settings tab' do
       expect(page).to have_content('Successfully updated address')
     end
   end
+
+  context "personal information" do
+    let(:stylist) { create(:stylist, :with_registration) }
+    before { sign_in stylist }
+
+    scenario 'updates bio with information' do
+      visit stylist_path(stylist)
+
+      click_on 'Settings'
+      fill_in 'Bio', with: "Been a hair stylist for 27 years!"
+      click_on 'Update Bio'
+
+      expect(page).to have_content('Updated registration details')
+      expect(page).to have_content('Been a hair stylist for 27 years!')
+    end
+  end
 end

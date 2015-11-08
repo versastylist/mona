@@ -13,6 +13,7 @@
 #  updated_at   :datetime         not null
 #  avatar       :string
 #  avatar_cache :string
+#  bio          :text
 #
 
 class Registration < ActiveRecord::Base
@@ -41,6 +42,10 @@ class Registration < ActiveRecord::Base
   validate :confirm_age!
 
   mount_uploader :avatar, AvatarUploader
+
+  def bio
+    self[:bio] || "User has not created bio yet"
+  end
 
   private
 

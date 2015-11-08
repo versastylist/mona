@@ -42,6 +42,7 @@ class RegistrationsController < ApplicationController
       :avatar,
       :dob,
       :gender,
+      :bio,
     )
   end
 

@@ -1,6 +1,11 @@
 <h1>Settings</h1>
 
-<div class="well">
+<%= link_to 'Preview Client View',
+  client_view_path(@stylist.id),
+  class: 'btn btn-info client-preview'
+%>
+
+<div class="well stylist-settings">
   <%= bs_row do%>
     <%= content_tag "div",
       id: "userId",
@@ -51,6 +56,20 @@
     Gallery Photos<%= f.file_field :image %>
   </span>
   <%= f.submit 'Add Photo', class: 'btn btn-success' %>
+<% end %>
+
+<h2>Personal Info</h2>
+<%= bs_row do %>
+  <%= bs_column(4) do %>
+    <%= form_for @stylist.registration do |f| %>
+      <div class="form-group">
+        <%= f.label :bio %>
+        <%= f.text_area :bio, class: 'form-control', rows: 7 %>
+      </div>
+
+      <%= f.submit 'Update Bio', class: 'btn btn-warning' %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <h2>Addresses</h2>
