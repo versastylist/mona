@@ -17,4 +17,12 @@ class AppointmentDecorator < ApplicationDecorator
   def client_link
     h.link_to object.client.username, user_path(object.client)
   end
+
+  def client_name
+    object.client.full_name
+  end
+
+  def stylist_name
+    object.stylist.full_name
+  end
 end

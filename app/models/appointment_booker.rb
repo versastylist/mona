@@ -19,6 +19,8 @@ class AppointmentBooker
     )
     appointment.save!
 
+    send_appointment_confirmations(appointment)
+
     week_day.time_intervals.create!(
       start_time: start_time,
       end_time: interval_end_time,
@@ -34,6 +36,18 @@ class AppointmentBooker
       DateTime.parse(end_time)
     else
       DateTime.parse(end_time) + 15.minutes
+    end
+  end
+
+  def send_appointment_confirmations(appointment)
+    [client, stylist].each do |user|
+      if user.receives_texts?
+        TwilioAdapter.appointment_confirmation(appointment, user)
+      end
+
+      if user.receives_email?
+        AppointmentMailer.appointment_confirmation(appointment, user.id).deliver_later
+      end
     end
   end
 end

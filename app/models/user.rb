@@ -85,11 +85,13 @@ class User < ActiveRecord::Base
     :first_name,
     :last_name,
     :phone_number,
+    :full_name,
     :dob,
     :bio,
     to: :registration, allow_nil: true
 
   delegate :enable_booking, to: :settings
+  delegate :full_street_address, to: :primary_address
 
   scope :clients,  -> { where(role: "client") }
   scope :stylists, -> { where(role: "stylist") }
