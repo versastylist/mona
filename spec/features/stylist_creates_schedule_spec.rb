@@ -35,12 +35,14 @@ feature 'stylist creates a weekly schedule' do
     end
 
     scenario 'displayed on their dashboard page', js: true do
-      create_default_schedule(stylist)
-      visit stylist_path(stylist)
+      Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+        create_default_schedule(stylist)
+        visit stylist_path(stylist)
 
-      click_on 'Schedule'
-      find(:css, '.fc-icon-right-single-arrow').click # Needed to add this at end of month
-      expect(page).to have_css('#event_id_1')
+        click_on 'Schedule'
+        # find(:css, '.fc-icon-right-single-arrow').click # Needed to add this at end of month
+        expect(page).to have_css('#event_id_1')
+      end
     end
   end
 end
