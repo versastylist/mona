@@ -35,7 +35,7 @@ class OrderPhoto < ActiveRecord::Base
 
   def current_photo_limit
     if purpose == 'current hairstyle'
-      if order.order_photos.current_look.count >= 2
+      if order && order.order_photos.current_look.count >= 2
         errors.add(:current_look, "already has 2 images uploaded")
       end
     end
@@ -43,7 +43,7 @@ class OrderPhoto < ActiveRecord::Base
 
   def ideal_photo_limit
     if purpose == 'ideal hairstyle'
-      if order.order_photos.ideal_look.count != 0
+      if order && order.order_photos.ideal_look.count != 0
         errors.add(:ideal_photo, "has already been uploaded")
       end
     end

@@ -20,10 +20,6 @@ class Order < ActiveRecord::Base
   has_many :order_items
   has_many :service_products, through: :order_items
   has_many :order_photos
-  # has_one :ideal_look_photo,
-    # -> { order_photos.ideal_look },
-    # class_name: 'OrderPhoto',
-    # foreign_key: 'order_id'
   has_one :appointment
 
   # TODO: Figure out how to associate order with clients for marketing
@@ -31,11 +27,6 @@ class Order < ActiveRecord::Base
 
   before_create :set_order_status
   before_save :update_subtotal
-
-  # validates :current_look_photos,
-    # length: { maximum: 2 }
-  # validates :ideal_look_photo,
-    # length: { maximum: 1 }
 
   def current_look_photos
     order_photos.current_look
