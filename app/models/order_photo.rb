@@ -16,5 +16,16 @@
 #
 
 class OrderPhoto < ActiveRecord::Base
+  PURPOSES = [
+    'current hairstyle',
+    'ideal hairstyle'
+  ]
   belongs_to :order
+
+  validates :purpose, inclusion: { in: PURPOSES }
+
+  scope :current_look, -> { where(purpose: 'current hairstyle') }
+  scope :ideal_look,   -> { where(purpose: 'ideal hairstyle') }
+
+  mount_uploader :image, StylistPhotoUploader
 end

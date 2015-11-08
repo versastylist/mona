@@ -220,4 +220,18 @@ FactoryGirl.define do
     image 'some image'
     stylist
   end
+
+  factory :order_photo do
+    image 'some image'
+    purpose 'current hairstyle'
+    order
+
+    factory :ideal_order_photo do
+      purpose 'ideal hairstyle'
+    end
+
+    factory :current_order_photo do
+      purpose 'current hairstyle'
+    end
+  end
 end

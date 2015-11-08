@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class StylistPhotoUploader < CarrierWave::Uploader::Base
   include CarrierWave::RMagick
 
@@ -23,5 +21,9 @@ class StylistPhotoUploader < CarrierWave::Uploader::Base
 
   version :micro do
     process :resize_to_limit => [50, 50]
+  end
+
+  version :gallery do
+    process :resize_to_limit => [100, 100]
   end
 end
