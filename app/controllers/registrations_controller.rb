@@ -27,7 +27,7 @@ class RegistrationsController < ApplicationController
     if @registration.update_attributes(registration_params)
       flash[:success] = "Updated registration details"
     else
-      flash[:danger] = "Something went wrong updating your registration"
+      flash[:danger] = @registration.errors.full_messages.join(', ')
     end
     redirect_to :back
   end
