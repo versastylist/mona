@@ -6,7 +6,8 @@ class ServicesController < ApplicationController
   def create
     @service = current_user.services.new(service_params)
     if @service.save
-      redirect_to root_path, success: "Successfully added services."
+      redirect_to stylist_path(current_user),
+        success: "Successfully added services."
     else
       render 'new'
     end
