@@ -20,7 +20,7 @@
 #
 
 class Appointment < ActiveRecord::Base
-  has_one :time_interval
+  has_one :time_interval, dependent: :destroy
   belongs_to :order
   belongs_to :stylist,
     class_name: 'User',
