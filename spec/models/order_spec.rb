@@ -22,7 +22,20 @@ RSpec.describe Order, type: :model do
     it { should belong_to(:order_status) }
     it { should have_one(:appointment) }
     it { should have_many(:order_items) }
+    it { should have_many(:order_photos) }
     it { should have_many(:service_products).through(:order_items) }
+  end
+
+  describe "#product_names" do
+    it "returns comma separted list of product names" do
+      order = create(:order)
+      buzz = create(:service_product, name: "Buzz cut")
+      shave = create(:service_product, name: "Shave")
+      create(:order_item, service_product: buzz, order: order)
+      create(:order_item, service_product: shave, order: order)
+
+      expect(order.product_names).to eq "Buzz cut, Shave"
+    end
   end
 
   describe "#total_items" do

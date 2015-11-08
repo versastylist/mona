@@ -19,6 +19,7 @@ class Order < ActiveRecord::Base
   belongs_to :order_status
   has_many :order_items
   has_many :service_products, through: :order_items
+  has_many :order_photos
   has_one :appointment
   # belongs_to :client # figure out how to incorporate this
 
@@ -34,7 +35,7 @@ class Order < ActiveRecord::Base
   end
 
   def total_items
-    order_items.pluck(:quantity).sum
+    order_items.sum(:quantity)
   end
 
   def total_time
