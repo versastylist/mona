@@ -29,14 +29,14 @@ class StylistScheduleDisplayer
         }
       else
         sorted_intervals.each do |interval|
-          appointment_source[:events] << {
-            start: start_time,
-            end: interval.start_time,
-            id: "#{wday.id}_#{interval.id}",
-            title: 'Available For Booking'
-          }
-          start_time = interval.end_time
-
+          if interval.start_time > start_time
+            appointment_source[:events] << {
+              start: start_time,
+              end: interval.start_time,
+              id: "#{wday.id}_#{interval.id}",
+              title: 'Available For Booking'
+            }
+          end
           if sorted_intervals.last == interval
             appointment_source[:events] << {
               start: interval.end_time,
@@ -45,6 +45,7 @@ class StylistScheduleDisplayer
               title: 'Available For Booking'
             }
           end
+          start_time = interval.end_time
         end
       end
     end

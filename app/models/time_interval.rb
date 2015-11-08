@@ -22,6 +22,8 @@ class TimeInterval < ActiveRecord::Base
 
   before_save :convert_times_to_correct_date
 
+  scope :appointment_free, -> { where(appointment_id: nil) }
+
   private
 
   def convert_times_to_correct_date

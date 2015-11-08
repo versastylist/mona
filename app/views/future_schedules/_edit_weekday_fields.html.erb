@@ -33,7 +33,7 @@
   <% end %>
 <% end %>
 
-<% week_day.time_intervals.each do |interval| %>
+<% week_day.time_intervals.appointment_free.each do |interval| %>
   <%= wday.fields_for :time_intervals, interval do |t_interval| %>
     <%= render partial: 'time_interval_fields', locals: { f: t_interval } %>
   <% end %>
