@@ -18,6 +18,6 @@ class StylistPhotosController < ApplicationController
   private
 
   def photo_params
-    params.require(:stylist_photo).permit(:image)
+    params.require(:stylist_photo).permit(:image, :description)
   end
 end

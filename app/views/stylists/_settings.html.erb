@@ -43,19 +43,31 @@
 </div>
 
 <h2>Photos</h2>
-<%= form_for @stylist.registration do |f| %>
-  <span class="btn btn-default btn-file">
-    Change Avatar Image<%= f.file_field :avatar %>
-  </span>
-  <%= f.submit 'Update Avatar', class: 'btn btn-success', id: 'avatar-upload' %>
-<% end %>
+<%= bs_row do %>
+  <%= bs_column(6) do %>
+    <%= form_for @stylist.registration do |f| %>
+      <span class="btn btn-default btn-file">
+        Select Avatar Image<%= f.file_field :avatar %>
+      </span>
+      <%= f.submit 'Update Avatar', class: 'btn btn-success', id: 'avatar-upload' %>
+    <% end %>
+  <% end %>
 
-<p>Add photos to your profile (maximum of 8)</p>
-<%= form_for StylistPhoto.new do |f| %>
-  <span class="btn btn-default btn-file">
-    Gallery Photos<%= f.file_field :image %>
-  </span>
-  <%= f.submit 'Add Photo', class: 'btn btn-success' %>
+  <%= bs_column(6) do %>
+    <p>Add photos to your profile (maximum of 8)</p>
+    <%= form_for StylistPhoto.new do |f| %>
+      <span class="btn btn-default btn-file">
+        Gallery Photos<%= f.file_field :image %>
+      </span>
+
+      <div class="form-group">
+        <%= f.label 'Image Description' %>
+        <%= f.text_field :description, class: 'form-control' %>
+      </div>
+
+      <%= f.submit 'Add Photo', class: 'btn btn-success' %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <h2>Personal Info</h2>
