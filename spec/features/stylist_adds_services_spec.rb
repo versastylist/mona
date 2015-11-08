@@ -5,7 +5,7 @@ feature 'stylist adds a service product offering' do
     let(:stylist) { create(:stylist, :with_registration) }
 
     before do
-      FactoryGirl.create(:service_menu, name: 'Barber')
+      create(:service_menu, name: 'Barber')
       sign_in stylist
     end
 
@@ -27,6 +27,7 @@ feature 'stylist adds a service product offering' do
       click_on 'Create Services'
 
       expect(page).to have_content('Successfully added services.')
+      expect(page).to have_content("#{stylist.username}'s profile")
     end
   end
 
