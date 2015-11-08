@@ -27,8 +27,10 @@ describe Schedule, type: :model do
 
   describe "#days_until_over" do
     it "returns number of days until schedule is expired" do
-      schedule = create(:schedule, end_date: 5.days.from_now)
-      expect(schedule.days_until_over).to eq 5
+      Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+        schedule = create(:schedule, end_date: 5.days.from_now)
+        expect(schedule.days_until_over).to eq 5
+      end
     end
   end
 end

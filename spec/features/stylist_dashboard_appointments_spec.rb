@@ -102,11 +102,13 @@ feature 'stylist dashboard' do
     end
 
     scenario 'reminds stylist of appointments for current day' do
-      create(:appointment, start_time: 1.hour.from_now, stylist: stylist)
-      visit stylist_path(stylist)
-      click_on 'Appointments'
+      Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+        create(:appointment, start_time: 1.hour.from_now, stylist: stylist)
+        visit stylist_path(stylist)
+        click_on 'Appointments'
 
-      expect(page).to have_content("You have an appointment today at: #{1.hour.from_now.strftime('%l:%M %P')}")
+        expect(page).to have_content("You have an appointment today at: #{1.hour.from_now.strftime('%l:%M %P')}")
+      end
     end
   end
 end

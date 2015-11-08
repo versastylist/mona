@@ -38,4 +38,8 @@ class GuestUser
   def primary_address
     nil
   end
+
+  def stylist?
+    false
+  end
 end
