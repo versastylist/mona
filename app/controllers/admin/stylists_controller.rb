@@ -3,10 +3,14 @@ class Admin::StylistsController < ApplicationController
 
   def index
     if join_required?
-      @stylists = User.stylists.joins(:registration).
+      @stylists = StylistDecorator.decorate_collection(
+        User.stylists.joins(:registration).
         order("registrations.#{sort_by}").page(params[:page]).per(50)
+      )
     else
-      @stylists = User.stylists.order(sort_by).page(params[:page]).per(50)
+      @stylists = StylistDecorator.decorate_collection(
+        User.stylists.order(sort_by).page(params[:page]).per(50)
+      )
     end
   end
 
@@ -16,6 +20,16 @@ class Admin::StylistsController < ApplicationController
     @future_appointments = @stylist.stylist_appointments.in_future.decorate
     @past_appointments = @stylist.stylist_appointments.in_past.decorate
     @cancelled_appointments = @stylist.stylist_appointments.cancelled.decorate
+  end
+
+  def verify
+    @stylist = User.from_params(params[:id])
+    if @stylist.verify!
+      flash[:success] = "Successfully verified stylist"
+    else
+      flash[:warning] = "Something went wrong verifying stylist"
+    end
+    redirect_to admin_stylist_path(@stylist)
   end
 
   private

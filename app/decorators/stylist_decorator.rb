@@ -1,4 +1,4 @@
-class StylistDecorator < Draper::Decorator
+class StylistDecorator < ApplicationDecorator
   include Rails.application.routes.url_helpers
   delegate_all
 
@@ -30,28 +30,31 @@ class StylistDecorator < Draper::Decorator
     end
   end
 
-  # def registration_reminder
-    # unless object.completed_registration?
-      # h.content_tag(:li, {}) do
-        # "You still havn't finished your registration"
-      # end
-    # end
-  # end
+  def date_registered
+    object.created_at.strftime('%B %d, %Y')
+  end
+
+  def verify_by_management_button
+    if object.verified_by_management?
+      h.content_tag(:span, 'verified', class: 'label label-success')
+    elsif object.banned?
+      h.content_tag(:span, 'banned', class: 'label label-danger')
+    else
+      h.link_to 'Verify!',
+        verify_admin_stylist_path(object),
+        class: 'btn btn-info',
+        method: :post,
+        data: { confirm: "Are you sure you're ready to confirm this stylist?" }
+    end
+  end
 
   # Can use these for the Sharing links.  Just need to get the sharing URI
   # and replace for the registration links
+
   # def facebook_link
     # if object.registration.facebook.present?
       # h.link_to object.registration.facebook, class: 'btn btn-primary' do
         # h.content_tag(:i, '', class: 'fa fa-facebook fa-2x')
-      # end
-    # end
-  # end
-
-  # def linked_in_link
-    # if object.registration.linked_in.present?
-      # h.link_to object.registration.linked_in, class: 'btn btn-info' do
-        # h.content_tag(:i, '', class: 'fa fa-linkedin fa-2x')
       # end
     # end
   # end
