@@ -55,6 +55,7 @@ Rails.application.routes.draw do
     get 'appointments/cancelled', to: 'appointments#cancelled'
 
     resources :settings, only: :index
+    resources :global_settings, only: :update
   end
 
   resources :surveys, only: [:show] do
