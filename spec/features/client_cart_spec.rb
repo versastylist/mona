@@ -12,7 +12,7 @@ feature 'client views shopping cart' do
   end
 
   scenario "client adds item to cart" do
-    client = create(:client)
+    client = create(:client, :with_registration)
     sign_in client
 
     stylist = create(:stylist, :with_registration)

@@ -1,4 +1,7 @@
 class OrderItemsController < ApplicationController
+  before_action :verify_completed_registration!
+  before_action :verify_not_guest!
+
   def create
     @stylist = User.from_params(stylist_id)
 
@@ -12,20 +15,6 @@ class OrderItemsController < ApplicationController
       redirect_to :back, success: "Added service to cart"
     end
   end
-
-  # def update
-    # @order = current_order
-    # @order_item = @order.order_items.find(params[:id])
-    # @order_item.update_attributes(order_item_params)
-    # @order_items = @order.order_items
-  # end
-
-  # def destroy
-    # @order = current_order
-    # @order_item = @order.order_items.find(params[:id])
-    # @order_item.destroy
-    # @order_items = @order.order_items
-  # end
 
   private
 

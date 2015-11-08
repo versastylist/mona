@@ -5,7 +5,7 @@ class ServiceProductsController < ApplicationController
     if @product.update_attributes(product_params)
       render json: @product
     else
-      render json: { errors: @product.errors.full_messages }, status: 422
+      render json: { errors: @product.errors.full_messages }, status: 500
     end
   end
 
