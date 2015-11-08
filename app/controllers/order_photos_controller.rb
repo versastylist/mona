@@ -6,7 +6,7 @@ class OrderPhotosController < ApplicationController
     if @photo.save
       flash[:success] = "Added photo for stylist to see"
     else
-      flash[:warning] = "Something went wrong uploading your photo"
+      flash[:warning] = @photo.errors.full_messages.join(', ')
     end
     redirect_to :back
   end

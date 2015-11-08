@@ -41,6 +41,10 @@ class Order < ActiveRecord::Base
     order_photos.current_look
   end
 
+  def ideal_look_photo
+    order_photos.ideal_look
+  end
+
   def product_names
     service_products.pluck(:name).join(', ')
   end

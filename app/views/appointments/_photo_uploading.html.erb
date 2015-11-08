@@ -1,23 +1,25 @@
-  <h3>Add Photos For Appointment</h3>
+<h3>Add Photos For Appointment</h3>
 
-  <%= bs_row do %>
-    <%= bs_column(6) do %>
-      <h4>Current Hairstyle (max 2 photos)</h4>
+<%= bs_row do %>
+  <%= bs_column(6) do %>
+    <h4>Current Hairstyle (max 2 photos)</h4>
 
-      <% if current_order.current_look_photos %>
-        <% current_order.current_look_photos.each do |photo| %>
-          <%= image_tag photo.image_url(:gallery) %>
-        <% end %>
-      <% end %>
-
-      <%= render partial: 'order_photo_form',
-        locals: { purpose: 'current_hairstyle' } %>
+    <% if current_order.current_look_photos %>
+      <%= gallery('current-look', :gallery, *current_order.current_look_photos) %>
     <% end %>
 
-    <%= bs_column(6) do %>
-      <h4>Ideal Hairstyle (max 1 photo)</h4>
-
-      <%= render partial: 'order_photo_form',
-        locals: { purpose: 'ideal hairstyle' } %>
-    <% end %>
+    <%= render partial: 'order_photo_form',
+      locals: { purpose: 'current hairstyle' } %>
   <% end %>
+
+  <%= bs_column(6) do %>
+    <h4>Ideal Hairstyle (max 1 photo)</h4>
+
+    <% if current_order.ideal_look_photo %>
+      <%= gallery('ideal-look', :gallery, *current_order.ideal_look_photo) %>
+    <% end %>
+
+    <%= render partial: 'order_photo_form',
+      locals: { purpose: 'ideal hairstyle' } %>
+  <% end %>
+<% end %>
