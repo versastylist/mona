@@ -11,7 +11,7 @@ class StylistsController < ApplicationController
     @cancelled_appointments = @stylist.stylist_appointments.cancelled.decorate
     @projected_revenue = @stylist.projected_revenue
 
-    @addresses = current_user.addresses.order(primary: :desc).decorate
+    @addresses = @stylist.addresses.order(primary: :desc).decorate
     @clients = @stylist.clients.uniq
     @gallery_photos = @stylist.stylist_photos
   end
