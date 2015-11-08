@@ -47,6 +47,10 @@ class Registration < ActiveRecord::Base
     self[:bio] || "User has not created bio yet"
   end
 
+  def full_name
+    [first_name, last_name].join(' ')
+  end
+
   private
 
   def confirm_age!

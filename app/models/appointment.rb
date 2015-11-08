@@ -49,6 +49,14 @@ class Appointment < ActiveRecord::Base
     end
   end
 
+  def client_location
+    client.full_street_address
+  end
+
+  def stylist_location
+    stylist.full_street_address
+  end
+
   private
 
   def send_cancel_notifications
