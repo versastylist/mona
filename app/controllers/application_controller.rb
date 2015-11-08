@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_order
 
   def current_order
-    if !session[:order_id].nil?
+    if session[:order_id].present?
       Order.find(session[:order_id])
     else
       Order.new
@@ -26,6 +26,13 @@ class ApplicationController < ActionController::Base
     unless current_user.completed_registration?
       flash[:warning] = "Make sure to complete your registration!"
       redirect_to current_user.next_registration_step
+    end
+  end
+
+  def verify_not_guest!
+    unless current_user.authenticated?
+      flash[:warning] = "Create an account before you can do that."
+      redirect_to new_user_registration_path(role: 'client')
     end
   end
 

@@ -21,9 +21,8 @@ class Order < ActiveRecord::Base
   has_many :service_products, through: :order_items
   has_many :order_photos
   has_one :appointment
-
-  # TODO: Figure out how to associate order with clients for marketing
-  # belongs_to :client
+  has_one :client, through: :appointment
+  has_one :stylist, through: :appointment
 
   before_create :set_order_status
   before_save :update_subtotal
