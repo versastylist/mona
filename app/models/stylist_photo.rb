@@ -2,11 +2,12 @@
 #
 # Table name: stylist_photos
 #
-#  id         :integer          not null, primary key
-#  stylist_id :integer
-#  image      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  stylist_id  :integer
+#  image       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  description :string
 #
 
 class StylistPhoto < ActiveRecord::Base
@@ -15,4 +16,8 @@ class StylistPhoto < ActiveRecord::Base
     foreign_key: 'stylist_id'
 
   mount_uploader :image, StylistPhotoUploader
+
+  def description
+    "Stylist photo"
+  end
 end

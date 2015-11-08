@@ -86,6 +86,7 @@ class User < ActiveRecord::Base
     :last_name,
     :phone_number,
     :dob,
+    :bio,
     to: :registration, allow_nil: true
 
   delegate :enable_booking, to: :settings

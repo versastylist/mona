@@ -2,11 +2,12 @@
 #
 # Table name: stylist_photos
 #
-#  id         :integer          not null, primary key
-#  stylist_id :integer
-#  image      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  stylist_id  :integer
+#  image       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  description :string
 #
 
 require 'rails_helper'

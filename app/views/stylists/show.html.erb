@@ -2,18 +2,17 @@
 
 <% if current_user == @stylist %>
   <div class="row" style="margin-bottom: 20px;">
-    <aside class="col-md-3">
-      <%= image_tag @stylist.avatar_url(:thumb), class: 'img-rounded profile-photo' %>
-
-      <% @gallery_photos.each do |photo| %>
-        <%= image_tag photo.image_url(:micro), class: 'img-thumbnail' %>
+    <%= bs_column(6) do %>
+      <%= link_to @stylist.avatar_url, data: { lightbox: 'stylist-photos' } do %>
+        <%= image_tag @stylist.avatar_url(:thumb), class: 'img-rounded profile-photo' %>
       <% end %>
+      <%= gallery('stylist-photos', :micro, *@gallery_photos) %>
+    <% end %>
 
-      <%= link_to 'Preview Client View',
-        client_view_path(@stylist.id),
-        class: 'btn btn-info btn-block client-preview'
-      %>
-    </aside>
+    <%= bs_column(6) do %>
+      <h2>Bio</h2>
+      <p><%= @stylist.bio %></p>
+    <% end %>
   </div>
 
   <%= bs_row do %>
