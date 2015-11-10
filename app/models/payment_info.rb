@@ -22,11 +22,12 @@ class PaymentInfo < ActiveRecord::Base
         email: user.email
       )
     else
+      Rails.logger.error("stripe token was: #{stripe_bank_token}")
       customer = Stripe::Customer.create(
         description: "Created by VersaStylist on #{Date.today}",
         source: stripe_bank_token,
         email: user.email,
-        full_name: user.full_name
+        name: user.full_name
       )
     end
     self.stripe_customer_token = customer.id
