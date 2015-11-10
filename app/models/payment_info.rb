@@ -25,7 +25,8 @@ class PaymentInfo < ActiveRecord::Base
       customer = Stripe::Customer.create(
         description: "Created by VersaStylist on #{Date.today}",
         source: stripe_bank_token,
-        email: user.email
+        email: user.email,
+        full_name: user.full_name
       )
     end
     self.stripe_customer_token = customer.id
