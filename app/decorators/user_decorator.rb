@@ -6,10 +6,10 @@ class UserDecorator < Draper::Decorator
     case
     when not_registered?
       new_registration_path
-    when not_answered_questions?
-      registration_survey_path
     when not_filled_out_payment?
       new_payment_info_path
+    when not_answered_questions?
+      registration_survey_path
     else
       root_path
     end

@@ -33,7 +33,7 @@ class PaymentInfo < ActiveRecord::Base
     save!
   rescue Stripe::InvalidRequestError => e
     Rails.logger.error "Stripe error while creating customer: #{e.message}"
-    errors.add :base, "There was a problem with your payment information."
+    errors.add :base, "There was a problem with your payment information.  Please verify your credentials."
     false
   end
 end
