@@ -23,7 +23,7 @@ $(function() {
     });
   }
 
-  if ($('#bank_account_info').length > 0) { // only execute if on page that needs stripe
+  if ($('#bank_account_info').length > 0) {
     Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'));
 
     function handleBankResponse(status, resp) {
@@ -37,11 +37,13 @@ $(function() {
 
     $('#bank_account_info').submit(function(e) {
       e.preventDefault()
+      var name = $('#full_name').val();
       var bank = {
         country: 'US',
         currency: 'USD',
         routing_number: $('#routing_number').val(),
-        account_number: $('#account_number').val()
+        account_number: $('#account_number').val(),
+        name: name
       }
       Stripe.bankAccount.createToken(bank, handleBankResponse)
     });

@@ -2,6 +2,11 @@
   <%= f.hidden_field :stripe_bank_token %>
 
   <div class="form-group">
+    <%= label_tag :full_name, "Name on account" %>
+    <%= text_field_tag :full_name, nil, name: nil %>
+  </div>
+
+  <div class="form-group">
     <%= label_tag :bank_name, "Bank Name" %>
     <%= text_field_tag :bank_name, nil, name: nil %>
   </div>
