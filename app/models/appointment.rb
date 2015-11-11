@@ -33,6 +33,7 @@ class Appointment < ActiveRecord::Base
   delegate :username, to: :stylist, prefix: true
   delegate :total, to: :order, prefix: true
   delegate :product_names, :total_time, to: :order
+  delegate :order_photos, to: :order
 
   scope :not_cancelled, -> { where(cancelled: false) }
   scope :cancelled, -> { where(cancelled: true) }

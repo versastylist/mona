@@ -6,6 +6,7 @@
     <th>Start Time</th>
     <th>End Time</th>
     <th>Stylist</th>
+    <th>Photos</th>
     <th>Cancel?</th>
   </thead>
   <tbody>
@@ -14,6 +15,7 @@
         <td><%= appt.start_time %></td>
         <td><%= appt.end_time %></td>
         <td><%= appt.stylist_link %></td>
+        <td><%= gallery("client-photos-#{appt.id}", :micro, *appt.order_photos) %></td>
         <td>
           <%= link_to 'Cancel Appointment',
           appointment_path(appt),
@@ -31,6 +33,7 @@
   <thead>
     <th>Start Time</th>
     <th>End Time</th>
+    <th>Photos</th>
     <th>Stylist</th>
   </thead>
   <tbody>
@@ -38,6 +41,7 @@
       <tr>
         <td><%= appt.start_time %></td>
         <td><%= appt.end_time %></td>
+        <td><%= gallery("client-photos-#{appt.id}", :micro, *appt.order_photos) %></td>
         <td><%= appt.stylist_link %></td>
       </tr>
     <% end %>
@@ -49,6 +53,7 @@
   <thead>
     <th>Start Time</th>
     <th>End Time</th>
+    <th>Photos</th>
     <th>Stylist</th>
   </thead>
   <tbody>
@@ -56,6 +61,7 @@
       <tr>
         <td><%= appt.start_time %></td>
         <td><%= appt.end_time %></td>
+        <td><%= gallery("client-photos-#{appt.id}", :micro, *appt.order_photos) %></td>
         <td><%= appt.stylist_link %></td>
       </tr>
     <% end %>
