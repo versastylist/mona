@@ -31,6 +31,7 @@
     <th>Start Time</th>
     <th>End Time</th>
     <th>Client Username</th>
+    <th>Client Photos</th>
     <th>Cancel?</th>
   </thead>
   <tbody>
@@ -39,6 +40,7 @@
         <td><%= appt.start_time %></td>
         <td><%= appt.end_time %></td>
         <td><%= appt.client_link %></td>
+        <td><%= gallery("client-photos-#{appt.id}", :micro, *appt.order_photos) %></td>
         <td>
           <%= link_to 'Cancel Appointment',
             appointment_path(appt),
@@ -58,6 +60,7 @@
     <th>Start Time</th>
     <th>End Time</th>
     <th>Client</th>
+    <th>Client Photos</th>
   </thead>
   <tbody>
     <% @past_appointments.each do |appt| %>
@@ -65,6 +68,7 @@
         <td><%= appt.start_time %></td>
         <td><%= appt.end_time %></td>
         <td><%= appt.client_link %></td>
+        <td><%= gallery("client-photos-#{appt.id}", :micro, *appt.order_photos) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -76,6 +80,7 @@
     <th>Start Time</th>
     <th>End Time</th>
     <th>Client</th>
+    <th>Client Photos</th>
   </thead>
   <tbody>
     <% @cancelled_appointments.each do |appt| %>
@@ -83,6 +88,7 @@
         <td><%= appt.start_time %></td>
         <td><%= appt.end_time %></td>
         <td><%= appt.client_link %></td>
+        <td><%= gallery("client-photos-#{appt.id}", :micro, *appt.order_photos) %></td>
       </tr>
     <% end %>
   </tbody>
