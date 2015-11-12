@@ -22,7 +22,7 @@ RSpec.describe PaymentInfo, type: :model do
   describe "#gratuity_rate" do
     it "should default to 1 if none present" do
       info = build_stubbed(:payment_info, gratuity_rate: nil)
-      expect(info.gratuity_rate).to eq 1
+      expect(info.gratuity_rate).to eq 0
     end
   end
 

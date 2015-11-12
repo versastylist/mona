@@ -48,7 +48,7 @@ class PaymentInfo < ActiveRecord::Base
 
   # TODO: Ask ricky what default gratuity rate should be... I'm guessing 0
   def gratuity_rate
-    self[:gratuity_rate] || 1
+    self[:gratuity_rate] || 0
   end
 end
 

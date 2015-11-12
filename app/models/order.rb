@@ -21,6 +21,7 @@ class Order < ActiveRecord::Base
     'pending',
     'needs pre-auth',
     'pre-authorized',
+    'pre-authorized error',
     'capture error',
     'complete',
     'cancelled'
@@ -33,6 +34,11 @@ class Order < ActiveRecord::Base
   has_one :appointment
   has_one :client, through: :appointment
   has_one :stylist, through: :appointment
+
+  scope :needs_pre_auth, -> { where(state: 'needs pre-auth') }
+  scope :pre_authorized, -> { where(state: 'pre-authorized') }
+  scope :ready_for_pre_auth, -> { needs_pre_auth.joins(:appointment).where('appointments.start_time < ?', 6.days.from_now) }
+  scope :ready_for_capture,  -> { pre_authorized.joins(:appointment).where('appointments.start_time < ?', DateTime.now.in_time_zone) }
 
   before_save :update_totals, unless: :skip_callbacks
 
@@ -82,6 +88,7 @@ class Order < ActiveRecord::Base
     if charge.status == "succeeded"
       update_attributes(stripe_charge_id: charge.id, state: 'pre-authorized')
     else
+      update(state: 'pre-authorized error')
       InternalMailer.bad_pre_auth_charge(id).deliver_later
     end
   end

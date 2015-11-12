@@ -32,6 +32,56 @@ RSpec.describe Order, type: :model do
     it { should delegate_method(:gratuity_rate).to(:client) }
   end
 
+  context "scopes" do
+    describe ".ready_for_pre_auth" do
+      let(:needs_pre) { create(:order, state: 'needs pre-auth') }
+      let(:complete) { create(:order, state: 'complete') }
+
+      it "returns orders with state of 'needs pre-auth'" do
+        Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+          create(:appointment, start_time: 3.days.from_now, order: needs_pre)
+          expect(Order.ready_for_pre_auth).to include needs_pre
+          expect(Order.ready_for_pre_auth).to_not include complete
+        end
+      end
+
+      it "only returns orders whose appointments are in less than 7 days" do
+        Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+          far_away_pre = create(:order, state: 'needs pre-auth')
+
+          create(:appointment, start_time: 10.days.from_now, order: far_away_pre)
+          create(:appointment, start_time: 5.days.from_now, order: needs_pre)
+          expect(Order.ready_for_pre_auth).to include needs_pre
+          expect(Order.ready_for_pre_auth).to_not include far_away_pre
+        end
+      end
+    end
+
+    describe ".ready_for_capture" do
+      let(:needs_capture) { create(:order, state: 'pre-authorized') }
+      let(:complete) { create(:order, state: 'complete') }
+
+      it "returns orders with state of 'pre-authorized'" do
+        Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+          create(:appointment, start_time: 1.hour.ago, order: needs_capture)
+          expect(Order.ready_for_capture).to include needs_capture
+          expect(Order.ready_for_capture).to_not include complete
+        end
+      end
+
+      it "only returns orders whose appointments are in the past" do
+        Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+          in_future = create(:order, state: 'pre-authorized')
+
+          create(:appointment, start_time: 1.hour.ago, order: needs_capture)
+          create(:appointment, start_time: 1.hour.from_now, order: in_future)
+          expect(Order.ready_for_capture).to include needs_capture
+          expect(Order.ready_for_capture).to_not include in_future
+        end
+      end
+    end
+  end
+
   describe "#product_names" do
     it "returns comma separted list of product names" do
       order = create(:order)

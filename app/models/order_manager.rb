@@ -5,22 +5,13 @@ class OrderManager
   #
   # Needs to charge all cards that have been pre-authorized and the appointment
   # occured
-  #
-  #
 
-  def pre_authorize
-    charge = Stripe::Charge.create(amount: 1000, currency: 'usd', customer: client.payment_info.stripe_customer_token, capture: false)
-    order.charge_id = charge.id
-    order.save
+  def pre_authorize_orders
+    
   end
 
-  def capture
-    charge = Stripe::Charge.retrive(order.charge_id)
-    charge.capture
+  def capture_orders
+
   end
 
-=begin
-  charge.status == "succeeded" it was a good charge
-
-=end
 end
