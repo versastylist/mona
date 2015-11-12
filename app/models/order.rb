@@ -37,8 +37,9 @@ class Order < ActiveRecord::Base
 
   scope :needs_pre_auth, -> { where(state: 'needs pre-auth') }
   scope :pre_authorized, -> { where(state: 'pre-authorized') }
-  scope :ready_for_pre_auth, -> { needs_pre_auth.joins(:appointment).where('appointments.start_time < ?', 6.days.from_now) }
-  scope :ready_for_capture,  -> { pre_authorized.joins(:appointment).where('appointments.start_time < ?', DateTime.now.in_time_zone) }
+  scope :appointment_before, -> (date) { joins(:appointment).where('appointments.start_time < ?', date) }
+  scope :ready_for_pre_auth, -> { needs_pre_auth.appointment_before(6.days.from_now) }
+  scope :ready_for_capture,  -> { pre_authorized.appointment_before(DateTime.now.in_time_zone) }
 
   before_save :update_totals, unless: :skip_callbacks
 
