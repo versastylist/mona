@@ -1,6 +1,8 @@
 class AppointmentFiltersController < ApplicationController
   def index
     @service_menu = ServiceMenu.find(params[:menu_filter_id])
+    @survey = Survey.find_or_create_guest_user_survey
+    @questions = @survey.questions
 
     if params[:query]
       upper_bound     = find_upper_bound

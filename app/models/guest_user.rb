@@ -42,4 +42,8 @@ class GuestUser
   def stylist?
     false
   end
+
+  def completed_survey?
+    false
+  end
 end

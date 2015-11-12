@@ -1,0 +1,18 @@
+---
+questions:
+  - title: "Do you have pets?"
+    submittable_type: "ConfirmSubmittable"
+  - title: "Are you a smoker?"
+    submittable_type: "ConfirmSubmittable"
+  - title: "Is your place carpeted?"
+    submittable_type: "ConfirmSubmittable"
+  - title: "Do you have any current medical conditions?"
+    submittable_type: "ConfirmSubmittable"
+  - title: "Do you have any current skin conditions?"
+    submittable_type: "ConfirmSubmittable"
+  - title: "I have  a water faucet near the area you want to be serviced"
+    submittable_type: "ConfirmSubmittable"
+  - title: "I have a working electrical outlets"
+    submittable_type: "ConfirmSubmittable"
+  - title: "I have a chair or a stool"
+    submittable_type: "ConfirmSubmittable"

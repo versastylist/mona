@@ -306,4 +306,16 @@ RSpec.describe User, type: :model do
       expect(stylist.can_upload_more_photos?).to eq false
     end
   end
+
+  describe "#completed_survey?" do
+    it "returns true if user has completed survey" do
+      user = create(:client, :with_registration)
+      expect(user.completed_survey?).to eq true
+    end
+
+    it "returns false if user has not completed survey" do
+      user = create(:client)
+      expect(user.completed_survey?).to eq false
+    end
+  end
 end
