@@ -31,7 +31,7 @@ class Order < ActiveRecord::Base
   has_one :client, through: :appointment
   has_one :stylist, through: :appointment
 
-  before_save :update_totals
+  before_save :update_totals, unless: :skip_callbacks
 
   validates :state, inclusion: { in: STATUSES }
 
