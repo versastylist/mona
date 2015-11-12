@@ -92,6 +92,7 @@ class User < ActiveRecord::Base
 
   delegate :enable_booking, to: :settings
   delegate :full_street_address, to: :primary_address
+  delegate :gratuity_rate, to: :payment_info
 
   scope :clients,  -> { where(role: "client") }
   scope :stylists, -> { where(role: "stylist") }

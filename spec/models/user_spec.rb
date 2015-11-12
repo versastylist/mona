@@ -76,6 +76,7 @@ RSpec.describe User, type: :model do
     it { should delegate_method(:bio).to(:registration) }
     it { should delegate_method(:enable_booking).to(:settings) }
     it { should delegate_method(:full_street_address).to(:primary_address) }
+    it { should delegate_method(:gratuity_rate).to(:payment_info) }
   end
 
   describe "#completed_registration?" do

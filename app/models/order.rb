@@ -35,6 +35,8 @@ class Order < ActiveRecord::Base
 
   validates :state, inclusion: { in: STATUSES }
 
+  delegate :gratuity_rate, to: :client
+
   def current_look_photos
     order_photos.current_look
   end

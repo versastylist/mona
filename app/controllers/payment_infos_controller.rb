@@ -17,6 +17,10 @@ class PaymentInfosController < ApplicationController
   end
 
   def payment_params
-    params.require(:payment_info).permit(:stripe_card_token, :stripe_bank_token)
+    params.require(:payment_info).permit(
+      :stripe_card_token,
+      :stripe_bank_token,
+      :gratuity_rate
+    )
   end
 end

@@ -27,6 +27,10 @@ RSpec.describe Order, type: :model do
     it { should have_many(:service_products).through(:order_items) }
   end
 
+  context "delegations" do
+    it { should delegate_method(:gratuity_rate).to(:client) }
+  end
+
   describe "#product_names" do
     it "returns comma separted list of product names" do
       order = create(:order)
