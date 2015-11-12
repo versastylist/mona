@@ -1,5 +1,10 @@
 class AppointmentBooker
+  # params
   attr_reader :order, :client, :start_time, :end_time, :stylist, :week_day
+
+  # created in booking process
+  attr_reader :appointment, :interval
+
   def initialize(options = {})
     @order = options[:order]
     @client = options[:client]
@@ -10,24 +15,29 @@ class AppointmentBooker
   end
 
   def book
-    appointment = Appointment.new(
+    create_appointment
+    create_time_interval
+    order.book!
+    send_appointment_confirmations(appointment)
+  end
+
+  def create_time_interval
+    @interval = week_day.time_intervals.create!(
+      start_time: start_time,
+      end_time: interval_end_time,
+      title: "Appointment Booking with client: #{client.id}",
+      appointment_id: appointment.id,
+    )
+  end
+
+  def create_appointment
+    @appointment = Appointment.create(
       start_time: start_time,
       end_time: end_time,
       stylist: stylist,
       client: client,
       order: order
     )
-    appointment.save!
-
-    send_appointment_confirmations(appointment)
-
-    week_day.time_intervals.create!(
-      start_time: start_time,
-      end_time: interval_end_time,
-      title: "Appointment Booking with client: #{client.id}",
-      appointment_id: appointment.id,
-    )
-    order.complete!
   end
 
   # First time booking add 15 minutes

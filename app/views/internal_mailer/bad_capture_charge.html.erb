@@ -1,0 +1,15 @@
+<h1>Failed to capture charge via Stripe</h1>
+
+<h3>Details:</h3>
+<table>
+  <thead>
+    <th>Order ID</th>
+    <th>Client ID</th>
+    <th>Stylist ID</th>
+  </thead>
+  <tbody>
+    <td><%= @order.id %></td>
+    <td><%= @order.client.id %></td>
+    <td><%= @order.stylist.id %></td>
+  </tbody>
+</table>

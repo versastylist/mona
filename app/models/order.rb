@@ -2,24 +2,27 @@
 #
 # Table name: orders
 #
-#  id            :integer          not null, primary key
-#  subtotal      :decimal(12, 3)
-#  tax           :decimal(12, 3)
-#  total         :decimal(12, 3)
-#  state         :string           default("pending")
-#  gratuity      :integer
-#  cancelled_at  :datetime
-#  authorized_at :datetime
-#  captured_at   :datetime
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id               :integer          not null, primary key
+#  subtotal         :decimal(12, 3)
+#  tax              :decimal(12, 3)
+#  total            :decimal(12, 3)
+#  state            :string           default("pending")
+#  gratuity         :integer
+#  cancelled_at     :datetime
+#  authorized_at    :datetime
+#  captured_at      :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  stripe_charge_id :string
 #
 
 class Order < ActiveRecord::Base
   STATUSES = [
     'pending',
-    'complete',
+    'needs pre-auth',
     'pre-authorized',
+    'capture error',
+    'complete',
     'cancelled'
   ]
 
@@ -61,14 +64,50 @@ class Order < ActiveRecord::Base
     order_items.inject(0) { |sum, oi| sum + oi.total_minutes }
   end
 
-  def complete!
-    update(state: 'complete')
+  def book!
+    update(state: 'needs pre-auth')
+  end
+
+  def pre_authorize!
+    finalize_order
+    charge = Stripe::Charge.create(
+      amount: total,
+      currency: 'usd',
+      customer: client.payment_info.stripe_customer_token,
+      capture: false
+    )
+    # TODO: Fix this LoD violation with the customer token.  Is there a better
+    # solution besides delegation or no?
+
+    if charge.status == "succeeded"
+      update_attributes(stripe_charge_id: charge.id, state: 'pre-authorized')
+    else
+      InternalMailer.bad_pre_auth_charge(id).deliver_later
+    end
+  end
+
+  def capture_charge!
+    charge = Stripe::Charge.retrieve(stripe_charge_id)
+    captured_charge = charge.capture
+
+    if captured_charge.status == "succeeded"
+      update(state: 'complete')
+    else
+      update(state: 'capture error')
+      InternalMailer.bad_capture_charge(id).deliver_later
+    end
+  end
+
+  def finalize_order
+    grat = subtotal * gratuity_rate
+    self[:gratuity] = grat
+    self[:total] = subtotal + grat
+    save!
   end
 
   private
 
   def update_totals
     self[:subtotal] = subtotal
-    self[:total] = subtotal + gratuity
   end
 end

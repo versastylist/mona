@@ -2,17 +2,18 @@
 #
 # Table name: orders
 #
-#  id            :integer          not null, primary key
-#  subtotal      :decimal(12, 3)
-#  tax           :decimal(12, 3)
-#  total         :decimal(12, 3)
-#  state         :string           default("pending")
-#  gratuity      :integer
-#  cancelled_at  :datetime
-#  authorized_at :datetime
-#  captured_at   :datetime
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id               :integer          not null, primary key
+#  subtotal         :decimal(12, 3)
+#  tax              :decimal(12, 3)
+#  total            :decimal(12, 3)
+#  state            :string           default("pending")
+#  gratuity         :integer
+#  cancelled_at     :datetime
+#  authorized_at    :datetime
+#  captured_at      :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  stripe_charge_id :string
 #
 
 require 'rails_helper'
@@ -52,13 +53,13 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  describe "#complete!" do
+  describe "#book!" do
     it "resets order status to be complete" do
       order = create(:order)
 
       expect(order.state).to eq "pending"
-      order.complete!
-      expect(order.state).to eq "complete"
+      order.book!
+      expect(order.state).to eq "needs pre-auth"
     end
   end
 end
