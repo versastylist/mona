@@ -2,30 +2,84 @@
 #
 # Table name: orders
 #
-#  id              :integer          not null, primary key
-#  subtotal        :decimal(12, 3)
-#  tax             :decimal(12, 3)
-#  total           :decimal(12, 3)
-#  order_status_id :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#
-# Indexes
-#
-#  index_orders_on_order_status_id  (order_status_id)
+#  id               :integer          not null, primary key
+#  subtotal         :decimal(12, 3)
+#  tax              :decimal(12, 3)
+#  total            :decimal(12, 3)
+#  state            :string           default("pending")
+#  gratuity         :integer
+#  cancelled_at     :datetime
+#  authorized_at    :datetime
+#  captured_at      :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  stripe_charge_id :string
 #
 
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   context "associations" do
-    it { should belong_to(:order_status) }
     it { should have_one(:appointment) }
     it { should have_one(:client).through(:appointment) }
     it { should have_one(:stylist).through(:appointment) }
     it { should have_many(:order_items) }
     it { should have_many(:order_photos) }
     it { should have_many(:service_products).through(:order_items) }
+  end
+
+  context "delegations" do
+    it { should delegate_method(:gratuity_rate).to(:client) }
+  end
+
+  context "scopes" do
+    describe ".ready_for_pre_auth" do
+      let(:needs_pre) { create(:order, state: 'needs pre-auth') }
+      let(:complete) { create(:order, state: 'complete') }
+
+      it "returns orders with state of 'needs pre-auth'" do
+        Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+          create(:appointment, start_time: 3.days.from_now, order: needs_pre)
+          expect(Order.ready_for_pre_auth).to include needs_pre
+          expect(Order.ready_for_pre_auth).to_not include complete
+        end
+      end
+
+      it "only returns orders whose appointments are in less than 7 days" do
+        Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+          far_away_pre = create(:order, state: 'needs pre-auth')
+
+          create(:appointment, start_time: 10.days.from_now, order: far_away_pre)
+          create(:appointment, start_time: 5.days.from_now, order: needs_pre)
+          expect(Order.ready_for_pre_auth).to include needs_pre
+          expect(Order.ready_for_pre_auth).to_not include far_away_pre
+        end
+      end
+    end
+
+    describe ".ready_for_capture" do
+      let(:needs_capture) { create(:order, state: 'pre-authorized') }
+      let(:complete) { create(:order, state: 'complete') }
+
+      it "returns orders with state of 'pre-authorized'" do
+        Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+          create(:appointment, start_time: 1.hour.ago, order: needs_capture)
+          expect(Order.ready_for_capture).to include needs_capture
+          expect(Order.ready_for_capture).to_not include complete
+        end
+      end
+
+      it "only returns orders whose appointments are in the past" do
+        Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+          in_future = create(:order, state: 'pre-authorized')
+
+          create(:appointment, start_time: 1.hour.ago, order: needs_capture)
+          create(:appointment, start_time: 1.hour.from_now, order: in_future)
+          expect(Order.ready_for_capture).to include needs_capture
+          expect(Order.ready_for_capture).to_not include in_future
+        end
+      end
+    end
   end
 
   describe "#product_names" do
@@ -49,13 +103,13 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  describe "#complete!" do
+  describe "#book!" do
     it "resets order status to be complete" do
       order = create(:order)
 
-      expect(order.order_status.name).to eq "In Progress"
-      order.complete!
-      expect(order.order_status.name).to eq "Complete"
+      expect(order.state).to eq "pending"
+      order.book!
+      expect(order.state).to eq "needs pre-auth"
     end
   end
 end

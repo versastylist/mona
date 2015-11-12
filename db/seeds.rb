@@ -138,7 +138,3 @@ categories.each do |cat|
     )
   end
 end
-
-OrderStatus.delete_all
-OrderStatus.create! id: 1, name: "In Progress"
-OrderStatus.create! id: 2, name: "Complete"

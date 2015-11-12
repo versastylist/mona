@@ -36,5 +36,6 @@ module Mona
 
     # Set default time zones for everything
     # http://danilenko.org/2012/7/6/rails_timezones/
+    config.active_job.queue_adapter = :sidekiq
   end
 end

@@ -83,7 +83,7 @@ feature 'stylist dashboard' do
       expect(page).to have_content('Upcoming appointments: 2')
     end
 
-    scenario 'shows projected revenue of appointments', js: true do
+    scenario 'shows projected revenue of appointments', js: true, callbacks: true do
       appt  = create(:appointment, stylist: stylist, start_time: 2.days.from_now)
       appt2 = create(:appointment, stylist: stylist, start_time: 2.days.from_now)
       total = appt.order.subtotal + appt2.order.subtotal

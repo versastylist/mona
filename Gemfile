@@ -32,6 +32,7 @@ gem 'acts_as_singleton' # Allows Singleton Pattern for AR Objects
 gem 'geocoder'          # Location API
 gem 'twilio-ruby'       # Text Messaging
 gem 'airbrake'          # Error Logging
+gem 'sidekiq'           # Background jobs
 
 # Production
 group :production do

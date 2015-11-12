@@ -154,11 +154,11 @@ FactoryGirl.define do
   end
 
   factory :order do
-    order_status
-  end
-
-  factory :order_status do
-    name "In Progress"
+    state 'pending'
+    tax nil
+    total 120
+    subtotal 100
+    gratuity 20
   end
 
   factory :order_item do

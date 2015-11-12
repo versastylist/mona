@@ -43,6 +43,8 @@ class Appointment < ActiveRecord::Base
 
   def cancel!
     if update(cancelled: true)
+      # TODO: make sure to notify who cancelled the appointment,
+      # update the order with appropriate information as well
       time_interval.destroy
       send_cancel_notifications
     else

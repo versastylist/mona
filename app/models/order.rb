@@ -2,20 +2,31 @@
 #
 # Table name: orders
 #
-#  id              :integer          not null, primary key
-#  subtotal        :decimal(12, 3)
-#  tax             :decimal(12, 3)
-#  total           :decimal(12, 3)
-#  order_status_id :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#
-# Indexes
-#
-#  index_orders_on_order_status_id  (order_status_id)
+#  id               :integer          not null, primary key
+#  subtotal         :decimal(12, 3)
+#  tax              :decimal(12, 3)
+#  total            :decimal(12, 3)
+#  state            :string           default("pending")
+#  gratuity         :integer
+#  cancelled_at     :datetime
+#  authorized_at    :datetime
+#  captured_at      :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  stripe_charge_id :string
 #
 
 class Order < ActiveRecord::Base
+  STATES = [
+    'pending',
+    'needs pre-auth',
+    'pre-authorized',
+    'pre-authorized error',
+    'capture error',
+    'complete',
+    'cancelled'
+  ]
+
   belongs_to :order_status
   has_many :order_items
   has_many :service_products, through: :order_items
@@ -24,8 +35,17 @@ class Order < ActiveRecord::Base
   has_one :client, through: :appointment
   has_one :stylist, through: :appointment
 
-  before_create :set_order_status
-  before_save :update_subtotal
+  scope :needs_pre_auth, -> { where(state: 'needs pre-auth') }
+  scope :pre_authorized, -> { where(state: 'pre-authorized') }
+  scope :appointment_before, -> (date) { joins(:appointment).where('appointments.start_time < ?', date) }
+  scope :ready_for_pre_auth, -> { needs_pre_auth.appointment_before(6.days.from_now) }
+  scope :ready_for_capture,  -> { pre_authorized.appointment_before(DateTime.now.in_time_zone) }
+
+  before_save :update_totals, unless: :skip_callbacks
+
+  validates :state, inclusion: { in: STATES }
+
+  delegate :gratuity_rate, to: :client
 
   def current_look_photos
     order_photos.current_look
@@ -51,22 +71,51 @@ class Order < ActiveRecord::Base
     order_items.inject(0) { |sum, oi| sum + oi.total_minutes }
   end
 
-  def complete!
-    status = OrderStatus.find_or_create_by(name: "Complete")
-    self.order_status_id = status.id
+  def book!
+    update(state: 'needs pre-auth')
+  end
+
+  def pre_authorize!
+    finalize_order
+    charge = Stripe::Charge.create(
+      amount: total,
+      currency: 'usd',
+      customer: client.payment_info.stripe_customer_token,
+      capture: false
+    )
+    # TODO: Fix this LoD violation with the customer token.  Is there a better
+    # solution besides delegation or no?
+
+    if charge.status == "succeeded"
+      update_attributes(stripe_charge_id: charge.id, state: 'pre-authorized')
+    else
+      update(state: 'pre-authorized error')
+      InternalMailer.bad_pre_auth_charge(id).deliver_later
+    end
+  end
+
+  def capture_charge!
+    charge = Stripe::Charge.retrieve(stripe_charge_id)
+    captured_charge = charge.capture
+
+    if captured_charge.status == "succeeded"
+      update(state: 'complete')
+    else
+      update(state: 'capture error')
+      InternalMailer.bad_capture_charge(id).deliver_later
+    end
+  end
+
+  def finalize_order
+    grat = subtotal * gratuity_rate
+    self[:gratuity] = grat
+    self[:total] = subtotal + grat
     save!
   end
 
   private
 
-  def set_order_status
-    status = OrderStatus.find_or_create_by(name: "In Progress")
-    self.order_status_id = status.id
-  end
-
-  def update_subtotal
-    # TODO: determine if I'm going to need subtotal or not and choose what to do
+  def update_totals
     self[:subtotal] = subtotal
-    self[:total] = subtotal
   end
 end
