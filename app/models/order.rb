@@ -2,20 +2,27 @@
 #
 # Table name: orders
 #
-#  id              :integer          not null, primary key
-#  subtotal        :decimal(12, 3)
-#  tax             :decimal(12, 3)
-#  total           :decimal(12, 3)
-#  order_status_id :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#
-# Indexes
-#
-#  index_orders_on_order_status_id  (order_status_id)
+#  id            :integer          not null, primary key
+#  subtotal      :decimal(12, 3)
+#  tax           :decimal(12, 3)
+#  total         :decimal(12, 3)
+#  state         :string           default("pending")
+#  gratuity      :integer
+#  cancelled_at  :datetime
+#  authorized_at :datetime
+#  captured_at   :datetime
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 class Order < ActiveRecord::Base
+  STATUSES = [
+    'pending',
+    'complete',
+    'pre-authorized',
+    'cancelled'
+  ]
+
   belongs_to :order_status
   has_many :order_items
   has_many :service_products, through: :order_items
@@ -24,8 +31,9 @@ class Order < ActiveRecord::Base
   has_one :client, through: :appointment
   has_one :stylist, through: :appointment
 
-  before_create :set_order_status
-  before_save :update_subtotal
+  before_save :update_totals
+
+  validates :state, inclusion: { in: STATUSES }
 
   def current_look_photos
     order_photos.current_look
@@ -52,21 +60,13 @@ class Order < ActiveRecord::Base
   end
 
   def complete!
-    status = OrderStatus.find_or_create_by(name: "Complete")
-    self.order_status_id = status.id
-    save!
+    update(state: 'complete')
   end
 
   private
 
-  def set_order_status
-    status = OrderStatus.find_or_create_by(name: "In Progress")
-    self.order_status_id = status.id
-  end
-
-  def update_subtotal
-    # TODO: determine if I'm going to need subtotal or not and choose what to do
+  def update_totals
     self[:subtotal] = subtotal
-    self[:total] = subtotal
+    self[:total] = subtotal + gratuity
   end
 end

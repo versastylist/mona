@@ -2,24 +2,23 @@
 #
 # Table name: orders
 #
-#  id              :integer          not null, primary key
-#  subtotal        :decimal(12, 3)
-#  tax             :decimal(12, 3)
-#  total           :decimal(12, 3)
-#  order_status_id :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#
-# Indexes
-#
-#  index_orders_on_order_status_id  (order_status_id)
+#  id            :integer          not null, primary key
+#  subtotal      :decimal(12, 3)
+#  tax           :decimal(12, 3)
+#  total         :decimal(12, 3)
+#  state         :string           default("pending")
+#  gratuity      :integer
+#  cancelled_at  :datetime
+#  authorized_at :datetime
+#  captured_at   :datetime
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   context "associations" do
-    it { should belong_to(:order_status) }
     it { should have_one(:appointment) }
     it { should have_one(:client).through(:appointment) }
     it { should have_one(:stylist).through(:appointment) }
@@ -53,9 +52,9 @@ RSpec.describe Order, type: :model do
     it "resets order status to be complete" do
       order = create(:order)
 
-      expect(order.order_status.name).to eq "In Progress"
+      expect(order.state).to eq "pending"
       order.complete!
-      expect(order.order_status.name).to eq "Complete"
+      expect(order.state).to eq "complete"
     end
   end
 end
