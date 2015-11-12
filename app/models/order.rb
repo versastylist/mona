@@ -17,7 +17,7 @@
 #
 
 class Order < ActiveRecord::Base
-  STATUSES = [
+  STATES = [
     'pending',
     'needs pre-auth',
     'pre-authorized',
@@ -43,7 +43,7 @@ class Order < ActiveRecord::Base
 
   before_save :update_totals, unless: :skip_callbacks
 
-  validates :state, inclusion: { in: STATUSES }
+  validates :state, inclusion: { in: STATES }
 
   delegate :gratuity_rate, to: :client
 

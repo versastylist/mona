@@ -7,11 +7,14 @@ class OrderManager
   # occured
 
   def pre_authorize_orders
-    
+    Order.ready_for_pre_auth.each do |order|
+      PreAuthorizeOrderJob.perform_later(order.id)
+    end
   end
 
   def capture_orders
-
+    Order.ready_for_capture.each do |order|
+      CaptureOrderJob.perform_later(order.id)
+    end
   end
-
 end
