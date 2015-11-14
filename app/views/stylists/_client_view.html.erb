@@ -6,7 +6,7 @@
     <%= gallery('stylist-photos', :micro, *@gallery_photos) %>
 
     <%= bs_row do %>
-      <% if current_order.persisted? %>
+      <% if current_order.persisted? && @stylist.has_current_schedule? %>
         <%= link_to 'Book Appointment',
           new_appointment_path(stylist_id: @stylist.id),
           class: 'btn btn-success btn-block book-appointment' %>

@@ -33,6 +33,8 @@ RSpec.describe Appointment, type: :model do
     it { should delegate_method(:username).to(:stylist).with_prefix }
     it { should delegate_method(:product_names).to(:order) }
     it { should delegate_method(:total_time).to(:order) }
+    it { should delegate_method(:total).to(:order).with_prefix }
+    it { should delegate_method(:subtotal).to(:order).with_prefix }
   end
 
   context 'scopes' do
@@ -88,14 +90,14 @@ RSpec.describe Appointment, type: :model do
     it "updates the cancelled attribute" do
       appointment = create(:appointment, :with_interval)
       expect(appointment.cancelled).to eq false
-      appointment.cancel!
+      appointment.cancel!(appointment.client)
       expect(appointment.cancelled).to eq true
     end
 
     it "destroys all time intervals associated with appointment" do
       appointment = create(:appointment, :with_interval)
       expect(appointment.time_interval).to_not be_nil
-      appointment.cancel!
+      appointment.cancel!(appointment.client)
       expect(appointment.reload.time_interval).to be_nil
     end
 
@@ -104,7 +106,7 @@ RSpec.describe Appointment, type: :model do
       stylist = create(:stylist, :receive_email)
       appointment = create(:appointment, :with_interval, stylist: stylist, client: client)
       ActionMailer::Base.deliveries = []
-      appointment.cancel!
+      appointment.cancel!(appointment.client)
       expect(ActionMailer::Base.deliveries.count).to eq 2
     end
 
@@ -117,7 +119,7 @@ RSpec.describe Appointment, type: :model do
         to_not receive(:appointment_cancellation).with(appointment, client)
       expect_any_instance_of(TwilioAdapter).
         to receive(:appointment_cancellation).with(appointment, stylist)
-      appointment.cancel!
+      appointment.cancel!(appointment.client)
     end
 
     it "sends texts to client if they have setting turned on" do
@@ -129,7 +131,55 @@ RSpec.describe Appointment, type: :model do
         to receive(:appointment_cancellation).with(appointment, client)
       expect_any_instance_of(TwilioAdapter).
         to_not receive(:appointment_cancellation).with(appointment, stylist)
-      appointment.cancel!
+      appointment.cancel!(appointment.client)
+    end
+  end
+
+  describe "#more_than_48_hours_away?" do
+    it "is true for appointments far in future" do
+      Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+        appointment = build_stubbed(:appointment, start_time: 3.days.from_now)
+        expect(appointment.more_than_48_hours_away?).to eq true
+      end
+    end
+
+    it "returns false for close appointments" do
+      Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+        appointment = build_stubbed(:appointment, start_time: 1.day.from_now)
+        expect(appointment.more_than_48_hours_away?).to eq false
+      end
+    end
+  end
+
+  describe "#in_24_hours?" do
+    it "is true for appointments less than 24 hours away" do
+      Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+        appointment = build_stubbed(:appointment, start_time: 3.hours.from_now)
+        expect(appointment.in_24_hours?).to eq true
+      end
+    end
+
+    it "returns false for appointments in past" do
+      Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+        appointment = build_stubbed(:appointment, start_time: 3.days.ago)
+        expect(appointment.in_24_hours?).to eq false
+      end
+    end
+
+    it "returns false for appointments more than 24 hours in future" do
+      Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+        appointment = build_stubbed(:appointment, start_time: 3.days.from_now)
+        expect(appointment.in_24_hours?).to eq false
+      end
+    end
+  end
+
+  describe "#hours_away" do
+    it "returns how many hours away until appointment starts" do
+      Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+        appointment = build_stubbed(:appointment, start_time: 3.hours.from_now)
+        expect(appointment.hours_away).to eq 3
+      end
     end
   end
 end

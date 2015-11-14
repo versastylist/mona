@@ -31,7 +31,7 @@ class Appointment < ActiveRecord::Base
 
   delegate :username, to: :client, prefix: true
   delegate :username, to: :stylist, prefix: true
-  delegate :total, to: :order, prefix: true
+  delegate :total, :subtotal, to: :order, prefix: true
   delegate :product_names, :total_time, to: :order
   delegate :order_photos, to: :order
 
@@ -41,10 +41,9 @@ class Appointment < ActiveRecord::Base
   scope :in_past, -> { not_cancelled.where('start_time < ?', DateTime.now.in_time_zone) }
   scope :today, -> { where('start_time > :beg AND start_time < :end', beg: Date.today.beginning_of_day, end: Date.today.end_of_day) }
 
-  def cancel!
+  def cancel!(user)
     if update(cancelled: true)
-      # TODO: make sure to notify who cancelled the appointment,
-      # update the order with appropriate information as well
+      order.cancel!(user)
       time_interval.destroy
       send_cancel_notifications
     else
@@ -60,12 +59,30 @@ class Appointment < ActiveRecord::Base
     stylist.full_street_address
   end
 
+  def in_24_hours?
+    return false if in_past?
+    hours_away <= 24
+  end
+
+  def more_than_48_hours_away?
+    return false if in_past?
+    hours_away >= 48
+  end
+
+  def hours_away
+    (start_time - DateTime.now.in_time_zone).to_i / 3600
+  end
+
+  def in_past?
+    start_time < DateTime.now.in_time_zone
+  end
+
   private
 
   def send_cancel_notifications
     [client, stylist].each do |user|
       if user.receives_email?
-        AppointmentMailer.cancel_appointment(self, user.id).deliver_later
+        AppointmentMailer.cancel_appointment(self.id, user.id).deliver_now
       end
       if user.receives_texts?
         TwilioAdapter.appointment_cancellation(self, user)

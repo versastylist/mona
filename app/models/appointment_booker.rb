@@ -56,7 +56,7 @@ class AppointmentBooker
       end
 
       if user.receives_email?
-        AppointmentMailer.appointment_confirmation(appointment, user.id).deliver_later
+        AppointmentMailer.appointment_confirmation(appointment.id, user.id).deliver_now
       end
     end
   end

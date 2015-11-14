@@ -16,4 +16,13 @@ class InternalMailer < ApplicationMailer
       subject: 'Capture Payment Failure'
     )
   end
+
+  def bad_refund_collection(order_id)
+    @order = Order.find(order_id)
+
+    mail(
+      to: User.admins.pluck(:email).join(', '),
+      subject: 'Refund Collection Failure'
+    )
+  end
 end

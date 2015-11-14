@@ -1,8 +1,8 @@
 class AppointmentMailer < ApplicationMailer
   default bcc: Proc.new { User.admins.pluck(:email) }
 
-  def cancel_appointment(appt, user_id)
-    @appointment = appt.decorate
+  def cancel_appointment(appt_id, user_id)
+    @appointment = Appointment.find(appt_id).decorate
     @user = User.find(user_id)
 
     mail(
@@ -11,8 +11,8 @@ class AppointmentMailer < ApplicationMailer
     )
   end
 
-  def appointment_confirmation(appt, user_id)
-    @appointment = appt.decorate
+  def appointment_confirmation(appt_id, user_id)
+    @appointment = Appointment.find(appt_id).decorate
     @user = User.find(user_id)
 
     mail(

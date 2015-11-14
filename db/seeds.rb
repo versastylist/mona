@@ -65,7 +65,7 @@ settings.save!
 r = reg_stylist.build_registration(
   first_name: "Frank",
   last_name: "Sinatra",
-  phone_number: "617 893 6734",
+  phone_number: "617 894 5641",
   dob: "1992/06/19",
   gender: "Male",
 )

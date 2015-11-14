@@ -20,6 +20,7 @@ class TwilioAdapter
     )
   end
 
+  # Handle if this fails
   def appointment_cancellation(appointment, user)
     content = cancellation_text(appointment, user)
     formatted_number = formatted_phone_num(user.phone_number)
@@ -55,7 +56,7 @@ class TwilioAdapter
         #{appt.client_name} at #{appt.client_location}.
 
         Order consists of: #{appt.product_names} for a total of
-        $#{appt.order_total}
+        $#{appt.order_subtotal}
       EOH
     else
       <<-EOH.strip_heredoc
@@ -63,7 +64,7 @@ class TwilioAdapter
         #{appt.stylist_name}.
 
         Order consists of: #{appt.product_names} for a total of
-        $#{appt.order_total}
+        $#{appt.order_subtotal}
       EOH
     end
   end

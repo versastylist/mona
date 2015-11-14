@@ -28,7 +28,7 @@ class AppointmentsController < ApplicationController
   def destroy
     @appointment = Appointment.find(params[:id])
 
-    if @appointment.cancel!
+    if @appointment.cancel!(current_user)
       flash[:success] = "Successfully cancelled appointment"
     else
       flash[:danger] = "Was unable to cancel your appointment"
