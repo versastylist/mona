@@ -33,6 +33,8 @@ RSpec.describe Appointment, type: :model do
     it { should delegate_method(:username).to(:stylist).with_prefix }
     it { should delegate_method(:product_names).to(:order) }
     it { should delegate_method(:total_time).to(:order) }
+    it { should delegate_method(:total).to(:order).with_prefix }
+    it { should delegate_method(:subtotal).to(:order).with_prefix }
   end
 
   context 'scopes' do

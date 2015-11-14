@@ -31,7 +31,7 @@ class Appointment < ActiveRecord::Base
 
   delegate :username, to: :client, prefix: true
   delegate :username, to: :stylist, prefix: true
-  delegate :total, to: :order, prefix: true
+  delegate :total, :subtotal, to: :order, prefix: true
   delegate :product_names, :total_time, to: :order
   delegate :order_photos, to: :order
 
