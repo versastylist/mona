@@ -38,6 +38,12 @@ $(function() {
   $('#clientDashboard a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
+
+    // Avatar image preview
+    $("#avatar-upload").change(function(){
+      $('#img_prev').removeClass('hidden');
+      readURL(this);
+    });
   })
 
   $('#showReviews').click(function (e) {

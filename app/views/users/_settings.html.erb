@@ -1,23 +1,50 @@
 <h1>Settings</h1>
 
+<div class="well stylist-settings">
+  <%= bs_row do%>
+    <%= content_tag "div",
+      id: "userId",
+      data: {id: current_user.id } do %>
+    <% end %>
+
+    <%= bs_column(6) do %>
+      <div class="form-group text-center">
+        <%= label_tag 'Receive Text Messages?' %><br/>
+        <%= check_box_tag '', '1', current_user.receives_texts?, id: 'receiveTexts'%>
+      </div>
+    <% end %>
+
+    <%= bs_column(6) do %>
+      <div class="form-group text-center">
+        <%= label_tag 'Receive Emails?' %><br/>
+        <%= check_box_tag '', '1', current_user.receives_email?, id: 'receiveEmails'%>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
 <%= bs_row do %>
   <%= bs_column(6) do %>
     <h2>Edit Registration</h2>
+    <%= link_to 'Edit email or password', edit_user_registration_path, class: 'btn btn-success' %>
     <%= form_for @registration do |f| %>
       <%= render "shared/errors", object: f.object %>
-      <%= render "registrations/editable_fields", f: f %>
 
-      <%= f.submit 'Edit Registration', class: 'btn btn-warning' %>
+      <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
+      <span class="btn btn-default btn-file">
+        Select Avatar Image<%= f.file_field :avatar, id: 'avatar-upload' %>
+      </span>
+
+      <div class="form-group">
+        <%= f.label :phone_number, 'Cell Phone' %>
+        <%= f.phone_field :phone_number, class: "form-control" %>
+      </div>
+
+      <%= f.submit 'Update Registration', class: 'btn btn-warning' %>
     <% end %>
   <% end %>
 
   <%= bs_column(6) do %>
-    <%= form_for @registration do |f| %>
-      <span class="btn btn-default btn-file">
-        Select Avatar Image<%= f.file_field :avatar %>
-      </span>
-      <%= f.submit 'Update Avatar', class: 'btn btn-success', id: 'avatar-upload' %>
-    <% end %>
   <% end %>
 <% end %>
 
