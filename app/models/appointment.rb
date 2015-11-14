@@ -60,17 +60,21 @@ class Appointment < ActiveRecord::Base
   end
 
   def in_24_hours?
-    return false if start_time < DateTime.now.in_time_zone
+    return false if in_past?
     hours_away <= 24
   end
 
   def more_than_48_hours_away?
-    return false if start_time < DateTime.now.in_time_zone
+    return false if in_past?
     hours_away >= 48
   end
 
   def hours_away
     (start_time - DateTime.now.in_time_zone).to_i / 3600
+  end
+
+  def in_past?
+    start_time < DateTime.now.in_time_zone
   end
 
   private
