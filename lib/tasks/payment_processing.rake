@@ -1,4 +1,4 @@
-namespace :payment do
+namespace :payments do
   task :process => :environment do
     OrderManager.pre_authorize_orders
     OrderManager.capture_orders

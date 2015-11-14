@@ -43,6 +43,7 @@ class Order < ActiveRecord::Base
   scope :appointment_before, -> (date) { joins(:appointment).where('appointments.start_time < ?', date) }
   scope :ready_for_pre_auth, -> { needs_pre_auth.appointment_before(6.days.from_now) }
   scope :ready_for_capture,  -> { pre_authorized.appointment_before(DateTime.now.in_time_zone) }
+  scope :ready_for_refund, -> { where(state: 'needs refund') }
 
   before_save :update_totals, unless: :skip_callbacks
 
