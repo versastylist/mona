@@ -1,20 +1,25 @@
 class OrderManager
-
-  # Needs to check all booked orders and issue pre-authorization within 7-day
-  # timeframe
-  #
-  # Needs to charge all cards that have been pre-authorized and the appointment
-  # occured
-
-  def pre_authorize_orders
+  def self.pre_authorize_orders
     Order.ready_for_pre_auth.each do |order|
-      PreAuthorizeOrderJob.perform_later(order.id)
+      # PreAuthorizeOrderJob.perform_later(order.id)
+      Rails.logger.info "Pre authorizing order: #{order.id}"
+      order.pre_authorize!
     end
   end
 
-  def capture_orders
+  def self.capture_orders
     Order.ready_for_capture.each do |order|
-      CaptureOrderJob.perform_later(order.id)
+      # CaptureOrderJob.perform_later(order.id)
+      Rails.logger.info "Capturing charge for order: #{order.id}"
+      order.capture_charge!
+    end
+  end
+
+  def self.collect_refund_orders
+    Order.ready_for_refund.each do |order|
+      # RefundCollectionJob.perform_later(order.id)
+      Rails.logger.info "Charging a refund fee for order: #{order.id}"
+      order.refund_50_charge!
     end
   end
 end

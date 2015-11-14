@@ -46,6 +46,13 @@ alias elsearch='elasticsearch --config=/usr/local/opt/elasticsearch/config/elast
 **Stripe Credentials**
 [Go here to get test CC's and Bank Account Info](https://stripe.com/docs/testing)
 
+### Rake Tasks
+There is a rake task that gets scheduled to handle all payment processing.  The
+rake task is called: `rake payments:process`
+
+There is also a rake task to help with the creation of the client/stylist
+registration surveys called: `rake survey:registrations`
+
 
 ## Workflow  
 ### Pull Request & Branching  
