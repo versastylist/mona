@@ -14,6 +14,7 @@ class StylistsController < ApplicationController
     @addresses      = @stylist.addresses.order(primary: :desc).decorate
     @clients        = @stylist.clients.uniq
     @gallery_photos = @stylist.stylist_photos
+    @completion     = @stylist.registration_survey
   end
 
   # Client View Preview so stylists can see what their profile looks like

@@ -42,22 +42,37 @@
   <% end %>
 </div>
 
-<h2>Photos</h2>
 <%= bs_row do %>
   <%= bs_column(6) do %>
+    <h2>Account Details</h2>
+    <%= link_to 'Edit email or password', edit_user_registration_path, class: 'btn btn-success' %>
     <%= form_for @stylist.registration do |f| %>
+      <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
       <span class="btn btn-default btn-file">
-        Select Avatar Image<%= f.file_field :avatar %>
+        Select Avatar Image<%= f.file_field :avatar, id: 'avatar-upload' %>
       </span>
-      <%= f.submit 'Update Avatar', class: 'btn btn-success', id: 'avatar-upload' %>
+
+      <div class="form-group">
+        <%= f.label :bio %>
+        <%= f.text_area :bio, class: 'form-control', rows: 7 %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :phone_number, 'Cell Phone' %>
+        <%= f.phone_field :phone_number, class: "form-control" %>
+      </div>
+
+      <%= f.submit 'Update Account', class: 'btn btn-warning' %>
     <% end %>
   <% end %>
 
   <%= bs_column(6) do %>
+    <h2>Photos</h2>
     <p>Add photos to your profile (maximum of 8)</p>
     <%= form_for StylistPhoto.new do |f| %>
+      <img id="gal_img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
       <span class="btn btn-default btn-file">
-        Gallery Photos<%= f.file_field :image %>
+        Gallery Photos<%= f.file_field :image, id: 'gallery-upload' %>
       </span>
 
       <div class="form-group">
@@ -70,21 +85,29 @@
   <% end %>
 <% end %>
 
-<h2>Personal Info</h2>
 <%= bs_row do %>
-  <%= bs_column(4) do %>
-    <%= form_for @stylist.registration do |f| %>
-      <div class="form-group">
-        <%= f.label :bio %>
-        <%= f.text_area :bio, class: 'form-control', rows: 7 %>
-      </div>
-
-      <%= f.submit 'Update Bio', class: 'btn btn-warning' %>
-    <% end %>
+  <h2>Survey Answers</h2>
+  <%= form_for [@completion.survey, @completion] do |f| %>
+    <ol>
+      <%= f.fields_for :answers, @completion.answers do |fa| %>
+        <li>
+          <%= fa.label :text, fa.object.question.title %>
+          <%= render(
+            partial: "admin/#{fa.object.question.submittable.to_partial_path}",
+            locals: {
+              submittable_object: fa.object.question.submittable,
+              submission_fields: fa
+            }
+          )%>
+        </li>
+      <% end %>
+    </ol>
+    <%= f.submit 'Update Survey', class: 'btn btn-warning' %>
   <% end %>
 <% end %>
 
-<h2>Addresses</h2>
-<%= render partial: 'addresses/address_table', locals: { addresses: @addresses } %>
-<%= link_to 'Add Address', new_user_address_path(current_user), class: 'btn btn-info' %>
-
+<%= bs_row do %>
+  <h2>Addresses</h2>
+  <%= render partial: 'addresses/address_table', locals: { addresses: @addresses } %>
+  <%= link_to 'Add Address', new_user_address_path(current_user), class: 'btn btn-info' %>
+<% end %>

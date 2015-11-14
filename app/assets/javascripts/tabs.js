@@ -1,9 +1,42 @@
 $(function() {
+  function readURL(input, target) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $(target).attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
   $('#stylistTab a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
     $('#stylistCalendar').fullCalendar('render');
 
+    // image preview
+    $("#avatar-upload").change(function(){
+      $('#img_prev').removeClass('hidden');
+      readURL(this, '#img_prev');
+    });
+
+    // gallery image preview
+    $("#gallery-upload").change(function(){
+      $('#gal_img_prev').removeClass('hidden');
+      readURL(this, '#gal_img_prev');
+    });
+
+    // Survey checkbox
+    $('.survey-checkbox').bootstrapSwitch({
+      onText: 'Yes',
+      offText: 'No',
+      size: 'small',
+      onColor: 'success',
+      offColor: 'danger'
+    });
+
+    // revenue forecast
     if ($('#revenueForecast').length) {
       var ctx = $("#revenueForecast").get(0).getContext("2d");
 
@@ -38,6 +71,12 @@ $(function() {
   $('#clientDashboard a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
+
+    // Avatar image preview
+    $("#avatar-upload").change(function(){
+      $('#img_prev').removeClass('hidden');
+      readURL(this, '#img_prev');
+    });
   })
 
   $('#showReviews').click(function (e) {

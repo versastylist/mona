@@ -19,4 +19,11 @@ class Completion < ActiveRecord::Base
       answers.build(answer_attributes.merge(question_id: question_id))
     end
   end
+
+  def update_completion(answer_attrs)
+    answer_attrs.each do |key, attrs|
+      answer = Answer.find(attrs[:id])
+      answer.update(text: attrs[:text])
+    end
+  end
 end

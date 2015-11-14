@@ -11,7 +11,7 @@ feature 'client dashboard' do
       click_on 'Settings'
 
       fill_in 'Cell Phone', with: '617 244 7950'
-      click_on 'Edit Registration'
+      click_on 'Update Registration'
 
       expect(page).to have_content('Updated registration details')
     end
