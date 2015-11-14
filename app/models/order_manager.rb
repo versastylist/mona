@@ -1,19 +1,22 @@
 class OrderManager
-  def pre_authorize_orders
+  def self.pre_authorize_orders
     Order.ready_for_pre_auth.each do |order|
-      PreAuthorizeOrderJob.perform_later(order.id)
+      # PreAuthorizeOrderJob.perform_later(order.id)
+      order.pre_authorize!
     end
   end
 
-  def capture_orders
+  def self.capture_orders
     Order.ready_for_capture.each do |order|
-      CaptureOrderJob.perform_later(order.id)
+      # CaptureOrderJob.perform_later(order.id)
+      order.capture_charge!
     end
   end
 
-  def collect_refund_orders
+  def self.collect_refund_orders
     Order.ready_for_refund.each do |order|
-      RefundCollectionJob.perform_later(order.id)
+      # RefundCollectionJob.perform_later(order.id)
+      order.refund_50_charge!
     end
   end
 end
