@@ -29,6 +29,22 @@ feature 'client books an appointment with stylist' do
         expect(page).to have_content 'Successfully booked appointment'
       end
     end
+
+    scenario 'cant book when stylist has no current schedule' do
+      product = create_service_product(
+        stylist,
+        name: 'Buzz cut',
+        minute_duration: 60
+      )
+      sign_in client
+      visit stylist_path(stylist)
+
+      within(:css, "#service_product_#{product.id}") do
+        click_on 'Add To Cart'
+      end
+      expect(page).to have_content('Added service to cart')
+      expect(page).to_not have_content('Book Appointment')
+    end
   end
 
   scenario 'stylist only allows 1 service' do

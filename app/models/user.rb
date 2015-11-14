@@ -150,6 +150,10 @@ class User < ActiveRecord::Base
       where(cancelled: false).present?
   end
 
+  def has_current_schedule?
+    current_schedule.present?
+  end
+
   def stylist?
     role == "stylist"
   end
