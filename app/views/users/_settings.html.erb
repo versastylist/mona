@@ -45,6 +45,24 @@
   <% end %>
 
   <%= bs_column(6) do %>
+    <h2>Survey Answers</h2>
+    <%= form_for [@completion.survey, @completion] do |f| %>
+      <ol>
+        <%= f.fields_for :answers, @completion.answers do |fa| %>
+          <li>
+            <%= fa.label :text, fa.object.question.title %>
+            <%= render(
+              partial: "admin/#{fa.object.question.submittable.to_partial_path}",
+              locals: {
+                submittable_object: fa.object.question.submittable,
+                submission_fields: fa
+              }
+            )%>
+          </li>
+        <% end %>
+      </ol>
+      <%= f.submit 'Update Survey', class: 'btn btn-warning' %>
+    <% end %>
   <% end %>
 <% end %>
 

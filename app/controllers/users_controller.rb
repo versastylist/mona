@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @future_appointments = @user.client_appointments.in_future.decorate
     @past_appointments = @user.client_appointments.in_past.decorate
     @cancelled_appointments = @user.client_appointments.cancelled.decorate
+    @completion = @user.registration_survey
 
     if current_user.authenticated?
       @addresses = current_user.addresses.order(primary: :desc).decorate

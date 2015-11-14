@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   end
 
   resources :surveys, only: [:show] do
-    resources :completions, only: :create
+    resources :completions, only: [:create, :update]
   end
 
   # This should remain towards bottom for pattern matching purposes

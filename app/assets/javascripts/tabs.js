@@ -21,9 +21,19 @@ $(function() {
       readURL(this, '#img_prev');
     });
 
+    // gallery image preview
     $("#gallery-upload").change(function(){
       $('#gal_img_prev').removeClass('hidden');
       readURL(this, '#gal_img_prev');
+    });
+
+    // Survey checkbox
+    $('.survey-checkbox').bootstrapSwitch({
+      onText: 'Yes',
+      offText: 'No',
+      size: 'small',
+      onColor: 'success',
+      offColor: 'danger'
     });
 
     // revenue forecast
