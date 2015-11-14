@@ -112,4 +112,63 @@ RSpec.describe Order, type: :model do
       expect(order.state).to eq "needs pre-auth"
     end
   end
+
+  describe "#cancel!" do
+    it "properly sets cancelled_at and cancelled_by" do
+      order = create(:appointment, start_time: 5.hours.from_now).order
+      client = order.client
+
+      order.cancel!(client)
+      expect(order.cancelled_by).to eq client.id
+      expect(order.cancelled_at).to be_within(3.seconds).of(DateTime.now)
+    end
+
+    context "cancelled by client" do
+      let(:client) { create(:client) }
+
+      it "makes state 'cancelled' if 48 hours away or more" do
+        order = create(:appointment, client: client, start_time: 3.days.from_now).order
+
+        order.cancel!(client)
+        expect(order.state).to eq 'cancelled'
+      end
+
+      it "makes state 'needs refund' if between 24 hours and 48 hours away" do
+        order = create(:appointment, client: client, start_time: 26.hours.from_now).order
+
+        order.cancel!(client)
+        expect(order.state).to eq 'needs refund'
+      end
+
+      it "keeps same state if less than 24 hours away" do
+        order = create(:appointment, client: client, start_time: 5.hours.from_now).order
+        prev_state = order.state
+
+        order.cancel!(client)
+        expect(order.state).to eq prev_state
+      end
+    end
+
+    context "cancelled by admin or stylist" do
+      it "turns state to 'cancelled' for stylists" do
+        appointment = create(:appointment, start_time: 4.days.from_now)
+        stylist = appointment.stylist
+        order = appointment.order
+
+        order.cancel!(stylist)
+        expect(order.state).to eq 'cancelled'
+        expect(order.cancelled_by).to eq stylist.id
+      end
+
+      it "turns state to 'cancelled' for admins" do
+        appointment = create(:appointment, start_time: 4.days.from_now)
+        admin = create(:admin)
+        order = appointment.order
+
+        order.cancel!(admin)
+        expect(order.state).to eq 'cancelled'
+        expect(order.cancelled_by).to eq admin.id
+      end
+    end
+  end
 end

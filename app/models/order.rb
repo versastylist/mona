@@ -14,6 +14,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  stripe_charge_id :string
+#  cancelled_by     :integer
 #
 
 class Order < ActiveRecord::Base
@@ -77,10 +78,30 @@ class Order < ActiveRecord::Base
     update(state: 'needs pre-auth')
   end
 
+  def cancel!(user)
+    if user.id == client.id
+      if appointment.in_24_hours?
+        new_state = self.state
+      elsif appointment.more_than_48_hours_away?
+        new_state = "cancelled"
+      else
+        new_state = "needs refund"
+      end
+    else
+      new_state = "cancelled"
+    end
+
+    update_attributes(
+      cancelled_at: DateTime.now.in_time_zone,
+      cancelled_by: user.id,
+      state: new_state
+    )
+  end
+
   def pre_authorize!
     finalize_order
     charge = Stripe::Charge.create(
-      amount: total,
+      amount: (total * 100).to_i,
       currency: 'usd',
       customer: client.payment_info.stripe_customer_token,
       capture: false
@@ -114,7 +135,7 @@ class Order < ActiveRecord::Base
 
   def refund_50_charge!
     charge = Stripe::Charge.create(
-      amount: subtotal / 2,
+      amount: ((subtotal / 2) * 100).to_i,
       currency: 'usd',
       customer: client.payment_info.stripe_customer_token,
     )

@@ -20,6 +20,7 @@ class TwilioAdapter
     )
   end
 
+  # Handle if this fails
   def appointment_cancellation(appointment, user)
     content = cancellation_text(appointment, user)
     formatted_number = formatted_phone_num(user.phone_number)

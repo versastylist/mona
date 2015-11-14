@@ -44,6 +44,7 @@ group :test do
   gem 'database_cleaner' 
   gem 'timecop'
   gem 'email_spec'
+  gem 'rspec-sidekiq'
 end
 
 group :development do
