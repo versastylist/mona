@@ -23,6 +23,8 @@ class Order < ActiveRecord::Base
     'pre-authorized',
     'pre-authorized error',
     'capture error',
+    'needs refund',
+    'refund error',
     'complete',
     'cancelled'
   ]
@@ -87,7 +89,11 @@ class Order < ActiveRecord::Base
     # solution besides delegation or no?
 
     if charge.status == "succeeded"
-      update_attributes(stripe_charge_id: charge.id, state: 'pre-authorized')
+      update_attributes(
+        stripe_charge_id: charge.id,
+        state: 'pre-authorized',
+        authorized_at: DateTime.now.in_time_zone,
+      )
     else
       update(state: 'pre-authorized error')
       InternalMailer.bad_pre_auth_charge(id).deliver_later
@@ -99,10 +105,28 @@ class Order < ActiveRecord::Base
     captured_charge = charge.capture
 
     if captured_charge.status == "succeeded"
-      update(state: 'complete')
+      update_attributes(state: 'complete', captured_at: DateTime.now.in_time_zone )
     else
       update(state: 'capture error')
       InternalMailer.bad_capture_charge(id).deliver_later
+    end
+  end
+
+  def refund_50_charge!
+    charge = Stripe::Charge.create(
+      amount: subtotal / 2,
+      currency: 'usd',
+      customer: client.payment_info.stripe_customer_token,
+    )
+    if captured_charge.status == "succeeded"
+      update_attributes(
+        state: 'complete',
+        captured_at: DateTime.now.in_time_zone,
+        stripe_charge_id: charge.id
+      )
+    else
+      update(state: 'refund error')
+      InternalMailer.bad_refund_collection(id).deliver_later
     end
   end
 

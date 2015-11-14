@@ -1,8 +1,8 @@
-class PreAuthorizeOrderJob < ActiveJob::Base
+class RefundCollectionJob < ActiveJob::Base
   queue_as :default
 
   def perform(order_id)
     @order = Order.find(order_id)
-    @order.pre_authorize! if @order
+    @order.refund_50_charge! if @order
   end
 end

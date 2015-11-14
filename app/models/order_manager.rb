@@ -17,4 +17,10 @@ class OrderManager
       CaptureOrderJob.perform_later(order.id)
     end
   end
+
+  def collect_refund_orders
+    Order.ready_for_refund.each do |order|
+      RefundCollectionJob.perform_later(order.id)
+    end
+  end
 end
