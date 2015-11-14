@@ -1,10 +1,10 @@
 $(function() {
-  function readURL(input) {
+  function readURL(input, target) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        $('#img_prev').attr('src', e.target.result);
+        $(target).attr('src', e.target.result);
       }
       reader.readAsDataURL(input.files[0]);
     }
@@ -12,7 +12,7 @@ $(function() {
 
   $("#avatar-upload").change(function(){
     $('#img_prev').removeClass('hidden');
-    readURL(this);
+    readURL(this, '#img_prev');
   });
 });
 

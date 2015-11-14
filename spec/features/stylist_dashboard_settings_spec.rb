@@ -70,7 +70,7 @@ feature 'settings tab' do
 
       click_on 'Settings'
       fill_in 'Bio', with: "Been a hair stylist for 27 years!"
-      click_on 'Update Bio'
+      click_on 'Update Account'
 
       expect(page).to have_content('Updated registration details')
       expect(page).to have_content('Been a hair stylist for 27 years!')
