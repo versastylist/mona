@@ -76,7 +76,7 @@ class AppointmentFiltersController < ApplicationController
 
   def temp_completion
     comp = Completion.new(survey_params)
-    comp.survey = Survey.find_by(title: 'Guest User Search')
+    comp.survey = Survey.find_or_create_guest_user_survey
     comp.user   = User.admins.first
     comp.save
     comp

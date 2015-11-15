@@ -25,7 +25,6 @@ class Survey < ActiveRecord::Base
     elsif user.stylist?
       find_or_create_stylist_survey
     else
-      # handle this later/figure out way to refactor
       raise "No registration needed for this type of user.."
     end
   end
