@@ -26,4 +26,10 @@ describe GuestUser do
       expect(user.has_seen_stylist?(1)).to eq false
     end
   end
+
+  describe "#completed_survey?" do
+    it "should always return false" do
+      expect(user.completed_survey?).to eq false
+    end
+  end
 end

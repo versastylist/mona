@@ -136,6 +136,10 @@ class User < ActiveRecord::Base
     [registration, payment_info, registration_survey].all?
   end
 
+  def completed_survey?
+    registration_survey.present?
+  end
+
   def client?
     role == "client"
   end
@@ -202,4 +206,5 @@ class User < ActiveRecord::Base
 
     { data: data, labels: english_labels }
   end
+
 end

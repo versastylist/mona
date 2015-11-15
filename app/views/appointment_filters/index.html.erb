@@ -1,42 +1,65 @@
 <h1>Find Appointment For <%= @service_menu.name %></h1>
 
 <%= bs_row do %>
-  <%= bs_column(6) do %>
-    <%= form_tag menu_filter_appointments_path(@service_menu), method: :get do %>
-      <div class="form-group">
-        <%= label_tag :keyword %>
-        <%= text_field_tag :query, params[:query], id: "product-search", class: 'form-control' %>
-      </div>
-
-      <div class="form-group">
-        <%= label_tag :price_range %>
-        <br />
-        <span class="label label-success">$20</span>
-        <%= text_field_tag :price_range, '', id: "appt-cost-slider", data: {
-          :"slider-min" => 20,
-          :"slider-max" => 300,
-          :"slider-step" => 5,
-          :"slider-value" => 100,
-          :"slider-orientation" => "horizontal",
-        } %>
-        <span class="label label-success">$300</span>
-      </div>
-
-      <% unless current_user.has_address_on_file? %>
-        <div class="alert alert-danger">
-          <p>Address required if not yet done with registration</p>
+  <%= form_tag menu_filter_appointments_path(@service_menu), method: :get do %>
+    <%= bs_column(6) do %>
+        <div class="form-group">
+          <%= label_tag :keyword %>
+          <%= text_field_tag :query, params[:query], id: "product-search", class: 'form-control' %>
         </div>
 
-        <%= fields_for :address do |address| %>
-          <%= render 'addresses/address_fields', address: address %>
+        <div class="form-group">
+          <%= label_tag :price_range %>
+          <br />
+          <span class="label label-success">$20</span>
+          <%= text_field_tag :price_range, '', id: "appt-cost-slider", data: {
+            :"slider-min" => 20,
+            :"slider-max" => 300,
+            :"slider-step" => 5,
+            :"slider-value" => 100,
+            :"slider-orientation" => "horizontal",
+          } %>
+          <span class="label label-success">$300</span>
+        </div>
+
+        <% unless current_user.has_address_on_file? %>
+          <div class="alert alert-danger">
+            <p>Address required if not yet done with registration</p>
+          </div>
+
+          <%= fields_for :address do |address| %>
+            <%= render 'addresses/address_fields', address: address %>
+          <% end %>
+        <% end %>
+
+
+    <% end %>
+
+    <%= bs_column(6) do %>
+      <% unless current_user.completed_survey? %>
+        <%= fields_for :survey do |f| %>
+          <ol>
+            <% @questions.each do |question| -%>
+              <li>
+                <%= f.fields_for "answers_attributes[#{question.id}]", Answer.new do |submission_fields| -%>
+                  <div class="form-group">
+                    <%= submission_fields.label :text, question.title %>
+                    <%= render(
+                      partial: "admin/#{question.submittable.to_partial_path}",
+                      locals: {
+                        submittable_object: question.submittable,
+                        submission_fields: submission_fields
+                      }
+                    ) %>
+                  </div>
+                <% end -%>
+              </li>
+            <% end -%>
+          </ol>
         <% end %>
       <% end %>
-
-      <%= submit_tag "Search", name: nil, class: 'btn btn-success' %>
     <% end %>
-  <% end %>
-
-  <%= bs_column(6) do %>
+    <%= submit_tag "Search", name: nil, class: 'btn btn-success' %>
   <% end %>
 <% end %>
 

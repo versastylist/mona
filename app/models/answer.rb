@@ -13,4 +13,12 @@
 class Answer < ActiveRecord::Base
   belongs_to :completion
   belongs_to :question
+
+  after_commit :reindex_service_products, on: :update
+
+  def reindex_service_products
+    if completion.user.service_products.present?
+      completion.user.service_products.reindex
+    end
+  end
 end

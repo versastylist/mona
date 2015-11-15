@@ -28,7 +28,11 @@ FactoryGirl.define do
       payment_info
 
       after :create do |user|
-        survey = create(:survey, title: "#{user.role.capitalize} Registration")
+        if user.client?
+          survey = Survey.find_or_create_client_survey
+        else
+          survey = Survey.find_or_create_stylist_survey
+        end
         create(:completion, survey: survey, user: user)
       end
     end

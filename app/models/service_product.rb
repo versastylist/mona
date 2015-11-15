@@ -54,7 +54,16 @@ class ServiceProduct < ActiveRecord::Base
     attributes.merge(
       service_menu: service_menu.name,
       stylist_enabled: stylist.enable_booking,
+      serve_pets: completion.serve_pets?,
+      carpet_allergy: completion.carpet_allergy?,
+      smoker: completion.serve_smoker?,
+      medical_condition: completion.serve_medical_condition?,
+      skin_condition: completion.serve_skin_condition?
     )
+  end
+
+  def completion
+    stylist.registration_survey
   end
 
   private
