@@ -13,6 +13,7 @@ User.create(
 # Use admin to build registration surveys
 SurveyBuilder.build_client_registration
 SurveyBuilder.build_stylist_registration
+SurveyBuilder.build_guest_user_search
 
 # Create GlobalSettings
 gs = GlobalSetting.instance
@@ -87,7 +88,12 @@ Address.create(
 
 # Complete stylist registraiton survey without answers
 survey = Survey.find_by(title: 'Stylist Registration')
-reg_stylist.completions.create(survey_id: survey.id)
+questions = survey.questions
+completion = reg_stylist.completions.create(survey_id: survey.id)
+questions.each do |question|
+  Answer.create(completion_id: completion.id, question_id: question.id, text: '0')
+end
+
 
 ## Create Service Menu Categories ##
 categories = ["Hair Cut","Weave", "Blowout And Sets", "Natural", "Barber", "Nails", "Makeup", "Specialties"]

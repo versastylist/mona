@@ -206,4 +206,5 @@ class User < ActiveRecord::Base
 
     { data: data, labels: english_labels }
   end
+
 end

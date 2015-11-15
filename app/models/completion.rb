@@ -26,4 +26,54 @@ class Completion < ActiveRecord::Base
       answer.update(text: attrs[:text])
     end
   end
+
+  def has_pets?
+    question = survey.questions.find_by(title: 'Do you have pets?')
+    answers.find_by(question_id: question.id).try(:text) == "1"
+  end
+
+  def has_carpet?
+    question = survey.questions.find_by(title: 'Is your place carpeted?')
+    answers.find_by(question_id: question.id).try(:text) == "1"
+  end
+
+  def is_smoker?
+    question = survey.questions.find_by(title: 'Are you a smoker?')
+    answers.find_by(question_id: question.id).try(:text) == "1"
+  end
+
+  def has_skin_condition?
+    question = survey.questions.find_by(title: 'Do you have any current skin conditions?')
+    answers.find_by(question_id: question.id).try(:text) == "1"
+  end
+
+  def has_medical_condition?
+    question = survey.questions.find_by(title: 'Do you have any current medical conditions?')
+    answers.find_by(question_id: question.id).try(:text) == "1"
+  end
+
+  def serve_pets?
+    question = survey.questions.find_by(title: 'Would you service a client who owns a pet?')
+    answers.find_by(question_id: question.id).try(:text) == "1"
+  end
+
+  def carpet_allergy?
+    question = survey.questions.find_by(title: 'Are you allergic to carpeted areas?')
+    answers.find_by(question_id: question.id).try(:text) == "1"
+  end
+
+  def serve_smoker?
+    question = survey.questions.find_by(title: "Would you service a client who's an indoor smoker?")
+    answers.find_by(question_id: question.id).try(:text) == "1"
+  end
+
+  def serve_medical_condition?
+    question = survey.questions.find_by(title: 'Would you service a client who has a medical condition?')
+    answers.find_by(question_id: question.id).try(:text) == "1"
+  end
+
+  def serve_skin_condition?
+    question = survey.questions.find_by(title: 'Would you service a client who has a skin condition?')
+    answers.find_by(question_id: question.id).try(:text) == "1"
+  end
 end

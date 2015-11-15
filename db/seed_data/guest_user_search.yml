@@ -12,7 +12,7 @@ questions:
     submittable_type: "ConfirmSubmittable"
   - title: "I have  a water faucet near the area you want to be serviced"
     submittable_type: "ConfirmSubmittable"
-  - title: "I have a working electrical outlets"
+  - title: "I have working electrical outlets"
     submittable_type: "ConfirmSubmittable"
   - title: "I have a chair or a stool"
     submittable_type: "ConfirmSubmittable"
