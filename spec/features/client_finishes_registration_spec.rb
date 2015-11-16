@@ -9,7 +9,9 @@ feature 'client finishes registration' do
     fill_in 'First name', with: 'Johnny'
     fill_in 'Last name', with: 'Jones'
     fill_in 'Cell Phone', with: '6178945641'
-    page.find('#registration_dob').set("1992/06/19")
+    select "1992", from: "registration_dob_1i"
+    select "June", from: "registration_dob_2i"
+    select "19", from: "registration_dob_3i"
     select 'Male', from: 'Gender'
 
     # Address sub form

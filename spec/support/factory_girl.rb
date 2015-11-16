@@ -66,7 +66,7 @@ FactoryGirl.define do
     first_name 'johnny'
     last_name 'jones'
     phone_number '555-555-5555'
-    dob '1992/06/19'
+    dob Date.parse('1992-06-19')
     gender 'Male'
     user
   end

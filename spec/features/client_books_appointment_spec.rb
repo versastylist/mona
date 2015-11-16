@@ -6,7 +6,7 @@ feature 'client books an appointment with stylist' do
     let(:stylist) { create(:stylist, :with_registration) }
 
     scenario 'successfully', js: true do
-      Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
+      # Timecop.freeze(Time.local(2015, 11, 7, 10, 0, 0)) do
         open_schedule_for_stylist(stylist)
         product = create_service_product(
           stylist,
@@ -27,7 +27,7 @@ feature 'client books an appointment with stylist' do
 
         click_on 'Book Appointment'
         expect(page).to have_content 'Successfully booked appointment'
-      end
+      # end
     end
 
     scenario 'cant book when stylist has no current schedule' do

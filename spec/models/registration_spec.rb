@@ -6,7 +6,6 @@
 #  first_name   :string           not null
 #  last_name    :string           not null
 #  phone_number :string           not null
-#  dob          :string           not null
 #  gender       :string           not null
 #  user_id      :integer
 #  created_at   :datetime         not null
@@ -14,6 +13,7 @@
 #  avatar       :string
 #  avatar_cache :string
 #  bio          :text
+#  dob          :date
 #
 
 require 'rails_helper'

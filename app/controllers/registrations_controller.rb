@@ -6,15 +6,12 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new
   end
 
-  # This should probably be refactored into Form Object if
-  # any more complex logic gets added to the create action.
   def create
     @registration = current_user.build_registration(registration_params)
+    @registration.dob = Date.new(params['registration']['dob(1i)'].to_i,params['registration']['dob(2i)'].to_i,params['registration']['dob(3i)'].to_i)
     @address = current_user.addresses.new(address_params)
 
     if @registration.save && @address.save
-      # This should redirect to questionairre page not
-      # once its ready and not user show page
       flash[:success] = "Successfully registered."
       redirect_to new_payment_info_path
     else
@@ -40,7 +37,6 @@ class RegistrationsController < ApplicationController
       :last_name,
       :phone_number,
       :avatar,
-      :dob,
       :gender,
       :bio,
     )

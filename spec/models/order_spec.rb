@@ -14,6 +14,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  stripe_charge_id :string
+#  cancelled_by     :integer
 #
 
 require 'rails_helper'
