@@ -9,7 +9,13 @@ module ApplicationHelper
   end
 
   def registration_page?
-    registrations = ["registrations#new", "payment_infos#new", "registration_surveys#show"]
+    registrations = [
+      "registrations#new",
+      "registrations#create",
+      "payment_infos#new",
+      "payment_infos#create",
+      "registration_surveys#show",
+    ]
     action = controller.controller_name + '#' + controller.action_name
     registrations.include?(action)
   end
