@@ -11,7 +11,9 @@
           new_appointment_path(stylist_id: @stylist.id),
           class: 'btn btn-success btn-block book-appointment' %>
       <% else %>
-        <p>Stylist has no available upcoming appointments</p>
+        <div class="alert alert-warning">
+          <p>Stylist has no available upcoming appointments</p>
+        </div>
       <% end %>
     <% end %>
   <% end %>
