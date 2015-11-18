@@ -19,7 +19,7 @@ class ServiceProductDecorator < ApplicationDecorator
   end
 
   def stylist_rating
-    "5" # will be updated once we get stylist rating functionality
+    StylistDecorator.new(object.stylist).total_rating
   end
 
   def duration

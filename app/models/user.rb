@@ -207,4 +207,7 @@ class User < ActiveRecord::Base
     { data: data, labels: english_labels }
   end
 
+  def rating
+    stylist_reviews.average(:rating).round(2)
+  end
 end
