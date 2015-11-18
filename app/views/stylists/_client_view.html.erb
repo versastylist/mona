@@ -10,6 +10,8 @@
         <%= link_to 'Book Appointment',
           new_appointment_path(stylist_id: @stylist.id),
           class: 'btn btn-success btn-block book-appointment' %>
+      <% else %>
+        <p>Stylist has no available upcoming appointments</p>
       <% end %>
     <% end %>
   <% end %>
