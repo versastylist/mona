@@ -78,6 +78,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.delivery_method = :smtp
+=begin
   config.action_mailer.smtp_settings = {
     port: "587",
     address: "smtp.mandrillapp.com",
@@ -86,5 +87,16 @@ Rails.application.configure do
     domain: "heroku.com",
     authentication: :plain
   }
+=end
+
+  config.action_mailer.smtp_settings = {
+    address:              'w2pf-d2fg.accessdomain.com',
+    port:                 587,
+    user_name:            ENV["VERSASTYLIST_USERNAME"],
+    password:             ENV["VERSASTYLIST_PASS"],
+    authentication:       :login,
+    enable_starttls_auto: true
+  }
+  
   config.action_mailer.default_url_options = { host: "https://versastylist.herokuapp.com" }
 end
