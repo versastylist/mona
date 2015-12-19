@@ -29,7 +29,8 @@ class Address < ActiveRecord::Base
   validates_presence_of :address,
     :zip_code, :city, :state
   validates :zip_code,
-    format: { with: /\A\d{5}(?:[-\s]\d{4})?\z/ }
+    numericality: true,
+    length: { is: 5 }
 
   # Only allow 1 primary address per user
   validates :primary, uniqueness: { scope: :user_id }, if: :primary
