@@ -12,10 +12,16 @@
     <tbody>
       <%= render @order_items %>
       <tr>
+        <td>Gratuity:</td>
+        <td></td>
+        <td></td>
+        <td><%= number_to_currency @current_order.gratuity %></td>
+      </tr>
+      <tr>
         <td>Total:</td>
         <td><%= @current_order.total_items %></td>
         <td><%= @current_order.total_time %></td>
-        <td><%= number_to_currency @current_order.subtotal %></td>
+        <td><%= number_to_currency @current_order.total %></td>
       </tr>
     </tbody>
   </table>
@@ -56,7 +62,7 @@
             </tr>
             <tr>
               <th>Cost</th>
-              <td><%= number_to_currency @current_order.subtotal %></td>
+              <td><%= number_to_currency @current_order.total %></td>
             </tr>
           </tbody>
         </table>
