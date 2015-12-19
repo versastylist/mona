@@ -29,6 +29,7 @@ class Order < ActiveRecord::Base
     'complete',
     'cancelled'
   ]
+  DEFAULT_GRATUITY_RATE = 0.2
 
   belongs_to :order_status
   has_many :order_items
@@ -69,7 +70,7 @@ class Order < ActiveRecord::Base
     if client && client.gratuity_rate
       client.gratuity_rate
     else
-      0.2
+      DEFAULT_GRATUITY_RATE
     end
   end
 
