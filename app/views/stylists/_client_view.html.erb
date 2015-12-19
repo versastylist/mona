@@ -10,6 +10,10 @@
         <%= link_to 'Book Appointment',
           new_appointment_path(stylist_id: @stylist.id),
           class: 'btn btn-success btn-block book-appointment' %>
+      <% elsif current_order.empty? %>
+        <div class="alert alert-warning">
+          <p>Select services in order to book appointment</p>
+        </div>
       <% else %>
         <div class="alert alert-warning">
           <p>Stylist has no available upcoming appointments</p>

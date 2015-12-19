@@ -172,4 +172,26 @@ RSpec.describe Order, type: :model do
       end
     end
   end
+
+  describe "#empty?" do
+    it 'returns true if no order items are associated' do
+      order = build_stubbed(:order)
+      expect(order.empty?).to eq true
+    end
+  end
+
+  describe "#gratuity_rate" do
+    it 'returns client gratuity rate if present' do
+      client = double(gratuity_rate: 0.1)
+      order = build_stubbed(:order)
+      allow(order).to receive(:client).and_return(client)
+
+      expect(order.gratuity_rate).to eq 0.1
+    end
+
+    it 'returns default of 20% if no client is associated yet' do
+      order = build_stubbed(:order)
+      expect(order.gratuity_rate).to eq 0.2
+    end
+  end
 end

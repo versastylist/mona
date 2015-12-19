@@ -49,8 +49,6 @@ class Order < ActiveRecord::Base
 
   validates :state, inclusion: { in: STATES }
 
-  delegate :gratuity_rate, to: :client
-
   def current_look_photos
     order_photos.current_look
   end
@@ -61,6 +59,26 @@ class Order < ActiveRecord::Base
 
   def product_names
     service_products.pluck(:name).join(', ')
+  end
+
+  def empty?
+    order_items.length == 0
+  end
+
+  def gratuity_rate
+    if client && client.gratuity_rate
+      client.gratuity_rate
+    else
+      0.2
+    end
+  end
+
+  def gratuity
+    self[:gratuity] || subtotal * gratuity_rate
+  end
+
+  def total
+    self[:total] || subtotal + gratuity
   end
 
   def subtotal
