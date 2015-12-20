@@ -58,7 +58,8 @@ class ServiceProduct < ActiveRecord::Base
       carpet_allergy: completion.carpet_allergy?,
       smoker: completion.serve_smoker?,
       medical_condition: completion.serve_medical_condition?,
-      skin_condition: completion.serve_skin_condition?
+      skin_condition: completion.serve_skin_condition?,
+      serve_kids: completion.serve_kids?,
     )
   end
 

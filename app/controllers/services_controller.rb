@@ -15,6 +15,10 @@ class ServicesController < ApplicationController
 
   private
 
+  def no_service_products?
+    !params[:service][:service_product_attributes].present?
+  end
+
   def service_params
     params.require(:service).permit(
       :service_menu_id,

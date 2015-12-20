@@ -13,6 +13,7 @@ class AppointmentFiltersController < ApplicationController
 
       search_hash = {}
       search_hash[:service_pets]      = true if @completion.has_pets?
+      search_hash[:service_kids]      = true if @completion.allow_kids?
       search_hash[:carpet_allergy]    = false if @completion.has_carpet?
       search_hash[:smoker]            = true if @completion.is_smoker?
       search_hash[:medical_condition] = true if @completion.has_medical_condition?
@@ -23,7 +24,7 @@ class AppointmentFiltersController < ApplicationController
       search_hash[:displayed]         = true
       search_hash[:stylist_enabled]   = true
 
-      # if !params[:query].blank?
+      if !params[:query].blank?
         if current_user.authenticated?
           ProductSearch.create(term: params[:query], client: current_user)
         end
@@ -36,14 +37,14 @@ class AppointmentFiltersController < ApplicationController
             where: search_hash
           )
         )
-      # else
-        # @service_products = ServiceProductDecorator.decorate_collection(
-          # ServiceProduct.displayed.less_than(upper_bound).
-          # joins(:service).where(
-            # services: { service_menu_id: @service_menu.id }
-          # ).where(service_id: service_ids).page(params[:page]).per(10)
-        # )
-      # end
+      else
+        @service_products = ServiceProductDecorator.decorate_collection(
+          ServiceProduct.displayed.less_than(upper_bound).
+          joins(:service).where(
+            services: { service_menu_id: @service_menu.id }
+          ).where(service_id: service_ids).page(params[:page]).per(10)
+        )
+      end
     end
   end
 
@@ -77,7 +78,7 @@ class AppointmentFiltersController < ApplicationController
   def temp_completion
     comp = Completion.new(survey_params)
     comp.survey = Survey.find_or_create_guest_user_survey
-    comp.user   = User.admins.first
+    comp.user   = User.admins.first # temporary solution, needs association
     comp.save
     comp
   end

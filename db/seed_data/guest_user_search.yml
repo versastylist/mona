@@ -1,5 +1,7 @@
 ---
 questions:
+  - title: "Would you use this service for your children?"
+    submittable_type: "ConfirmSubmittable"
   - title: "Do you have pets?"
     submittable_type: "ConfirmSubmittable"
   - title: "Are you a smoker?"

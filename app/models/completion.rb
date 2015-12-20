@@ -37,6 +37,11 @@ class Completion < ActiveRecord::Base
     answers.find_by(question_id: question.id).try(:text) == "1"
   end
 
+  def allow_kids?
+    question = survey.questions.find_by(title: 'Would you use this service for your children?')
+    answers.find_by(question_id: question.id).try(:text) == "1"
+  end
+
   def is_smoker?
     question = survey.questions.find_by(title: 'Are you a smoker?')
     answers.find_by(question_id: question.id).try(:text) == "1"
@@ -54,6 +59,11 @@ class Completion < ActiveRecord::Base
 
   def serve_pets?
     question = survey.questions.find_by(title: 'Would you service a client who owns a pet?')
+    answers.find_by(question_id: question.id).try(:text) == "1"
+  end
+
+  def serve_kids?
+    question = survey.questions.find_by(title: 'Would you service children?')
     answers.find_by(question_id: question.id).try(:text) == "1"
   end
 
