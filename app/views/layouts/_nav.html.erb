@@ -8,6 +8,7 @@
       <%- if current_user.authenticated? -%>
         <li> <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %> </li>
 
+
         <% if current_user.client? %>
           <li> <%= link_to 'Profile', current_user.profile_path %></li>
           <li> <%= link_to 'Find Service', menu_filters_path %></li>
@@ -28,6 +29,7 @@
           <li> <%= link_to 'View Surveys', admin_surveys_path %> </li>
         <% end %>
       <%- else -%>
+        <li> <%= link_to 'Find Service', menu_filters_path %></li>
         <li><%= link_to 'Sign In', new_user_session_path %></li>
       <%- end -%>
     </ul>
