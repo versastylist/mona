@@ -1,5 +1,6 @@
 <tr>
   <td><%= stylist_service_product.name %></td>
+  <td><%= stylist_service_product.details %></td>
   <td>
     <%= check_box_tag '',
       '1', stylist_service_product.displayed,
@@ -9,6 +10,8 @@
 
   <td><%= stylist_service_product.minute_duration %></td>
   <td>
-    <i class="fa fa-cog fa-2x"></i>
+    <%= link_to edit_service_product_path(stylist_service_product) do %>
+      <i class="fa fa-cog fa-2x"></i>
+    <% end %>
   </td>
 </tr>

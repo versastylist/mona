@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   resources :appointments, only: [:new, :create, :destroy]
   resources :stylist_reviews, only: :create
-  resources :service_products, only: :update
+  resources :service_products, only: [:update, :edit]
   resources :stylist_photos, only: :create
   resources :order_items, only: [:create]
   resources :orders, only: [] do
